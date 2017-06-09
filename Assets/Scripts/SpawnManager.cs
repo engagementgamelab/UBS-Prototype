@@ -33,7 +33,10 @@ public class SpawnManager : MonoBehaviour {
          if(WaitTime >= NextSpawnInterval) {
          	Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(0, Screen.width), Screen.height, Camera.main.nearClipPlane));
          	pos.z = 0;
-					Instantiate(SpawnObject, pos, Quaternion.identity);
+
+					GameObject spawn = Instantiate(SpawnObject, pos, Quaternion.identity);
+					spawn.gameObject.GetComponent<SpawnObject>().IsEnemy = (Random.value > .5f);
+
 					WaitTime = 0;
 					NextSpawnInterval = Random.Range(SpawnIntervalMin, SpawnIntervalMax);
          }

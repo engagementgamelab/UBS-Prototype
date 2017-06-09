@@ -5,12 +5,24 @@ using UnityEngine;
 public class SpawnObject : MonoBehaviour {
 
 	public float MoveSpeed = 10.0f;
-	public bool IsEnemy;
+	public Material[] materials;
+	public bool IsEnemy {
+		get { return enemy; }
+		set { 
+			enemy = value;
+			rend.sharedMaterial = materials[enemy ? 1 : 0]; 
+		}
+	}
+
+	bool enemy = false;
+	MeshRenderer rend; 
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		
-	}
+		rend = GetComponent<MeshRenderer>();
+
+	}	
 	
 	// Update is called once per frame
 	void Update () {
