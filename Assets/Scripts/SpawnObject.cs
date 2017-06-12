@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class SpawnObject : MonoBehaviour {
 
-	public float MoveSpeed = 10.0f;
 	public Material[] materials;
 	public bool IsEnemy {
-		get { return enemy; }
+		get { return _IsEnemy; }
 		set { 
-			enemy = value;
-			rend.sharedMaterial = materials[enemy ? 1 : 0]; 
+			_IsEnemy = value;
+			rend.sharedMaterial = materials[_IsEnemy ? 1 : 0]; 
 		}
 	}
 
-	bool enemy = false;
+	public float MoveSpeed {
+		get { return _MoveSpeed; }
+		set { _MoveSpeed = value; }
+	}
+
+	bool _IsEnemy = false;	
+	float _MoveSpeed;
 	MeshRenderer rend; 
 
 	// Use this for initialization
@@ -27,12 +32,15 @@ public class SpawnObject : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		float step = MoveSpeed * Time.deltaTime;
+		if(_MoveSpeed == 0)
+			return;
+
+		float step = 10.0f * Time.deltaTime;
 
 		Vector3 target = transform.position;
-		target.y -= 1;
+		target.y -= _MoveSpeed;
 
-		transform.position = Vector3.Lerp(transform.position, target, step);
+		transform.position = Vector3.Lerp(transform.position, target, .2f);
 		
 	}
 

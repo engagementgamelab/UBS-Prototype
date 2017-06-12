@@ -2,7 +2,10 @@
 	"folders":
 	[
 		{
-			"path": "/Users/Johnny/Documents/Projects/UBS-Prototype/Assets/Scripts"
+			"path": "Assets/Scripts"
+		},
+		{
+			"path": "/Users/Johnny/Documents/Projects/_Archived/WorldBank-RBF-5.4/WorldBank-RBF/Assets/Scripts"
 		}
 	]
 }
