@@ -48,13 +48,37 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Bubble.cs" />
      <Compile Include="Assets\Scripts\EventHandling\Events.cs" />
+     <Compile Include="Assets\Scripts\EventHandling\Events\HitEvent.cs" />
      <Compile Include="Assets\Scripts\EventHandling\Events\MovementEvent.cs" />
+     <Compile Include="Assets\Scripts\EventHandling\Events\SwipeEvent.cs" />
      <Compile Include="Assets\Scripts\ExampleClass.cs" />
      <Compile Include="Assets\Scripts\Follower.cs" />
      <Compile Include="Assets\Scripts\MovementButton.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\RestartButton.cs" />
      <Compile Include="Assets\Scripts\SpawnManager.cs" />
      <Compile Include="Assets\Scripts\SpawnObject.cs" />
+     <Compile Include="Assets\Scripts\SwipeHandler.cs" />
+     <Compile Include="Assets\TouchKit\Helpers\TKRect.cs" />
+     <Compile Include="Assets\TouchKit\Helpers\TKTouch.cs" />
+     <Compile Include="Assets\TouchKit\Helpers\TouchKitEditorSupport.cs" />
+     <Compile Include="Assets\TouchKit\Recognizers\TKAbstractGestureRecognizer.cs" />
+     <Compile Include="Assets\TouchKit\Recognizers\TKAngleSwipeRecognizer.cs" />
+     <Compile Include="Assets\TouchKit\Recognizers\TKAnyTouchRecognizer.cs" />
+     <Compile Include="Assets\TouchKit\Recognizers\TKButtonRecognizer.cs" />
+     <Compile Include="Assets\TouchKit\Recognizers\TKCurveRecognizer.cs" />
+     <Compile Include="Assets\TouchKit\Recognizers\TKLongPressRecognizer.cs" />
+     <Compile Include="Assets\TouchKit\Recognizers\TKOneFingerRotationRecognizer.cs" />
+     <Compile Include="Assets\TouchKit\Recognizers\TKPanRecognizer.cs" />
+     <Compile Include="Assets\TouchKit\Recognizers\TKPinchRecognizer.cs" />
+     <Compile Include="Assets\TouchKit\Recognizers\TKRotationRecognizer.cs" />
+     <Compile Include="Assets\TouchKit\Recognizers\TKSwipeRecognizer.cs" />
+     <Compile Include="Assets\TouchKit\Recognizers\TKTapRecognizer.cs" />
+     <Compile Include="Assets\TouchKit\Recognizers\TKTouchPadRecognizer.cs" />
+     <Compile Include="Assets\TouchKit\TouchKit.cs" />
+     <Compile Include="Assets\TouchKitLite\TKLSwipeDetector.cs" />
+     <Compile Include="Assets\TouchKitLite\TKLTouch.cs" />
+     <Compile Include="Assets\TouchKitLite\TouchKitLite.cs" />
      <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

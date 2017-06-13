@@ -24,78 +24,48 @@ public class Player : MonoBehaviour {
 
   List<GameObject> currentBubbles;
 
-  bool freeMovement = true;
+  bool freeMovement = false;
+  bool mouseDrag = false;
   bool moveLeft = false;
   bool moveRight = false;
+  bool moveDelta = false;
 
-	void Awake () {
+  Vector3 deltaMovement;
 
-		Events.instance.AddListener<MovementEvent> (OnMovementEvent);
-		// Events.instance.AddListener<EndDragTacticEvent> (OnEndDragTacticEvent);
-	
-	}
+  Vector3 ClampToScreen(Vector3 vector) {
 
-	// Use this for initialization
-	void Start () {
+  	Vector3 pos = Camera.main.WorldToViewportPoint(vector);
+		pos.x = Mathf.Clamp01(pos.x);
+		pos.y = Mathf.Clamp01(pos.y);
+		pos.z = screenPoint.z;
 
-		currentBubbles = new List<GameObject>();
-
-		moveLeftBtn = GameObject.Find("MoveLeft").GetComponent<Button>();
-		moveLeftBtn.gameObject.SetActive(false);
-
-		moveRightBtn = GameObject.Find("MoveRight").GetComponent<Button>();
-		moveRightBtn.gameObject.SetActive(false);
-
-		gameOverText = GameObject.Find("GameOver");
-		gameOverText.SetActive(false);
-
-		toggleMovement.onValueChanged.AddListener(MovementToggle);
-		
-	}
-
-	void Update() {
-
-		if(moveLeft) {
-			Vector3 targetPosition = transform.TransformPoint(new Vector3(-movementSpeed, 0, 0));
-			transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
-	  }
-	  else if(moveRight) {
-	  	Vector3 targetPosition = transform.TransformPoint(new Vector3(movementSpeed, 0, 0));
-	  	transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
-	  }
-
-	}
-	
-  void OnMouseDown(){
-
-    screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-    offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+  	return Camera.main.ViewportToWorldPoint(pos);
 
   }
 
-  void OnMouseUp(){
-      // if(linePoints != null)
-      //     linePoints.Clear();
-      // animate = true;
-  }
-      
-  void OnMouseDrag(){
+  void OnSwipeEvent(SwipeEvent e) {
 
-    Vector3 cursorPoint = new Vector3(Input.mousePosition.x, freeMovement ? Input.mousePosition.y : 50, screenPoint.z);
-    Vector3 cursorPosition = Camera.main.ScreenToWorldPoint(cursorPoint) + offset;
+		float xVelocity = -e.velocity;
 
-    transform.position = cursorPosition;
+		if(e.dir == TKSwipeDirection.Right)
+			xVelocity = -xVelocity;
+
+		deltaMovement = ClampToScreen(transform.TransformPoint(new Vector3(xVelocity * .5f, 0, 0)));
 
   }
 
-	void OnTriggerEnter(Collider collider)
-  {
+	void BubbleHitEvent(HitEvent e) {
+
+  	SpawnHit(e.collider);
+
+  }
+
+  void SpawnHit(Collider collider) {
 
   	if(collider.gameObject.GetComponent<SpawnObject>().IsEnemy) {
-  		startingLifeAmount -= 10.0f;
 
   		if(currentBubbles.Count == 0) {
-  			Destroy(gameObject);
+  			gameObject.SetActive(false);
   			gameOverText.SetActive(true);
 
   			return;
@@ -103,11 +73,13 @@ public class Player : MonoBehaviour {
 
   		Destroy(lastBubble);
   		currentBubbles.RemoveAt(currentBubbles.Count-1);
-  		lastBubble = currentBubbles[currentBubbles.Count-1];
+
+  		if(currentBubbles.Count > 0)
+	  		lastBubble = currentBubbles[currentBubbles.Count-1];
+	  		
   	}
 
 		else {
-			startingLifeAmount += 10.0f;
 			Transform target = (lastBubble != null) ? lastBubble.transform : transform;
 			
 			lastBubble = Instantiate(bubblePrefab, Vector3.zero, Quaternion.identity);
@@ -115,10 +87,7 @@ public class Player : MonoBehaviour {
 			currentBubbles.Add(lastBubble);
 		}
 
-		// scoreText.text = "Life: " + startingLifeAmount;
-
 		Destroy(collider.gameObject);
-
 
   }
 
@@ -129,10 +98,18 @@ public class Player : MonoBehaviour {
 		moveLeftBtn.gameObject.SetActive(!value);
 		moveRightBtn.gameObject.SetActive(!value);
 
+		if(!freeMovement) {
+	    Vector3 lockedPos = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width/2, 100, transform.position.z));
+	    lockedPos.z = 0;
+
+	    transform.position = lockedPos;
+	  }
+
   }
 
-
 	void OnMovementEvent (MovementEvent e) {
+
+  	mouseDrag = false;
 
 		if(e.Direction == "left")
 			moveLeft = !e.EndClick;
@@ -140,4 +117,71 @@ public class Player : MonoBehaviour {
 			moveRight = !e.EndClick;
 	
 	}
+
+	void Awake () {
+
+		Events.instance.AddListener<MovementEvent> (OnMovementEvent);
+		Events.instance.AddListener<HitEvent> (BubbleHitEvent);
+		Events.instance.AddListener<SwipeEvent> (OnSwipeEvent);
+	
+	}
+
+	// Use this for initialization
+	void Start () {
+
+		currentBubbles = new List<GameObject>();
+
+		moveLeftBtn = GameObject.Find("MoveLeft").GetComponent<Button>();
+		// moveLeftBtn.gameObject.SetActive(false);
+
+		moveRightBtn = GameObject.Find("MoveRight").GetComponent<Button>();
+		// moveRightBtn.gameObject.SetActive(false);
+
+		gameOverText = GameObject.Find("GameOver");
+		gameOverText.SetActive(false);
+
+		toggleMovement.onValueChanged.AddListener(MovementToggle);
+		
+	}
+
+	void Update() {
+
+  	Vector3 targetPosition = transform.TransformPoint(new Vector3((moveLeft ? -movementSpeed : movementSpeed), 0, 0));
+
+		if(moveLeft || moveRight) {
+			transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+			deltaMovement = transform.position;
+		}
+	  else if(!freeMovement && !mouseDrag)
+	  	transform.position = Vector3.SmoothDamp(transform.position, deltaMovement, ref velocity, 0.2f);
+
+	}
+	
+  void OnMouseDown() {
+
+  	mouseDrag = true;
+
+  }
+	
+  void OnMouseUp() {
+
+  }
+      
+  void OnMouseDrag() {
+
+    Vector3 cursorPoint = new Vector3(Input.mousePosition.x, freeMovement ? Input.mousePosition.y : 100, screenPoint.z);
+    Vector3 cursorPosition = Camera.main.ScreenToWorldPoint(cursorPoint) + offset;
+
+    transform.position = ClampToScreen(cursorPosition);
+
+  	// Debug.Log(transform.position.x);
+
+  }
+
+	void OnTriggerEnter(Collider collider)
+  {
+
+  	SpawnHit(collider);
+
+  }
 }

@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Editor\FollowerCustomEditor.cs" />
+     <Compile Include="Assets\Scripts\Editor\TouchKitMenuItem.cs" />
+     <Compile Include="Assets\TouchKit\Editor\TouchKitEditor.cs" />
      <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
