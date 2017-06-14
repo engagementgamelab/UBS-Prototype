@@ -4,33 +4,23 @@ using UnityEngine;
 
 public class SpawnObject : MonoBehaviour {
 
-	public Material[] materials;
-	public bool IsEnemy {
-		get { return _IsEnemy; }
-		set { 
-			_IsEnemy = value;
-			rend.sharedMaterial = materials[_IsEnemy ? 1 : 0]; 
-		}
-	}
-
 	public float MoveSpeed {
 		get { return _MoveSpeed; }
 		set { _MoveSpeed = value; }
 	}
 
-	bool _IsEnemy = false;	
+	public bool isEnemy = false;	
+
 	float _MoveSpeed;
 	MeshRenderer rend; 
 
 	// Use this for initialization
 	void Awake () {
-		
-		rend = GetComponent<MeshRenderer>();
 
 	}	
 	
 	// Update is called once per frame
-	void Update () {
+	public void Update () {
 
 		if(_MoveSpeed == 0)
 			return;
@@ -41,6 +31,9 @@ public class SpawnObject : MonoBehaviour {
 		target.y -= _MoveSpeed;
 
 		transform.position = Vector3.Lerp(transform.position, target, .2f);
+
+		if(Camera.main.WorldToViewportPoint(transform.position).y < 0)
+			Destroy(gameObject);
 		
 	}
 

@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Bubble.cs" />
      <Compile Include="Assets\Scripts\EventHandling\Events.cs" />
+     <Compile Include="Assets\Scripts\EventHandling\Events\BubbleEvent.cs" />
      <Compile Include="Assets\Scripts\EventHandling\Events\HitEvent.cs" />
      <Compile Include="Assets\Scripts\EventHandling\Events\MovementEvent.cs" />
      <Compile Include="Assets\Scripts\EventHandling\Events\SwipeEvent.cs" />
@@ -55,6 +56,7 @@
      <Compile Include="Assets\Scripts\Follower.cs" />
      <Compile Include="Assets\Scripts\MovementButton.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\PowerUpObject.cs" />
      <Compile Include="Assets\Scripts\RestartButton.cs" />
      <Compile Include="Assets\Scripts\SpawnManager.cs" />
      <Compile Include="Assets\Scripts\SpawnObject.cs" />
@@ -79,7 +81,18 @@
      <Compile Include="Assets\TouchKitLite\TKLSwipeDetector.cs" />
      <Compile Include="Assets\TouchKitLite\TKLTouch.cs" />
      <Compile Include="Assets\TouchKitLite\TouchKitLite.cs" />
+     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
+     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
+     <None Include="Assets\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularSmooth.shader" />
+     <None Include="Assets\Standard Assets\Effects\LightFlares\Projectors\Guidelines.txt" />
+     <None Include="Assets\Standard Assets\Effects\ImageEffects\Readme.txt" />
+     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
+     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
+     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
      <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
+     <None Include="Assets\Standard Assets\Effects\LightFlares\Projectors\Shaders\ProjectorLight.shader" />
+     <None Include="Assets\Standard Assets\Effects\LightFlares\Projectors\Shaders\ProjectorMultiply.shader" />
+     <None Include="Assets\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularDisplacement.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
