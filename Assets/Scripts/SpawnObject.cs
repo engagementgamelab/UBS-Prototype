@@ -13,11 +13,6 @@ public class SpawnObject : MonoBehaviour {
 
 	float _MoveSpeed;
 	MeshRenderer rend; 
-
-	// Use this for initialization
-	void Awake () {
-
-	}	
 	
 	// Update is called once per frame
 	public void Update () {

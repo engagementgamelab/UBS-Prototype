@@ -26,7 +26,7 @@ public class Player : MonoBehaviour {
   List<GameObject> currentBubbles;
   List<Bubble> currentBubbleConfigs;
 
-  bool freeMovement = false;
+  bool freeMovement = true;
   bool trailEnabled = true;
   bool mouseDrag = false;
   bool moveLeft = false;
@@ -50,6 +50,23 @@ public class Player : MonoBehaviour {
 
   }
 
+  void AddBubble() {
+		
+		Transform target = (currentBubbleConfigs.Count > 0) ? currentBubbleConfigs[currentBubbleConfigs.Count-1].transform : transform;
+		
+		lastBubble = Instantiate(bubblePrefab, Vector3.zero, Quaternion.identity);
+		lastBubble.GetComponent<Bubble>().target = target;
+
+		currentBubbles.Add(lastBubble);
+		currentBubbleConfigs.Add(lastBubble.GetComponent<Bubble>());
+
+		bubbleFollowSpeed = Mathf.Clamp(bubbleFollowSpeed-.05f, .1f, .5f);
+
+		foreach(Bubble config in currentBubbleConfigs) 
+			config.speed = bubbleFollowSpeed;
+
+  }
+
   void OnSwipeEvent(SwipeEvent e) {
 
 		float xVelocity = -e.velocity;
@@ -63,7 +80,19 @@ public class Player : MonoBehaviour {
 
 	void BubbleHitEvent(HitEvent e) {
 
-  	SpawnHit(e.collider, e.bubble);
+		if(e.eventType == HitEvent.Type.Spawn)
+			SpawnHit(e.collider, e.bubble);
+		else {
+
+			currentBubbles.Remove(e.bubble);
+  		currentBubbleConfigs.Remove(e.bubble.GetComponent<Bubble>());
+
+			for(int i = 0; i < currentBubbleConfigs.Count; i++) {
+				Transform target = (i > 0) ? currentBubbles[i-1].transform : transform;
+				currentBubbleConfigs[i].target = target;
+			} 
+
+		}
 
   }
 
@@ -102,23 +131,8 @@ public class Player : MonoBehaviour {
 			}
   	
   	}
-
-		else {
-		
-			Transform target = (lastBubble != null) ? lastBubble.transform : transform;
-			
-			lastBubble = Instantiate(bubblePrefab, Vector3.zero, Quaternion.identity);
-			lastBubble.GetComponent<Bubble>().target = target;
-
-			currentBubbles.Add(lastBubble);
-			currentBubbleConfigs.Add(lastBubble.GetComponent<Bubble>());
-
-			bubbleFollowSpeed = Mathf.Clamp(bubbleFollowSpeed-.05f, .1f, .5f);
-		
-		}
-
-		foreach(Bubble config in currentBubbleConfigs) 
-			config.speed = bubbleFollowSpeed;
+		else
+			AddBubble();
 
 		Destroy(collider.gameObject);
 
@@ -188,6 +202,9 @@ public class Player : MonoBehaviour {
 
 		toggleMovement.onValueChanged.AddListener(MovementToggle);
 		toggleTrail.onValueChanged.AddListener(TrailToggle);
+
+		for(int i = 0; i < 4; i++)
+			AddBubble();
 		
 	}
 
@@ -225,8 +242,13 @@ public class Player : MonoBehaviour {
 
 	void OnTriggerEnter(Collider collider)
   {
+  	if(collider.gameObject.tag != "Spawn")
+  		return;
 
-  	SpawnHit(collider);
+  	if(currentBubbles.Count > 0)
+	  	SpawnHit(collider, currentBubbles[currentBubbles.Count-1]);
+  	else
+	  	SpawnHit(collider);
 
   }
   

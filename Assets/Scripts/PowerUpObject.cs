@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class PowerUpObject : SpawnObject {
 	
@@ -8,9 +10,23 @@ public class PowerUpObject : SpawnObject {
 
 	int placeholderIndex = 0;
 
+	public void BubbleHitEvent(Transform t, GameObject bubble) {
+  	
+		if(GetComponentsInChildren(typeof(Bubble)).Length == 4)
+			return;
+
+		bubble.GetComponent<Bubble>().followPlayer = false;
+		bubble.transform.SetParent(transform);
+
+		bubble.transform.localPosition = t.localPosition;
+		
+		if(GetComponentsInChildren(typeof(Bubble)).Length == 4)
+			iTween.ScaleTo(gameObject, Vector3.zero, 1.0f);
+
+	}
+
 	// Use this for initialization
 	void Start () {
-		
 	}
 	
 	// Update is called once per frame
@@ -18,20 +34,6 @@ public class PowerUpObject : SpawnObject {
 		
 		base.Update();
 
-	}
-
-	void OnTriggerEnter(Collider collider) {
-		if(collider.gameObject.GetComponent<Bubble>() == null)
-			return;
-
-		if(GetComponentsInChildren(typeof(Bubble)).Length == 4)
-			return;
-
-		collider.gameObject.GetComponent<Bubble>().followPlayer = false;
-		collider.transform.SetParent(transform);
-
-		collider.transform.localPosition = bubblePlaceholders[placeholderIndex].transform.localPosition;
-		placeholderIndex = Mathf.Clamp(placeholderIndex+1, 1, 3); 
 	}
 
 }

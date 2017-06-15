@@ -31,6 +31,11 @@ public class Bubble : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider collider) {
-		Events.instance.Raise (new HitEvent(collider, gameObject));  
+		
+  	if(collider.gameObject.tag != "Spawn")
+  		return;
+
+		Events.instance.Raise (new HitEvent(HitEvent.Type.Spawn, collider, gameObject));  
+
   }
 }

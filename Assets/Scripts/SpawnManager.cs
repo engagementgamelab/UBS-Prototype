@@ -35,28 +35,40 @@ public class SpawnManager : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
+		
+		GameObject objToSpawn;
 
-   // Counts up
-   WaitTime += Time.deltaTime;
+		// Counts up
+		WaitTime += Time.deltaTime;
 
-   // Check if its the right time to spawn the object
-   if(WaitTime >= NextSpawnInterval) {
-   	Vector3 randomPos = new Vector3(Random.Range(0, Screen.width), Screen.height, Camera.main.nearClipPlane);
-   	Vector3 pos = Camera.main.ScreenToWorldPoint(randomPos);
-   	pos.z = 0;
+		// Check if its the right time to spawn the object
+		if(WaitTime >= NextSpawnInterval) {
 
-   	GameObject objToSpawn = objList[Random.Range(0, 3)];
+			float randValue = Random.value;
+			float speed = Random.Range(SpawnMoveSpeedMin, SpawnMoveSpeedMax);
 
-   	Debug.Log(objToSpawn);
+			Vector3 randomPos = new Vector3(Random.Range(0, Screen.width), Screen.height, Camera.main.nearClipPlane);
+			Vector3 pos = Camera.main.ScreenToWorldPoint(randomPos);
+			pos.z = 0;
 
-		GameObject spawn = Instantiate(objToSpawn, pos, Quaternion.identity);
-		SpawnObject spawnScript = spawn.gameObject.GetComponent<SpawnObject>();
-		// spawnScript.IsEnemy = (Random.value > .5f);
-		spawnScript.MoveSpeed = Random.Range(SpawnMoveSpeedMin, SpawnMoveSpeedMax);
+			if (randValue < .45f)
+				objToSpawn = objList[0];
+			else if (randValue < .9f)
+				objToSpawn = objList[1];
+			else {
+				objToSpawn = objList[2];
+				speed *= .5f;
+			}
 
-		WaitTime = 0;
-		NextSpawnInterval = Random.Range(SpawnIntervalMin, SpawnIntervalMax);
-   }
+			GameObject spawn = Instantiate(objToSpawn, pos, Quaternion.identity);
+			SpawnObject spawnScript = spawn.gameObject.GetComponent<SpawnObject>();
+
+			spawnScript.MoveSpeed = speed;
+
+			WaitTime = 0;
+			NextSpawnInterval = Random.Range(SpawnIntervalMin, SpawnIntervalMax);
+
+		}
 
 	}
 }
