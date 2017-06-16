@@ -13,9 +13,11 @@ public class SpawnManager : MonoBehaviour {
 
 	public float SpawnMoveSpeedMax = 0.0f;
 	public float SpawnMoveSpeedMin = 1.0f;
+	public float speedFactor = .1f;
 
 	float NextSpawnInterval = 0.0f;
 	float WaitTime = 0.0f;
+	float initialSpeedFactor = 1;
 
 	List<GameObject> objList;
 
@@ -53,12 +55,16 @@ public class SpawnManager : MonoBehaviour {
 
 			if (randValue < .45f)
 				objToSpawn = objList[0];
+
 			else if (randValue < .9f)
 				objToSpawn = objList[1];
+			
 			else {
 				objToSpawn = objList[2];
 				speed *= .5f;
 			}
+
+			speed *= initialSpeedFactor;
 
 			GameObject spawn = Instantiate(objToSpawn, pos, Quaternion.identity);
 			SpawnObject spawnScript = spawn.gameObject.GetComponent<SpawnObject>();
@@ -67,6 +73,8 @@ public class SpawnManager : MonoBehaviour {
 
 			WaitTime = 0;
 			NextSpawnInterval = Random.Range(SpawnIntervalMin, SpawnIntervalMax);
+
+			initialSpeedFactor += speedFactor;
 
 		}
 

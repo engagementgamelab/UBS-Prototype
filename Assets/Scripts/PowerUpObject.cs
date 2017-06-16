@@ -20,8 +20,10 @@ public class PowerUpObject : SpawnObject {
 
 		bubble.transform.localPosition = t.localPosition;
 		
-		if(GetComponentsInChildren(typeof(Bubble)).Length == 4)
+		if(GetComponentsInChildren(typeof(Bubble)).Length == 4) {
 			iTween.ScaleTo(gameObject, Vector3.zero, 1.0f);
+			Events.instance.Raise (new ScoreEvent(1000));  
+		}
 
 	}
 

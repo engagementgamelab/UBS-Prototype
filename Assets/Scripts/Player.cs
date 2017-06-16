@@ -10,6 +10,8 @@ public class Player : MonoBehaviour {
 	public Toggle toggleMovement;
 	public Toggle toggleTrail;
 
+	public Text scoreText;
+
 	public float startingLifeAmount = 100.0f;
 	public float movementSpeed = 5;
 	public float smoothTime = 0.3f;
@@ -35,6 +37,9 @@ public class Player : MonoBehaviour {
 
 	Vector3 velocity = Vector3.zero;
   Vector3 deltaMovement;
+
+  float currentScore;
+  float targetScore;
 
   Vector3 ClampToScreen(Vector3 vector) {
 
@@ -174,6 +179,12 @@ public class Player : MonoBehaviour {
 	
 	}
 
+	void OnScoreEvent (ScoreEvent e) {
+
+		targetScore += e.scoreAmount;
+
+	}
+
 	void Awake () {
 
 		deltaMovement = transform.position;
@@ -182,6 +193,7 @@ public class Player : MonoBehaviour {
 		Events.instance.AddListener<MovementEvent> (OnMovementEvent);
 		Events.instance.AddListener<HitEvent> (BubbleHitEvent);
 		Events.instance.AddListener<SwipeEvent> (OnSwipeEvent);
+		Events.instance.AddListener<ScoreEvent> (OnScoreEvent);
 	
 	}
 
@@ -191,10 +203,10 @@ public class Player : MonoBehaviour {
 		currentBubbles = new List<GameObject>();
 		currentBubbleConfigs = new List<Bubble>();
 
-		moveLeftBtn = GameObject.Find("MoveLeft").GetComponent<Button>();
+		// moveLeftBtn = GameObject.Find("MoveLeft").GetComponent<Button>();
 		// moveLeftBtn.gameObject.SetActive(false);
 
-		moveRightBtn = GameObject.Find("MoveRight").GetComponent<Button>();
+		// moveRightBtn = GameObject.Find("MoveRight").GetComponent<Button>();
 		// moveRightBtn.gameObject.SetActive(false);
 
 		gameOverText = GameObject.Find("GameOver");
@@ -219,15 +231,25 @@ public class Player : MonoBehaviour {
 	  else if(!freeMovement && !mouseDrag)
 	  	transform.position = Vector3.SmoothDamp(transform.position, deltaMovement, ref velocity, 0.2f);
 
+	  if(currentScore < targetScore) {
+	  	currentScore += targetScore/20;
+			scoreText.text = "Score: " + currentScore;
+	  }
 	}
 	
   void OnMouseDown() {
 
   	mouseDrag = true;
-
+  	// GetComponent("Halo").GetType().enabled = true;
+		Behaviour h = (Behaviour)GetComponent("Halo");
+		h.enabled = true;
   }
 	
   void OnMouseUp() {
+
+  	// GetComponent("Halo").GetType().enabled = false;/**/
+		Behaviour h = (Behaviour)GetComponent("Halo");
+		h.enabled = false;
 
   }
       
