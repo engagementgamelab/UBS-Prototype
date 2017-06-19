@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\EventHandling\Events\SwipeEvent.cs" />
      <Compile Include="Assets\Scripts\ExampleClass.cs" />
      <Compile Include="Assets\Scripts\Follower.cs" />
+     <Compile Include="Assets\Scripts\GameConfig.cs" />
      <Compile Include="Assets\Scripts\MovementButton.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\PowerUpObject.cs" />

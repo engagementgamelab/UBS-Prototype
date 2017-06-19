@@ -7,6 +7,7 @@ public class RestartButton : MonoBehaviour, IPointerDownHandler {
 
 	public void OnPointerDown(PointerEventData eventData)
   {
+  	GameConfig.Reset();
   	Application.LoadLevel(Application.loadedLevel);      
   }
 

@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
 	public Toggle toggleTrail;
 
 	public Text scoreText;
+	public Text countText;
 
 	public float startingLifeAmount = 100.0f;
 	public float movementSpeed = 5;
@@ -72,16 +73,16 @@ public class Player : MonoBehaviour {
 
   }
 
-  void OnSwipeEvent(SwipeEvent e) {
+  // void OnSwipeEvent(SwipeEvent e) {
 
-		float xVelocity = -e.velocity;
+		// float xVelocity = -e.velocity;
 
-		if(e.dir == TKSwipeDirection.Right)
-			xVelocity = -xVelocity;
+		// if(e.dir == TKSwipeDirection.Right)
+		// 	xVelocity = -xVelocity;
 
-		deltaMovement = ClampToScreen(transform.TransformPoint(new Vector3(xVelocity * .5f, 0, 0)));
+		// deltaMovement = ClampToScreen(transform.TransformPoint(new Vector3(xVelocity * .5f, 0, 0)));
 
-  }
+  // }
 
 	void BubbleHitEvent(HitEvent e) {
 
@@ -111,6 +112,9 @@ public class Player : MonoBehaviour {
   		if(currentBubbles.Count == 0) {
   			gameObject.SetActive(false);
   			gameOverText.SetActive(true);
+  			countText.gameObject.SetActive(true);
+
+  			countText.text = "Power-ups captured: " + GameConfig.powerUpsCount;
 
   			return;
   		}
@@ -183,6 +187,8 @@ public class Player : MonoBehaviour {
 
 		targetScore += e.scoreAmount;
 
+		GameConfig.powerUpsCount++;
+
 	}
 
 	void Awake () {
@@ -192,7 +198,7 @@ public class Player : MonoBehaviour {
 
 		Events.instance.AddListener<MovementEvent> (OnMovementEvent);
 		Events.instance.AddListener<HitEvent> (BubbleHitEvent);
-		Events.instance.AddListener<SwipeEvent> (OnSwipeEvent);
+		// Events.instance.AddListener<SwipeEvent> (OnSwipeEvent);
 		Events.instance.AddListener<ScoreEvent> (OnScoreEvent);
 	
 	}
@@ -235,6 +241,14 @@ public class Player : MonoBehaviour {
 	  	currentScore += targetScore/20;
 			scoreText.text = "Score: " + currentScore;
 	  }
+	}
+
+	void OnDestroy() {
+
+		Events.instance.RemoveListener<MovementEvent> (OnMovementEvent);
+		Events.instance.RemoveListener<HitEvent> (BubbleHitEvent);
+		Events.instance.RemoveListener<ScoreEvent> (OnScoreEvent);
+
 	}
 	
   void OnMouseDown() {

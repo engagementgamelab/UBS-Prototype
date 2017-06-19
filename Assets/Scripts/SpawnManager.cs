@@ -29,6 +29,7 @@ public class SpawnManager : MonoBehaviour {
 		GameObject[] objArr = {EnemyObject, FriendObject, PowerupObject};
 		objList = new List<GameObject>(objArr);
 		
+
 	}
 	
 	// Update is called once per frame
@@ -44,32 +45,31 @@ public class SpawnManager : MonoBehaviour {
 		WaitTime += Time.deltaTime;
 
 		// Check if its the right time to spawn the object
-		if(WaitTime >= NextSpawnInterval) {
+		if(WaitTime >= 60/GameConfig.numObjects) {
 
 			float randValue = Random.value;
 			float speed = Random.Range(SpawnMoveSpeedMin, SpawnMoveSpeedMax);
 
-			Vector3 randomPos = new Vector3(Random.Range(0, Screen.width), Screen.height, Camera.main.nearClipPlane);
+			Vector3 randomPos = new Vector3(Random.Range(50, Screen.width-50), Screen.height, Camera.main.nearClipPlane);
 			Vector3 pos = Camera.main.ScreenToWorldPoint(randomPos);
 			pos.z = 0;
-
-			if (randValue < .45f)
-				objToSpawn = objList[0];
-
-			else if (randValue < .9f)
-				objToSpawn = objList[1];
-			
-			else {
+		 
+		 if(randValue < GameConfig.powerUpChance) {
 				objToSpawn = objList[2];
 				speed *= .5f;
 			}
+			else if (randValue < .45f)
+				objToSpawn = objList[0];
+			else
+				objToSpawn = objList[1];
 
-			speed *= initialSpeedFactor;
+			if(GameConfig.speedUpToggle)
+				speed *= initialSpeedFactor;
 
 			GameObject spawn = Instantiate(objToSpawn, pos, Quaternion.identity);
 			SpawnObject spawnScript = spawn.gameObject.GetComponent<SpawnObject>();
 
-			spawnScript.MoveSpeed = speed;
+			spawnScript.MoveSpeed = speed * GameConfig.speedFactor;
 
 			WaitTime = 0;
 			NextSpawnInterval = Random.Range(SpawnIntervalMin, SpawnIntervalMax);
@@ -77,6 +77,8 @@ public class SpawnManager : MonoBehaviour {
 			initialSpeedFactor += speedFactor;
 
 		}
+		else
+			GameConfig.numObjects += .03f;
 
 	}
 }
