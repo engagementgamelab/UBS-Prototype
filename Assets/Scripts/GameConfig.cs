@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameConfig : MonoBehaviour {
 
-  public static float numObjects = 20;
+  public static float numObjects = 10;
   public static float speedFactor = 1;
   public static float powerUpChance = 0.15f;
   
@@ -22,7 +22,7 @@ public class GameConfig : MonoBehaviour {
 	}
 
 	public static void Reset() {
-		numObjects = 20;
+		numObjects = 10;
 		speedFactor = 1;
 		powerUpChance = 0.15f;
 		

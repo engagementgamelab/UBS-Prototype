@@ -17,6 +17,8 @@ public class Player : MonoBehaviour {
 	public float movementSpeed = 5;
 	public float smoothTime = 0.3f;
 	public float bubbleFollowSpeed = .5f;
+
+	public bool inBossBattle = false;
 	
   GameObject lastBubble;
 	GameObject gameOverText;
@@ -41,6 +43,8 @@ public class Player : MonoBehaviour {
 
   float currentScore;
   float targetScore;
+
+  float bossSpawnDelta = 0;
 
   Vector3 ClampToScreen(Vector3 vector) {
 
@@ -88,6 +92,7 @@ public class Player : MonoBehaviour {
 
 		if(e.eventType == HitEvent.Type.Spawn)
 			SpawnHit(e.collider, e.bubble);
+
 		else {
 
 			currentBubbles.Remove(e.bubble);
@@ -104,46 +109,89 @@ public class Player : MonoBehaviour {
 
   void SpawnHit(Collider collider, GameObject bubble=null) {
 
-  	if(collider.gameObject.GetComponent<PowerUpObject>() != null)
-  		return;
+	  	if(collider.gameObject.GetComponent<PowerUpObject>() != null)
+	  		return;
 
-  	if(collider.gameObject.GetComponent<SpawnObject>().isEnemy) {
+	  	if(collider.gameObject.GetComponent<SpawnObject>() != null &&
+	  		 collider.gameObject.GetComponent<SpawnObject>().isEnemy) {
 
-  		if(currentBubbles.Count == 0) {
-  			gameObject.SetActive(false);
-  			gameOverText.SetActive(true);
-  			countText.gameObject.SetActive(true);
+	  		if(currentBubbles.Count == 0) {
+	  			gameObject.SetActive(false);
+	  			gameOverText.SetActive(true);
+	  			countText.gameObject.SetActive(true);
 
-  			countText.text = "Power-ups captured: " + GameConfig.powerUpsCount;
+	  			countText.text = "Power-ups captured: " + GameConfig.powerUpsCount;
 
-  			return;
-  		}
+	  			return;
+	  		}
 
-  		if(bubble != null) {
+	  		if(bubble != null) {
 
-	  		int indBubble = currentBubbles.IndexOf(bubble.gameObject);
-	  		List<GameObject> bubblesRemove = currentBubbles.GetRange(indBubble, currentBubbles.Count-indBubble);
+		  		int indBubble = currentBubbles.IndexOf(bubble.gameObject);
+		  		List<GameObject> bubblesRemove = currentBubbles.GetRange(indBubble, currentBubbles.Count-indBubble);
 
-		  	foreach(GameObject thisBubble in bubblesRemove) {
-		  		currentBubbles.Remove(thisBubble);
-		  		currentBubbleConfigs.Remove(thisBubble.GetComponent<Bubble>());
+			  	foreach(GameObject thisBubble in bubblesRemove) {
+			  		currentBubbles.Remove(thisBubble);
+			  		currentBubbleConfigs.Remove(thisBubble.GetComponent<Bubble>());
 
-		  		Destroy(thisBubble);
-		  	}
+						if(!inBossBattle)
+				  		Destroy(thisBubble);
+			  	}
 
-	  		if(currentBubbles.Count > 0)
-		  		lastBubble = currentBubbles[currentBubbles.Count-1];
-		  	
-		  	if(bubbleFollowSpeed+.05f <= 1)
-					bubbleFollowSpeed += .05f;
-			
+		  		if(currentBubbles.Count > 0)
+			  		lastBubble = currentBubbles[currentBubbles.Count-1];
+			  	
+			  	if(bubbleFollowSpeed+.05f <= 1)
+						bubbleFollowSpeed += .05f;
+				
+				}
+	  	
+	  	}
+			else {
+
+				if(!inBossBattle) {
+					AddBubble();
+				}
+				else {
+
+					if(currentBubbles.Count > 3) {
+
+			  		int indBubble = currentBubbles.IndexOf(bubble.gameObject);
+			  		List<GameObject> bubblesRemove = currentBubbles.GetRange(currentBubbles.Count-4, 4);
+
+				  	foreach(GameObject thisBubble in bubblesRemove) {
+				  		currentBubbles.Remove(thisBubble);
+				  		currentBubbleConfigs.Remove(thisBubble.GetComponent<Bubble>());
+
+				  		Destroy(thisBubble);
+				  	}
+
+			  		Destroy(collider.gameObject);
+
+				  }
+				  else {
+				  	Hashtable fadeOut = new Hashtable();
+				  	Hashtable fadeIn = new Hashtable();
+
+		        fadeOut.Add("amount", 0);
+		        fadeOut.Add("time", .5f);
+		        
+		        fadeIn.Add("amount", 1);
+		        fadeIn.Add("time", .5f);
+		        fadeIn.Add("delay", .7f);
+
+				  	iTween.ShakePosition(collider.gameObject, new Vector3(.1f, .1f, .1f), 1.5f);
+				  	iTween.FadeTo(collider.gameObject, fadeOut);
+				  	iTween.FadeTo(collider.gameObject, fadeIn);
+				  }
+
+				}
+
 			}
-  	
-  	}
-		else
-			AddBubble();
 
-		Destroy(collider.gameObject);
+		if(!inBossBattle)
+			Destroy(collider.gameObject);
+	
 
   }
 
@@ -277,7 +325,14 @@ public class Player : MonoBehaviour {
   }
 
 	void OnTriggerEnter(Collider collider)
-  {
+  {		
+
+	  if(collider.gameObject.tag == "Spawner" && inBossBattle) {
+	  	bossSpawnDelta = 0;
+	  	AddBubble();
+	  	return;
+	  }
+
   	if(collider.gameObject.tag != "Spawn")
   		return;
 
@@ -285,6 +340,38 @@ public class Player : MonoBehaviour {
 	  	SpawnHit(collider, currentBubbles[currentBubbles.Count-1]);
   	else
 	  	SpawnHit(collider);
+
+  }
+
+  void OnTriggerExit(Collider collider)
+  {		
+
+	  if(collider.gameObject.tag == "Spawner" && inBossBattle) {
+	  	AddBubble();
+	  	return;
+	  }
+
+  }
+
+/*  void OnTriggerStay(Collider other)
+  {
+
+  	if(GetComponent<Collider>().gameObject.tag == "Spawn")
+  		return;
+
+  	bossSpawnDelta += Time.deltaTime;
+
+	  if(inBossBattle && bossSpawnDelta > 2) {
+	  	AddBubble();
+	  	bossSpawnDelta = 0;
+	  	
+	  	return;
+	  }
+
+  }*/
+
+  void OnTriggerEnter2D(Collider2D collider) {
+
 
   }
   

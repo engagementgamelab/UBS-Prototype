@@ -10,6 +10,8 @@ public class Bubble : MonoBehaviour {
 	public float speed;
 
 	public bool followPlayer = true;
+	// public bool inBossBattle = false;
+
 	private Vector3 velocity = Vector3.zero;
 
 	float xPos;

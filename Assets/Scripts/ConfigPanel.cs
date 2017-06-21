@@ -25,7 +25,9 @@ public class ConfigPanel : MonoBehaviour {
 
 		numSlider.onValueChanged.AddListener(delegate {OnNumSlider(); });
 		speedSlider.onValueChanged.AddListener(delegate {OnSpeedSlider(); });
-		powerUpSlider.onValueChanged.AddListener(delegate {OnPowerUpSlider(); });
+
+    if(powerUpSlider != null)
+  		powerUpSlider.onValueChanged.AddListener(delegate {OnPowerUpSlider(); });
 
 		startButton.onClick.AddListener(OnStart);
 		speedToggle.onValueChanged.AddListener(SpeedToggle);
@@ -45,9 +47,9 @@ public class ConfigPanel : MonoBehaviour {
   }
 
 	void OnSpeedSlider() {
-  	speedText.text = Mathf.Round(speedSlider.value) + "";
+  	speedText.text = speedSlider.value + "";
 
-  	GameConfig.speedFactor = Mathf.Round(speedSlider.value);
+  	GameConfig.speedFactor = speedSlider.value;
   }
 
 	void OnPowerUpSlider() {

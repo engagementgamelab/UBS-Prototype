@@ -10,12 +10,16 @@ public class SpawnObject : MonoBehaviour {
 	}
 
 	public bool isEnemy = false;	
+	public bool moveEnabled = true;
 
 	float _MoveSpeed;
 	MeshRenderer rend; 
 	
 	// Update is called once per frame
 	public void Update () {
+
+		if(!moveEnabled)
+			return;
 
 		if(_MoveSpeed == 0)
 			return;

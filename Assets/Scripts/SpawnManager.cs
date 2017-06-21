@@ -14,6 +14,9 @@ public class SpawnManager : MonoBehaviour {
 	public float SpawnMoveSpeedMax = 0.0f;
 	public float SpawnMoveSpeedMin = 1.0f;
 	public float speedFactor = .1f;
+	public float topSpeed = 1f;
+
+	public bool inBossBattle = false;
 
 	float NextSpawnInterval = 0.0f;
 	float WaitTime = 0.0f;
@@ -30,11 +33,6 @@ public class SpawnManager : MonoBehaviour {
 		objList = new List<GameObject>(objArr);
 		
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	void FixedUpdate() {
@@ -53,18 +51,27 @@ public class SpawnManager : MonoBehaviour {
 			Vector3 randomPos = new Vector3(Random.Range(50, Screen.width-50), Screen.height, Camera.main.nearClipPlane);
 			Vector3 pos = Camera.main.ScreenToWorldPoint(randomPos);
 			pos.z = 0;
+
+			if(!inBossBattle) {
 		 
-		 if(randValue < GameConfig.powerUpChance) {
-				objToSpawn = objList[2];
-				speed *= .5f;
-			}
-			else if (randValue < .45f)
+				if(randValue < GameConfig.powerUpChance) {
+					objToSpawn = objList[2];
+					speed *= .5f;
+				}
+				else if (randValue < .45f)
+					objToSpawn = objList[0];
+				else
+					objToSpawn = objList[1];
+			}			
+			else {
 				objToSpawn = objList[0];
-			else
-				objToSpawn = objList[1];
+				// speed *= .5f;
+			}
 
 			if(GameConfig.speedUpToggle)
 				speed *= initialSpeedFactor;
+
+			speed = Mathf.Clamp(speed, 0, topSpeed);
 
 			GameObject spawn = Instantiate(objToSpawn, pos, Quaternion.identity);
 			SpawnObject spawnScript = spawn.gameObject.GetComponent<SpawnObject>();
@@ -76,9 +83,10 @@ public class SpawnManager : MonoBehaviour {
 
 			initialSpeedFactor += speedFactor;
 
-		}
-		else
-			GameConfig.numObjects += .03f;
+			}
+			else
+				GameConfig.numObjects += .03f;
 
-	}
+		}
+
 }
