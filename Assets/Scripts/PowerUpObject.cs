@@ -11,6 +11,12 @@ public class PowerUpObject : SpawnObject {
 	int placeholderIndex = 0;
 
 	public void BubbleHitEvent(Transform t, GameObject bubble) {
+
+		BubbleMount(t, bubble);
+
+	}
+
+	void BubbleMount(Transform t, GameObject bubble) {
   	
 		if(GetComponentsInChildren(typeof(Bubble)).Length == 4)
 			return;
@@ -35,6 +41,25 @@ public class PowerUpObject : SpawnObject {
 	void Update () {
 		
 		base.Update();
+
+	}
+
+	void OnTriggerEnter(Collider collider) {
+		
+		if(spawnType != "villager")
+			return;
+
+		if(collider.tag != "Bubble")
+			return;
+
+		if(placeholderIndex >= 4)
+			return;
+
+		Transform t = (Transform)GetComponentsInChildren(typeof(BubbleSpace))[placeholderIndex].transform;
+		placeholderIndex++;
+
+		BubbleMount(t, collider.gameObject);
+		Events.instance.Raise (new HitEvent(HitEvent.Type.PowerUp, collider, collider.gameObject));  
 
 	}
 

@@ -64,8 +64,12 @@ public class SpawnManager : MonoBehaviour {
 					objToSpawn = objList[1];
 			}			
 			else {
-				objToSpawn = objList[0];
-				// speed *= .5f;
+
+				if (randValue < .7f)
+					objToSpawn = objList[0];
+				else
+					objToSpawn = objList[1];
+					
 			}
 
 			if(GameConfig.speedUpToggle)
@@ -84,7 +88,7 @@ public class SpawnManager : MonoBehaviour {
 			initialSpeedFactor += speedFactor;
 
 			}
-			else
+			else if(GameConfig.increaseToggle)
 				GameConfig.numObjects += .03f;
 
 		}

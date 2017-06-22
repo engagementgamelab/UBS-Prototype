@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class SpawnObject : MonoBehaviour {
 
@@ -9,14 +12,24 @@ public class SpawnObject : MonoBehaviour {
 		set { _MoveSpeed = value; }
 	}
 
-	public bool isEnemy = false;	
+	public bool isEnemy {
+		get { return spawnType == "enemy"; }
+	}
 	public bool moveEnabled = true;
+
+	[HideInInspector]
+	public int _spawnTypeIndex = 0;
+	[HideInInspector]
+	public string spawnType;
 
 	float _MoveSpeed;
 	MeshRenderer rend; 
 	
 	// Update is called once per frame
 	public void Update () {
+
+		if(spawnType == "fly")
+			return;
 
 		if(!moveEnabled)
 			return;

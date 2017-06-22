@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Editor\FollowerCustomEditor.cs" />
+     <Compile Include="Assets\Scripts\Editor\SpawnObjectGUI.cs" />
      <Compile Include="Assets\Scripts\Editor\TouchKitMenuItem.cs" />
      <Compile Include="Assets\TouchKit\Editor\TouchKitEditor.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />

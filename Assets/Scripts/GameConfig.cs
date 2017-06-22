@@ -26,7 +26,7 @@ public class GameConfig : MonoBehaviour {
 		speedFactor = 1;
 		powerUpChance = 0.15f;
 		
-		speedUpToggle = true;
+		speedUpToggle = false;
 		increaseToggle = false;
 
 		powerUpsCount = 0;

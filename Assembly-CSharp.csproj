@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\EventHandling\Events\ScoreEvent.cs" />
      <Compile Include="Assets\Scripts\EventHandling\Events\SwipeEvent.cs" />
      <Compile Include="Assets\Scripts\ExampleClass.cs" />
+     <Compile Include="Assets\Scripts\FlyObject.cs" />
      <Compile Include="Assets\Scripts\Follower.cs" />
      <Compile Include="Assets\Scripts\GameConfig.cs" />
      <Compile Include="Assets\Scripts\MovementButton.cs" />
