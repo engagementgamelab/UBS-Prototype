@@ -269,7 +269,7 @@ public class Player : MonoBehaviour {
 		toggleMovement.onValueChanged.AddListener(MovementToggle);
 		toggleTrail.onValueChanged.AddListener(TrailToggle);
 
-		for(int i = 0; i < 4; i++)
+		for(int i = 0; i < GameConfig.numBubblesToStart; i++)
 			AddBubble();
 		
 	}
@@ -329,7 +329,10 @@ public class Player : MonoBehaviour {
 
 	  if(collider.gameObject.tag == "Spawner" && inBossBattle) {
 	  	bossSpawnDelta = 0;
-	  	AddBubble();
+
+			for(int i = 0; i < GameConfig.numBubblesGained; i++)
+				AddBubble();
+
 	  	return;
 	  }
 
@@ -347,7 +350,10 @@ public class Player : MonoBehaviour {
   {		
 
 	  if(collider.gameObject.tag == "Spawner" && inBossBattle) {
-	  	AddBubble();
+	  	
+			for(int i = 0; i < GameConfig.numBubblesGained; i++)
+				AddBubble();
+				
 	  	return;
 	  }
 
