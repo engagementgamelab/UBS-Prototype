@@ -336,7 +336,7 @@ public class Player : MonoBehaviour {
 	  	return;
 	  }
 
-  	if(collider.gameObject.tag != "Spawn")
+  	if(collider.gameObject.tag != "Spawn" || collider.gameObject.tag != "Wizards")
   		return;
 
   	if(currentBubbles.Count > 0)

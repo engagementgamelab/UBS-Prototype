@@ -5,28 +5,58 @@ using UnityEngine.UI;
 
 public class ConfigPanel : MonoBehaviour {
 
-	public Text bubblesToStartValue;
+  [Header("Bubbles")]
+  public Text bubblesToStartValue;
   public Text bubblesGainedValue;
-  public Text peopleStartSpeedValue;
-  public Text peopleNumberPerMinValue;
-  public Text peopleNumberOverTimeValue;
-	public Text peopleSpeedOverTimeValue;
-
-	public Button startButton;
 
   public Slider bubblesToStartSlider;
   public Slider bubblesGainedSlider;
+  
+  [Header("People")]
+  public Toggle villagersToggle;
+
+  public Text peopleStartSpeedValue;
+  public Text peopleNumberPerMinValue;
+  public Text peopleNumberOverTimeValue;
+  public Text peopleSpeedOverTimeValue;
+
   public Slider peopleStartSpeedSlider;
   public Slider peopleNumberPerMinSlider;
   public Slider peopleNumberOverTimeSlider;
   public Slider peopleSpeedOverTimeSlider;
 
-  public Toggle badWizardToggle;
-  public Toggle villagersToggle;
-
-  public RectTransform badWizardGroup;
   public RectTransform villagersGroup;
 
+  [Header("Flies")]
+  public Toggle fliesToggle;
+  public Slider fliesStartSpeedSlider;
+  public Slider fliesNumberOverTimeSlider;
+  public Slider fliesSpeedOverTimeSlider;
+
+  public Text fliesStartSpeedValue;
+  public Text fliesNumberOverTimeValue;
+  public Text fliesSpeedOverTimeValue;
+
+  public RectTransform fliesGroup;
+
+  [Header("Wizard")]
+  public Toggle badWizardToggle;
+  public Slider wizardStartSpeedSlider;
+  public Slider wizardNumberOverTimeSlider;
+  public Slider wizardSpeedOverTimeSlider;
+
+  public Text wizardStartSpeedValue;
+  public Text wizardNumberOverTimeValue;
+  public Text wizardSpeedOverTimeValue;
+
+
+  public RectTransform wizardGroup;
+
+  [Header("Game")]
+
+  public Button startButton;
+
+  public RectTransform badWizardGroup;
   public SpawnManager spawnManager;
   public Player player;
 
@@ -40,11 +70,20 @@ public class ConfigPanel : MonoBehaviour {
     peopleNumberPerMinSlider.onValueChanged.AddListener(delegate {OnPeopleNumberPerMinSlider(); });
     peopleNumberOverTimeSlider.onValueChanged.AddListener(delegate {OnPeopleOverTimeSlider(); });
 		peopleSpeedOverTimeSlider.onValueChanged.AddListener(delegate {OnPeopleOverTimeSlider(); });
+    
+    fliesStartSpeedSlider.onValueChanged.AddListener(delegate {OnFliesStartSpeedSlider(); });
+    fliesNumberOverTimeSlider.onValueChanged.AddListener(delegate {OnFliesOverTimeSlider(); });
+    fliesSpeedOverTimeSlider.onValueChanged.AddListener(delegate {OnFliesSpeedOverTimeSlider(); });
+    
+    // wizardStartSpeedSlider.onValueChanged.AddListener(delegate {OnWizardStartSpeedSlider(); });
+    // wizardNumberOverTimeSlider.onValueChanged.AddListener(delegate {OnWizardOverTimeSlider(); });
+    // wizardSpeedOverTimeSlider.onValueChanged.AddListener(delegate {OnWizardSpeedOverTimeSlider(); });
 
 		startButton.onClick.AddListener(OnStart);
 
 		badWizardToggle.onValueChanged.AddListener(BadWizardToggle);
-		villagersToggle.onValueChanged.AddListener(VillagersToggle);
+    villagersToggle.onValueChanged.AddListener(VillagersToggle);
+		fliesToggle.onValueChanged.AddListener(FliesToggle);
 		
 	}
 
@@ -62,6 +101,7 @@ public class ConfigPanel : MonoBehaviour {
 
   }
 
+  // PEOPLE
   void OnPeopleStartSpeedSlider() {
 
     peopleStartSpeedValue.text = peopleStartSpeedSlider.value + "";
@@ -90,17 +130,74 @@ public class ConfigPanel : MonoBehaviour {
 
   }
 
-  void BadWizardToggle(bool value) {
-
-  	// GameConfig.speedUpToggle = value;
-    badWizardGroup.gameObject.SetActive(value);
-
-  }
-
   void VillagersToggle(bool value) {
 
     GameConfig.peopleInGame = value;
     villagersGroup.gameObject.SetActive(value);
+
+  }
+
+  // WIZARD
+  void OnWizardStartSpeedSlider() {
+
+    wizardStartSpeedValue.text = peopleStartSpeedSlider.value + "";
+    GameConfig.peopleSpeedStart = peopleStartSpeedSlider.value;
+
+  }
+
+  void OnWizardNumberPerMinSlider() {
+
+    peopleNumberPerMinValue.text = peopleNumberPerMinSlider.value + "";
+    GameConfig.peopleNumberPerMin = peopleNumberPerMinSlider.value;
+
+  }
+
+  void OnWizardOverTimeSlider() {
+
+    peopleNumberOverTimeValue.text = peopleNumberOverTimeSlider.value + "";
+    GameConfig.peopleSpeedIncreaseFactor = peopleNumberOverTimeSlider.value;
+
+  }
+
+  void OnWizardSpeedOverTimeSlider() {
+
+    peopleSpeedOverTimeValue.text = peopleSpeedOverTimeSlider.value + "";
+    GameConfig.peopleSpeedIncreaseFactor = peopleSpeedOverTimeSlider.value;
+
+  }
+
+  void BadWizardToggle(bool value) {
+
+  	GameConfig.wizardInGame = value;
+    // badWizardGroup.gameObject.SetActive(value);
+
+  }
+
+  // FLIES
+  void OnFliesStartSpeedSlider() {
+
+    fliesStartSpeedValue.text = fliesStartSpeedSlider.value + "";
+    GameConfig.fliesSpeedStart = fliesStartSpeedSlider.value;
+
+  }
+
+  void OnFliesOverTimeSlider() {
+
+    fliesNumberOverTimeValue.text = fliesNumberOverTimeSlider.value + "";
+    GameConfig.fliesSpeedIncreaseFactor = fliesNumberOverTimeSlider.value;
+
+  }
+
+  void OnFliesSpeedOverTimeSlider() {
+
+    fliesSpeedOverTimeValue.text = fliesSpeedOverTimeSlider.value + "";
+    GameConfig.fliesSpeedIncreaseFactor = fliesSpeedOverTimeSlider.value;
+
+  }
+  void FliesToggle(bool value) {
+
+    GameConfig.fliesInGame = value;
+    fliesGroup.gameObject.SetActive(value);
 
   }
 

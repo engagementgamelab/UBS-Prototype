@@ -19,7 +19,9 @@ public class SpawnManager : MonoBehaviour {
 	public bool inBossBattle = false;
 
 	float NextSpawnInterval = 0.0f;
-	float WaitTime = 0.0f;
+	float PersonWaitTime = 0.0f;
+	float FlyWaitTime = 0.0f;
+	float WizardWaitTime = 0.0f;
 	float initialSpeedFactor = 1;
 
 	List<GameObject> objList;
@@ -35,62 +37,113 @@ public class SpawnManager : MonoBehaviour {
 
 	}
 
+		// bool allSpawns = GameConfig.peopleInGame && GameConfig.fliesInGame && GameConfig.wizardInGame;
+		// bool peopleAndFlies = GameConfig.peopleInGame && GameConfig.fliesInGame && !GameConfig.wizardInGame;
+		// bool peopleAndWizard = GameConfig.peopleInGame && GameConfig.wizardInGame;
+		// bool fliesAndWizard = GameConfig.fliesInGame && GameConfig.wizardInGame;
+
 	void FixedUpdate() {
-		
-		GameObject objToSpawn;
+
+		if(!GameConfig.peopleInGame && !GameConfig.fliesInGame && !GameConfig.wizardInGame)
+			return;
 
 		// Counts up
-		WaitTime += Time.deltaTime;
+		PersonWaitTime += Time.deltaTime;
+		FlyWaitTime += Time.deltaTime;
+		WizardWaitTime += Time.deltaTime;
+
+		float speed = 0;
+		float spawnTime = 0;
+		float randValue = Random.value;
+		bool spawn = false;
+			
+		GameObject objToSpawn = null;
+
+		if(randValue >= GameConfig.wizardChance && GameConfig.wizardInGame) {
+			objToSpawn = objList[2];
+
+			speed = Random.Range(0, GameConfig.wizardSpeedStart);
+			spawnTime = 60/GameConfig.wizardsNumberPerMin;
+			
+			spawn = (WizardWaitTime >= spawnTime);
+			if(spawn)
+				WizardWaitTime = 0;
+		}
+		else {
+			
+			if (randValue > .5f && GameConfig.fliesInGame) {
+				objToSpawn = objList[1];
+				
+				speed = Random.Range(0, GameConfig.fliesSpeedStart);
+				spawnTime = 60/GameConfig.fliesNumberPerMin;
+				
+				spawn = (FlyWaitTime >= spawnTime);
+				if(spawn)
+					FlyWaitTime = 0;
+			}
+			else {
+				objToSpawn = objList[0];
+				
+				speed = Random.Range(0, GameConfig.peopleSpeedStart);
+				spawnTime = 60/GameConfig.peopleNumberPerMin;
+				
+				spawn = (PersonWaitTime >= spawnTime);
+				if(spawn)
+					PersonWaitTime = 0;
+			}
+
+		}
 
 		// Check if its the right time to spawn the object
-		if(WaitTime >= 60/GameConfig.peopleNumberPerMin) {
+		if(spawn) {
 
-			float randValue = Random.value;
-			float speed = Random.Range(0, GameConfig.peopleSpeedStart);
+			if(objToSpawn == null)
+				return;
 
 			Vector3 randomPos = new Vector3(Random.Range(50, Screen.width-50), Screen.height, Camera.main.nearClipPlane);
 			Vector3 pos = Camera.main.ScreenToWorldPoint(randomPos);
 			pos.z = 0;
 	
-			if(GameConfig.peopleInGame) {
-
-				if (randValue < .7f)
-					objToSpawn = objList[0];
-				else
-					objToSpawn = objList[1];
+			// if(GameConfig.peopleInGame) {
 					
-			}
-			else {
+			// }
+			// else {
 		 
-				if(randValue < GameConfig.powerUpChance) {
-					objToSpawn = objList[2];
-					speed *= .5f;
-				}
-				else if (randValue < .45f)
-					objToSpawn = objList[0];
-				else
-					objToSpawn = objList[1];
+			// 	
+			// 	else if (randValue < .45f)
+			// 		objToSpawn = objList[0];
+			// 	else
+			// 		objToSpawn = objList[1];
 
-			}		
+			// }		
 			
-			if(GameConfig.peopleSpeedIncreaseFactor > 1)
-				speed *= GameConfig.peopleSpeedIncreaseFactor;
+			// if(GameConfig.peopleSpeedIncreaseFactor > 1)
+			// 	speed *= GameConfig.peopleSpeedIncreaseFactor;
 
 			speed = Mathf.Clamp(speed, 0, topSpeed);
 
-			GameObject spawn = Instantiate(objToSpawn, pos, Quaternion.identity);
-			SpawnObject spawnScript = spawn.gameObject.GetComponent<SpawnObject>();
+			GameObject spawnObj = Instantiate(objToSpawn, pos, Quaternion.identity);
 
+			SpawnObject spawnScript = spawnObj.gameObject.GetComponent<SpawnObject>();
 			spawnScript.MoveSpeed = speed * GameConfig.peopleSpeedStart;
 
-			WaitTime = 0;
-			NextSpawnInterval = Random.Range(SpawnIntervalMin, SpawnIntervalMax);
+			// WaitTime = 0;
 
 			initialSpeedFactor += speedFactor;
 
 		}
-		else if(GameConfig.peopleAmountIncreaseFactor > 0)
+		else {
+		
+		 if(GameConfig.peopleAmountIncreaseFactor > 0)
 			GameConfig.peopleNumberPerMin += GameConfig.peopleAmountIncreaseFactor;
+		
+		 if(GameConfig.fliesAmountIncreaseFactor > 0)
+			GameConfig.fliesNumberPerMin += GameConfig.fliesAmountIncreaseFactor;
+		
+		 if(GameConfig.wizardAmountIncreaseFactor > 0)
+			GameConfig.wizardsNumberPerMin += GameConfig.wizardAmountIncreaseFactor;
+
+		}
 
 	}
 

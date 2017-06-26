@@ -15,8 +15,6 @@ public class FlyObject : SpawnObject {
   Vector3 ClampToScreen(Vector3 vector) {
 
   	Vector3 pos = Camera.main.ScreenToWorldPoint(vector);
-		// pos.x = Mathf.Clamp01(pos.x);
-		// pos.y = Mathf.Clamp01(pos.y);
 		pos.z = 0;
 
   	return pos;
