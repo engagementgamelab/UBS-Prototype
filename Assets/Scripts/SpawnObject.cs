@@ -15,6 +15,9 @@ public class SpawnObject : MonoBehaviour {
 	public bool isEnemy {
 		get { return spawnType == "enemy"; }
 	}
+	public bool isFly {
+		get { return spawnType == "fly"; }
+	}
 	public bool moveEnabled = true;
 
 	[HideInInspector]

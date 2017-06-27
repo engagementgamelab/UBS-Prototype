@@ -10,7 +10,7 @@ public class GameConfig : MonoBehaviour {
 
   public static float peopleSpeedStart = 1;
   public static float peopleNumberPerMin = 10;
-  public static float peopleAmountIncreaseFactor = .03f;
+  public static float peopleAmountIncreaseFactor = 0;
   public static float peopleSpeedIncreaseFactor = 1;
 
   public static float wizardSpeedStart = 1;
@@ -20,7 +20,7 @@ public class GameConfig : MonoBehaviour {
   public static float wizardChance = 0.45f;
 
   public static float fliesSpeedStart = 1;
-  public static float fliesNumberPerMin = 5;
+  public static float fliesNumberPerMin = 10;
   public static float fliesAmountIncreaseFactor = 0;
   public static float fliesSpeedIncreaseFactor = 1;
   
@@ -28,7 +28,7 @@ public class GameConfig : MonoBehaviour {
   public static bool increaseToggle;
   public static bool peopleInGame = true;
   public static bool wizardInGame;
-  public static bool fliesInGame;
+  public static bool fliesInGame = true;
   
   public static int powerUpsCount = 0;
 
@@ -47,7 +47,7 @@ public class GameConfig : MonoBehaviour {
 		peopleSpeedStart = 1;
 		peopleNumberPerMin = 10;
 		peopleSpeedIncreaseFactor = 1;
-		peopleAmountIncreaseFactor = .03f;
+		peopleAmountIncreaseFactor = 0;
 
 		wizardSpeedStart = 1;
 		wizardAmountIncreaseFactor = 0;
@@ -64,7 +64,7 @@ public class GameConfig : MonoBehaviour {
 		increaseToggle = false;
 		peopleInGame = true;
 		wizardInGame = false;
-		fliesInGame = false;
+		fliesInGame = true;
 
 		powerUpsCount = 0;
 

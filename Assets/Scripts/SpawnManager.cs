@@ -72,6 +72,7 @@ public class SpawnManager : MonoBehaviour {
 		else {
 			
 			if (randValue > .5f && GameConfig.fliesInGame) {
+			
 				objToSpawn = objList[1];
 				
 				speed = Random.Range(0, GameConfig.fliesSpeedStart);
@@ -80,8 +81,11 @@ public class SpawnManager : MonoBehaviour {
 				spawn = (FlyWaitTime >= spawnTime);
 				if(spawn)
 					FlyWaitTime = 0;
+			
 			}
+
 			else {
+			
 				objToSpawn = objList[0];
 				
 				speed = Random.Range(0, GameConfig.peopleSpeedStart);
@@ -90,6 +94,7 @@ public class SpawnManager : MonoBehaviour {
 				spawn = (PersonWaitTime >= spawnTime);
 				if(spawn)
 					PersonWaitTime = 0;
+			
 			}
 
 		}
@@ -104,30 +109,14 @@ public class SpawnManager : MonoBehaviour {
 			Vector3 pos = Camera.main.ScreenToWorldPoint(randomPos);
 			pos.z = 0;
 	
-			// if(GameConfig.peopleInGame) {
-					
-			// }
-			// else {
-		 
-			// 	
-			// 	else if (randValue < .45f)
-			// 		objToSpawn = objList[0];
-			// 	else
-			// 		objToSpawn = objList[1];
-
-			// }		
-			
-			// if(GameConfig.peopleSpeedIncreaseFactor > 1)
-			// 	speed *= GameConfig.peopleSpeedIncreaseFactor;
-
 			speed = Mathf.Clamp(speed, 0, topSpeed);
 
 			GameObject spawnObj = Instantiate(objToSpawn, pos, Quaternion.identity);
 
 			SpawnObject spawnScript = spawnObj.gameObject.GetComponent<SpawnObject>();
-			spawnScript.MoveSpeed = speed * GameConfig.peopleSpeedStart;
 
-			// WaitTime = 0;
+			if(spawnScript != null)
+				spawnScript.MoveSpeed = speed * GameConfig.peopleSpeedStart;
 
 			initialSpeedFactor += speedFactor;
 

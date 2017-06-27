@@ -27,6 +27,9 @@ public class Bubble : MonoBehaviour {
 		if(!followPlayer)
 			return;
 
+		if(target == null)
+			return;
+
 	  Vector3 targetPosition = target.TransformPoint(new Vector3(Random.Range(-.5f, .5f), Random.Range(-1, 1), 0));
 	  transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, speed);
 

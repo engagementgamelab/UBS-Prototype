@@ -22,10 +22,14 @@ public class WizardObject : MonoBehaviour {
 
   }
 
-	void BubbleMount(Transform t, GameObject bubble) {
+	void BubbleMount(GameObject bubble) {
   	
 		if(GetComponentsInChildren(typeof(Bubble)).Length == 8)
 			return;
+
+		int ind = GetComponentsInChildren(typeof(Bubble)).Length;
+		Transform t = (Transform)GetComponentsInChildren(typeof(BubbleSpace))[ind].transform;
+		placeholderIndex++;
 
 		bubble.GetComponent<Bubble>().followPlayer = false;
 		bubble.transform.SetParent(transform);
@@ -70,13 +74,10 @@ public class WizardObject : MonoBehaviour {
 		if(collider.tag != "Bubble")
 			return;
 
-		if(placeholderIndex >= 8)
-			return;
+		// if(placeholderIndex >= 8)
+		// 	return;
 
-		Transform t = (Transform)GetComponentsInChildren(typeof(BubbleSpace))[placeholderIndex].transform;
-		placeholderIndex++;
-
-		BubbleMount(t, collider.gameObject);
+		BubbleMount(collider.gameObject);
 		Events.instance.Raise (new HitEvent(HitEvent.Type.PowerUp, collider, collider.gameObject));  
 
 	}

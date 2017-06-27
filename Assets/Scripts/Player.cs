@@ -64,7 +64,7 @@ public class Player : MonoBehaviour {
 		
 		Transform target = (currentBubbleConfigs.Count > 0) ? currentBubbleConfigs[currentBubbleConfigs.Count-1].transform : transform;
 		
-		lastBubble = Instantiate(bubblePrefab, Vector3.zero, Quaternion.identity);
+		lastBubble = Instantiate(bubblePrefab, new Vector3(0, -Screen.height, 0), Quaternion.identity);
 		lastBubble.GetComponent<Bubble>().target = target;
 
 		currentBubbles.Add(lastBubble);
@@ -101,7 +101,9 @@ public class Player : MonoBehaviour {
 			for(int i = 0; i < currentBubbleConfigs.Count; i++) {
 				Transform target = (i > 0) ? currentBubbles[i-1].transform : transform;
 				currentBubbleConfigs[i].target = target;
-			} 
+			}
+
+			Destroy(e.bubble);
 
 		}
 

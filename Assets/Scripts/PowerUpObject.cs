@@ -1,40 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
 public class PowerUpObject : SpawnObject {
 	
-	public GameObject[] bubblePlaceholders;
+	// public GameObject[] bubblePlaceholders;
+	public RawImage healthBg;
+	public RawImage healthFill;
 
 	int placeholderIndex = 0;
+	float health = 2;
 
 	public void BubbleHitEvent(Transform t, GameObject bubble) {
 
-		BubbleMount(t, bubble);
-
-	}
-
-	void BubbleMount(Transform t, GameObject bubble) {
-  	
-		if(GetComponentsInChildren(typeof(Bubble)).Length == 4)
-			return;
-
-		bubble.GetComponent<Bubble>().followPlayer = false;
-		bubble.transform.SetParent(transform);
-
-		bubble.transform.localPosition = t.localPosition;
-		
-		if(GetComponentsInChildren(typeof(Bubble)).Length == 4) {
-			iTween.ScaleTo(gameObject, Vector3.zero, 1.0f);
-			Events.instance.Raise (new ScoreEvent(1000));  
-		}
-
-	}
-
-	// Use this for initialization
-	void Start () {
 	}
 	
 	// Update is called once per frame
@@ -45,6 +26,20 @@ public class PowerUpObject : SpawnObject {
 	}
 
 	void OnTriggerEnter(Collider collider) {
+
+  	if(collider.gameObject.GetComponent<SpawnObject>() != null) {
+  		if(collider.gameObject.GetComponent<SpawnObject>().isFly) {
+	
+				if(health < 5) {
+					Vector2 bgSize = healthBg.rectTransform.sizeDelta;
+		  		health += .5f;
+					bgSize.x = health;
+					healthBg.rectTransform.sizeDelta = bgSize;
+				}
+
+	  	}
+  		return;
+  	}
 		
 		if(spawnType != "villager")
 			return;
@@ -52,14 +47,23 @@ public class PowerUpObject : SpawnObject {
 		if(collider.tag != "Bubble")
 			return;
 
-		if(placeholderIndex >= 4)
-			return;
-
-		Transform t = (Transform)GetComponentsInChildren(typeof(BubbleSpace))[placeholderIndex].transform;
+		// Transform t = (Transform)GetComponentsInChildren(typeof(BubbleSpace))[placeholderIndex].transform;
 		placeholderIndex++;
 
-		BubbleMount(t, collider.gameObject);
-		Events.instance.Raise (new HitEvent(HitEvent.Type.PowerUp, collider, collider.gameObject));  
+		// BubbleMount(t, collider.gameObject);
+		Events.instance.Raise (new HitEvent(HitEvent.Type.PowerUp, collider, collider.gameObject));
+
+		Vector2 v = healthFill.rectTransform.sizeDelta;
+		v.x += .5f;
+		healthFill.rectTransform.sizeDelta = v;
+
+		if(v.x == health) {
+
+			iTween.ScaleTo(gameObject, Vector3.zero, 1.0f);
+			Events.instance.Raise (new ScoreEvent(1000));		
+
+			return;
+		}
 
 	}
 
