@@ -31,24 +31,28 @@ public class SpawnObject : MonoBehaviour {
 	// Update is called once per frame
 	public void Update () {
 
-		if(spawnType == "fly")
-			return;
-
 		if(!moveEnabled)
 			return;
 
 		if(_MoveSpeed == 0)
 			return;
 
-		float step = 10.0f * Time.deltaTime;
+		if(spawnType != "fly") {
 
-		Vector3 target = transform.position;
-		target.y -= _MoveSpeed;
+			float step = 10.0f * Time.deltaTime;
 
-		transform.position = Vector3.Lerp(transform.position, target, .2f);
+			Vector3 target = transform.position;
+			target.y -= _MoveSpeed;
 
-		if(Camera.main.WorldToViewportPoint(transform.position).y < 0)
-			Destroy(gameObject);
+			transform.position = Vector3.Lerp(transform.position, target, .2f);
+
+			if(Camera.main.WorldToViewportPoint(transform.position).y < 0) {
+				Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Bad));
+
+				Destroy(gameObject);
+			}
+
+		}
 		
 	}
 

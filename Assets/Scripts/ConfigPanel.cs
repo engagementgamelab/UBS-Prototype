@@ -29,11 +29,15 @@ public class ConfigPanel : MonoBehaviour {
 
   [Header("Flies")]
   public Toggle fliesToggle;
+  public Slider fliesStartNumSlider;
   public Slider fliesStartSpeedSlider;
+  public Slider fliesNumberPerMinSlider;
   public Slider fliesNumberOverTimeSlider;
   public Slider fliesSpeedOverTimeSlider;
 
+  public Text fliesStartNumValue;
   public Text fliesStartSpeedValue;
+  public Text fliesNumberPerMinValue;
   public Text fliesNumberOverTimeValue;
   public Text fliesSpeedOverTimeValue;
 
@@ -69,9 +73,11 @@ public class ConfigPanel : MonoBehaviour {
     peopleStartSpeedSlider.onValueChanged.AddListener(delegate {OnPeopleStartSpeedSlider(); });
     peopleNumberPerMinSlider.onValueChanged.AddListener(delegate {OnPeopleNumberPerMinSlider(); });
     peopleNumberOverTimeSlider.onValueChanged.AddListener(delegate {OnPeopleOverTimeSlider(); });
-		peopleSpeedOverTimeSlider.onValueChanged.AddListener(delegate {OnPeopleOverTimeSlider(); });
+		peopleSpeedOverTimeSlider.onValueChanged.AddListener(delegate {OnPeopleSpeedOverTimeSlider(); });
     
+    fliesStartNumSlider.onValueChanged.AddListener(delegate {OnFliesStartNumSlider(); });
     fliesStartSpeedSlider.onValueChanged.AddListener(delegate {OnFliesStartSpeedSlider(); });
+    fliesNumberPerMinSlider.onValueChanged.AddListener(delegate {OnFliesNumberPerMinSlider(); });
     fliesNumberOverTimeSlider.onValueChanged.AddListener(delegate {OnFliesOverTimeSlider(); });
     fliesSpeedOverTimeSlider.onValueChanged.AddListener(delegate {OnFliesSpeedOverTimeSlider(); });
     
@@ -119,7 +125,7 @@ public class ConfigPanel : MonoBehaviour {
   void OnPeopleOverTimeSlider() {
 
     peopleNumberOverTimeValue.text = peopleNumberOverTimeSlider.value + "";
-    GameConfig.peopleSpeedIncreaseFactor = peopleNumberOverTimeSlider.value;
+    GameConfig.peopleAmountIncreaseFactor = peopleNumberOverTimeSlider.value;
 
   }
 
@@ -174,6 +180,13 @@ public class ConfigPanel : MonoBehaviour {
   }
 
   // FLIES
+  void OnFliesStartNumSlider() {
+
+    fliesStartNumValue.text = fliesStartNumSlider.value + "";
+    GameConfig.fliesNumberStart = fliesStartNumSlider.value;
+
+  }
+
   void OnFliesStartSpeedSlider() {
 
     fliesStartSpeedValue.text = fliesStartSpeedSlider.value + "";
@@ -181,10 +194,17 @@ public class ConfigPanel : MonoBehaviour {
 
   }
 
+  void OnFliesNumberPerMinSlider() {
+
+    fliesNumberPerMinValue.text = fliesNumberPerMinSlider.value + "";
+    GameConfig.fliesNumberPerMin = fliesNumberPerMinSlider.value;
+
+  }
+
   void OnFliesOverTimeSlider() {
 
     fliesNumberOverTimeValue.text = fliesNumberOverTimeSlider.value + "";
-    GameConfig.fliesSpeedIncreaseFactor = fliesNumberOverTimeSlider.value;
+    GameConfig.fliesAmountIncreaseFactor = fliesNumberOverTimeSlider.value;
 
   }
 

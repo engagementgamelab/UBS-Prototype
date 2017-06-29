@@ -9,6 +9,7 @@ public class GameConfig : MonoBehaviour {
   public static float numBubblesGained = 1;
 
   public static float peopleSpeedStart = 1;
+  public static float peopleSpeedCurrent = 1;
   public static float peopleNumberPerMin = 10;
   public static float peopleAmountIncreaseFactor = 0;
   public static float peopleSpeedIncreaseFactor = 1;
@@ -20,6 +21,7 @@ public class GameConfig : MonoBehaviour {
   public static float wizardChance = 0.45f;
 
   public static float fliesSpeedStart = 1;
+  public static float fliesNumberStart = 0;
   public static float fliesNumberPerMin = 10;
   public static float fliesAmountIncreaseFactor = 0;
   public static float fliesSpeedIncreaseFactor = 1;

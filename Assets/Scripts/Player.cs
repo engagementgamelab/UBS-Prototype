@@ -10,8 +10,8 @@ public class Player : MonoBehaviour {
 	public Toggle toggleMovement;
 	public Toggle toggleTrail;
 
-	public Text scoreText;
-	public Text countText;
+	public Text badScoreText;
+	public Text goodScoreText;
 
 	public float startingLifeAmount = 100.0f;
 	public float movementSpeed = 5;
@@ -41,7 +41,8 @@ public class Player : MonoBehaviour {
 	Vector3 velocity = Vector3.zero;
   Vector3 deltaMovement;
 
-  float currentScore;
+  float currentBadScore;
+  float currentGoodScore;
   float targetScore;
 
   float bossSpawnDelta = 0;
@@ -77,17 +78,6 @@ public class Player : MonoBehaviour {
 
   }
 
-  // void OnSwipeEvent(SwipeEvent e) {
-
-		// float xVelocity = -e.velocity;
-
-		// if(e.dir == TKSwipeDirection.Right)
-		// 	xVelocity = -xVelocity;
-
-		// deltaMovement = ClampToScreen(transform.TransformPoint(new Vector3(xVelocity * .5f, 0, 0)));
-
-  // }
-
 	void BubbleHitEvent(HitEvent e) {
 
 		if(e.eventType == HitEvent.Type.Spawn)
@@ -120,9 +110,9 @@ public class Player : MonoBehaviour {
 	  		if(currentBubbles.Count == 0) {
 	  			gameObject.SetActive(false);
 	  			gameOverText.SetActive(true);
-	  			countText.gameObject.SetActive(true);
+	  			// countText.gameObject.SetActive(true);
 
-	  			countText.text = "Power-ups captured: " + GameConfig.powerUpsCount;
+	  			// countText.text = "Power-ups captured: " + GameConfig.powerUpsCount;
 
 	  			return;
 	  		}
@@ -168,10 +158,12 @@ public class Player : MonoBehaviour {
 				  		Destroy(thisBubble);
 				  	}
 
+				  	Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Good));	
 			  		Destroy(collider.gameObject);
 
 				  }
 				  else {
+
 				  	Hashtable fadeOut = new Hashtable();
 				  	Hashtable fadeIn = new Hashtable();
 
@@ -185,6 +177,7 @@ public class Player : MonoBehaviour {
 				  	iTween.ShakePosition(collider.gameObject, new Vector3(.1f, .1f, .1f), 1.5f);
 				  	iTween.FadeTo(collider.gameObject, fadeOut);
 				  	iTween.FadeTo(collider.gameObject, fadeIn);
+
 				  }
 
 				}
@@ -235,9 +228,19 @@ public class Player : MonoBehaviour {
 
 	void OnScoreEvent (ScoreEvent e) {
 
-		targetScore += e.scoreAmount;
+		// targetScore += e.scoreAmount;
 
-		GameConfig.powerUpsCount++;
+		// GameConfig.powerUpsCount++;
+
+		if(e.eventType == ScoreEvent.Type.Good) {
+			currentGoodScore += e.scoreAmount;
+			goodScoreText.text = "Good Wizard: " + currentGoodScore;
+		}
+		else {
+			currentBadScore += e.scoreAmount;
+			badScoreText.text = "Bad Wizard: " + currentBadScore;
+		}
+
 
 	}
 
@@ -258,12 +261,6 @@ public class Player : MonoBehaviour {
 
 		currentBubbles = new List<GameObject>();
 		currentBubbleConfigs = new List<Bubble>();
-
-		// moveLeftBtn = GameObject.Find("MoveLeft").GetComponent<Button>();
-		// moveLeftBtn.gameObject.SetActive(false);
-
-		// moveRightBtn = GameObject.Find("MoveRight").GetComponent<Button>();
-		// moveRightBtn.gameObject.SetActive(false);
 
 		gameOverText = GameObject.Find("GameOver");
 		gameOverText.SetActive(false);
@@ -287,10 +284,9 @@ public class Player : MonoBehaviour {
 	  else if(!freeMovement && !mouseDrag)
 	  	transform.position = Vector3.SmoothDamp(transform.position, deltaMovement, ref velocity, 0.2f);
 
-	  if(currentScore < targetScore) {
-	  	currentScore += targetScore/20;
-			scoreText.text = "Score: " + currentScore;
-	  }
+	  // if(currentBadScore < targetScore) {
+  	// currentBadScore += targetScore/20;
+	  // }
 	}
 
 	void OnDestroy() {

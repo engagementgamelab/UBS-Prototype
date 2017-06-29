@@ -34,20 +34,28 @@ public class FlyObject : SpawnObject {
 	// Update is called once per frame
 	void Update () {
 		
-		base.Update();
+		// base.Update();
 
-    if(movementPoints.Length > 0 && currentPathPercent < 1) {
-        
-      currentPathPercent += percentsPerSecond * Time.deltaTime;
+    if(movementPoints.Length > 0) {
+    	if(currentPathPercent < 1) {
+	        
+	      currentPathPercent += percentsPerSecond * Time.deltaTime;
 
-      iTween.PutOnPath(transform, movementPoints, currentPathPercent);
+	      iTween.PutOnPath(transform, movementPoints, currentPathPercent);
 
-      Vector3 lookVector = iTween.PointOnPath(movementPoints, currentPathPercent + 0.05f);
-      Vector3 lookDelta = (lookVector - transform.position);
-      
-      float angle = Mathf.Atan2(lookDelta.x, lookDelta.y);
-			transform.rotation = Quaternion.Euler(0f, 0f, angle * Mathf.Rad2Deg );
+	      Vector3 lookVector = iTween.PointOnPath(movementPoints, currentPathPercent + 0.05f);
+	      Vector3 lookDelta = (lookVector - transform.position);
+	      
+	      float angle = Mathf.Atan2(lookDelta.x, lookDelta.y);
+				transform.rotation = Quaternion.Euler(0f, 0f, angle * Mathf.Rad2Deg );
+	    	
+    	}
+    	else {
+    		
+				Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Bad));
+				Destroy(gameObject);
 
+    	}
     }
 
 	}

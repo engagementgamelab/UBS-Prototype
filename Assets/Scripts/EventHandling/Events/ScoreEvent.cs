@@ -3,8 +3,15 @@
 public class ScoreEvent : GameEvent {
 
 	public readonly float scoreAmount;
+	public readonly Type eventType;
 
-	public ScoreEvent (float amount) {
+	public enum Type {
+		Good,
+		Bad
+	}
+
+	public ScoreEvent (float amount, Type scoreType) {
 		scoreAmount = amount;
+		eventType = scoreType;
 	}
 }

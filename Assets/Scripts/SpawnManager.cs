@@ -26,6 +26,23 @@ public class SpawnManager : MonoBehaviour {
 
 	List<GameObject> objList;
 
+	void SpawnObject(float speed, GameObject objToSpawn) {
+
+		Vector3 randomPos = new Vector3(Random.Range(50, Screen.width-50), Screen.height, Camera.main.nearClipPlane);
+		Vector3 pos = Camera.main.ScreenToWorldPoint(randomPos);
+		pos.z = 0;
+
+		speed = Mathf.Clamp(speed, 0, topSpeed);
+
+		GameObject spawnObj = Instantiate(objToSpawn, pos, Quaternion.identity);
+
+		SpawnObject spawnScript = spawnObj.gameObject.GetComponent<SpawnObject>();
+
+		if(spawnScript != null)
+			spawnScript.MoveSpeed = speed;
+	
+	}
+
 	// Use this for initialization
 	void Start () {
 
@@ -33,7 +50,9 @@ public class SpawnManager : MonoBehaviour {
 		
 		GameObject[] objArr = {EnemyObject, FriendObject, PowerupObject};
 		objList = new List<GameObject>(objArr);
-		
+
+		for(int i = 0; i < GameConfig.fliesNumberStart; i++)
+			SpawnObject(Random.Range(0, GameConfig.fliesSpeedStart), objList[1]);		
 
 	}
 
@@ -89,6 +108,7 @@ public class SpawnManager : MonoBehaviour {
 				objToSpawn = objList[0];
 				
 				speed = Random.Range(0, GameConfig.peopleSpeedStart);
+				speed *= GameConfig.peopleSpeedCurrent;
 				spawnTime = 60/GameConfig.peopleNumberPerMin;
 				
 				spawn = (PersonWaitTime >= spawnTime);
@@ -105,18 +125,7 @@ public class SpawnManager : MonoBehaviour {
 			if(objToSpawn == null)
 				return;
 
-			Vector3 randomPos = new Vector3(Random.Range(50, Screen.width-50), Screen.height, Camera.main.nearClipPlane);
-			Vector3 pos = Camera.main.ScreenToWorldPoint(randomPos);
-			pos.z = 0;
-	
-			speed = Mathf.Clamp(speed, 0, topSpeed);
-
-			GameObject spawnObj = Instantiate(objToSpawn, pos, Quaternion.identity);
-
-			SpawnObject spawnScript = spawnObj.gameObject.GetComponent<SpawnObject>();
-
-			if(spawnScript != null)
-				spawnScript.MoveSpeed = speed * GameConfig.peopleSpeedStart;
+			SpawnObject(speed, objToSpawn);
 
 			initialSpeedFactor += speedFactor;
 
@@ -126,11 +135,14 @@ public class SpawnManager : MonoBehaviour {
 		 if(GameConfig.peopleAmountIncreaseFactor > 0)
 			GameConfig.peopleNumberPerMin += GameConfig.peopleAmountIncreaseFactor;
 		
-		 if(GameConfig.fliesAmountIncreaseFactor > 0)
+		 if(GameConfig.fliesAmountIncreaseFactor > 0) 
 			GameConfig.fliesNumberPerMin += GameConfig.fliesAmountIncreaseFactor;
 		
 		 if(GameConfig.wizardAmountIncreaseFactor > 0)
 			GameConfig.wizardsNumberPerMin += GameConfig.wizardAmountIncreaseFactor;
+
+		if(GameConfig.peopleSpeedIncreaseFactor > 0)
+			GameConfig.peopleSpeedCurrent += GameConfig.peopleSpeedIncreaseFactor;
 
 		}
 

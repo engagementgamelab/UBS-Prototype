@@ -60,7 +60,7 @@ public class PowerUpObject : SpawnObject {
 		if(v.x == health) {
 
 			iTween.ScaleTo(gameObject, Vector3.zero, 1.0f);
-			Events.instance.Raise (new ScoreEvent(1000));		
+			Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Good));		
 
 			return;
 		}

@@ -38,7 +38,7 @@ public class WizardObject : MonoBehaviour {
 		
 		if(GetComponentsInChildren(typeof(Bubble)).Length == 8) {
 			iTween.ScaleTo(gameObject, Vector3.zero, 1.0f);
-			Events.instance.Raise (new ScoreEvent(1000));  
+			Events.instance.Raise (new ScoreEvent(1000, ScoreEvent.Type.Good));  
 		}
 
 	}
