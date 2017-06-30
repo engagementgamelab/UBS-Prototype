@@ -33,6 +33,8 @@ public class GameConfig : MonoBehaviour {
   public static bool fliesInGame = true;
   
   public static int powerUpsCount = 0;
+  public static int fliesCaught = 0;
+  public static int peopleSaved = 0;
 
 	// Use this for initialization
 	void Awake () {

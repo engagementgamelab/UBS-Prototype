@@ -160,6 +160,7 @@ public class Player : MonoBehaviour {
 
 				  	Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Good));	
 			  		Destroy(collider.gameObject);
+			  		GameConfig.fliesCaught++;
 
 				  }
 				  else {

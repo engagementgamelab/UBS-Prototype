@@ -19,6 +19,7 @@ public class SpawnObject : MonoBehaviour {
 		get { return spawnType == "fly"; }
 	}
 	public bool moveEnabled = true;
+	public bool isDestroyed;
 
 	[HideInInspector]
 	public int _spawnTypeIndex = 0;
@@ -47,7 +48,9 @@ public class SpawnObject : MonoBehaviour {
 			transform.position = Vector3.Lerp(transform.position, target, .2f);
 
 			if(Camera.main.WorldToViewportPoint(transform.position).y < 0) {
-				Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Bad));
+
+				if(!isDestroyed)
+					Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Bad));
 
 				Destroy(gameObject);
 			}
