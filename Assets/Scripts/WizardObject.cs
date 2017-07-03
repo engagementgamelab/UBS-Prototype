@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class WizardObject : MonoBehaviour {
+public class WizardObject : SpawnObject {
 	
-	public GameObject[] bubblePlaceholders;
-	
+	public Canvas healthCanvas;
+	public RawImage healthBg;
+	public RawImage healthFill;
+
   public float percentsPerSecond = 0.5f;
+  public float health = 5;
 
 	Vector3[] movementPoints = new Vector3[20];
   float currentPathPercent = 0.0f; //min 0, max 1
@@ -21,28 +25,6 @@ public class WizardObject : MonoBehaviour {
   	return pos;
 
   }
-
-	void BubbleMount(GameObject bubble) {
-  	
-		if(GetComponentsInChildren(typeof(Bubble)).Length == 8)
-			return;
-
-		int ind = GetComponentsInChildren(typeof(Bubble)).Length;
-		Transform t = (Transform)GetComponentsInChildren(typeof(BubbleSpace))[ind].transform;
-		placeholderIndex++;
-
-		bubble.GetComponent<Bubble>().followPlayer = false;
-		bubble.transform.SetParent(transform);
-
-		bubble.transform.localPosition = t.localPosition;
-		
-		if(GetComponentsInChildren(typeof(Bubble)).Length == 8) {
-			iTween.ScaleTo(gameObject, Vector3.zero, 1.0f);
-			Events.instance.Raise (new ScoreEvent(1000, ScoreEvent.Type.Good));  
-		}
-
-	}
-
 
 	// Use this for initialization
 	void Awake () {
@@ -66,19 +48,40 @@ public class WizardObject : MonoBehaviour {
       iTween.PutOnPath(transform, movementPoints, currentPathPercent);
 
     }
+    
+    if(GetComponentsInChildren(typeof(PowerUpObject)).Length == 0)
+	    healthCanvas.gameObject.SetActive(true);
 
 	}
 
 	void OnTriggerEnter(Collider collider) {
 
+    if(GetComponentsInChildren(typeof(PowerUpObject)).Length > 0)
+    	return;
+
+		if(spawnType != "wizard")
+			return;
+
 		if(collider.tag != "Bubble")
 			return;
 
-		// if(placeholderIndex >= 8)
-		// 	return;
+		placeholderIndex++;
+		Events.instance.Raise (new HitEvent(HitEvent.Type.PowerUp, collider, collider.gameObject));
 
-		BubbleMount(collider.gameObject);
-		Events.instance.Raise (new HitEvent(HitEvent.Type.PowerUp, collider, collider.gameObject));  
+		Vector2 v = healthFill.rectTransform.sizeDelta;
+		v.x += .5f;
+		healthFill.rectTransform.sizeDelta = v;
+
+		if(v.x == health) {
+
+			iTween.ScaleTo(gameObject, Vector3.zero, 1.0f);
+			Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Good));	
+
+			// isDestroyed = true;
+			// GameConfig.peopleSaved++;
+
+			return;
+		}
 
 	}
 }

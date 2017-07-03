@@ -14,6 +14,12 @@ public class PowerUpObject : SpawnObject {
 	int placeholderIndex = 0;
 	float health = 2;
 
+  IEnumerator RemoveVillager()
+  {
+      yield return new WaitForSeconds(1);
+      Destroy(gameObject);
+  }
+
 	public void BubbleHitEvent(Transform t, GameObject bubble) {
 
 	}
@@ -61,6 +67,7 @@ public class PowerUpObject : SpawnObject {
 
 			iTween.ScaleTo(gameObject, Vector3.zero, 1.0f);
 			Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Good));	
+			StartCoroutine(RemoveVillager());
 
 			isDestroyed = true;
 			GameConfig.peopleSaved++;

@@ -90,7 +90,7 @@ public class SpawnManager : MonoBehaviour {
 		}
 		else {
 			
-			if (randValue > .5f && GameConfig.fliesInGame) {
+			if(randValue > .5f && GameConfig.fliesInGame) {
 			
 				objToSpawn = objList[1];
 				
@@ -103,7 +103,7 @@ public class SpawnManager : MonoBehaviour {
 			
 			}
 
-			else {
+			else if(GameConfig.peopleInGame) {
 			
 				objToSpawn = objList[0];
 				

@@ -85,6 +85,10 @@ public class ConfigPanel : MonoBehaviour {
     // wizardNumberOverTimeSlider.onValueChanged.AddListener(delegate {OnWizardOverTimeSlider(); });
     // wizardSpeedOverTimeSlider.onValueChanged.AddListener(delegate {OnWizardSpeedOverTimeSlider(); });
 
+    GameConfig.peopleInGame = villagersToggle.isOn;
+    GameConfig.wizardInGame = badWizardToggle.isOn;
+    GameConfig.fliesInGame = fliesToggle.isOn;
+
 		startButton.onClick.AddListener(OnStart);
 
 		badWizardToggle.onValueChanged.AddListener(BadWizardToggle);
