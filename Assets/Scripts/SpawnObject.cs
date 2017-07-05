@@ -7,6 +7,8 @@ using UnityEditor;
 
 public class SpawnObject : MonoBehaviour {
 
+	public bool wizardMode;
+
 	public float MoveSpeed {
 		get { return _MoveSpeed; }
 		set { _MoveSpeed = value; }
@@ -20,14 +22,28 @@ public class SpawnObject : MonoBehaviour {
 	}
 	public bool moveEnabled = true;
 	public bool isDestroyed;
+  public float percentsPerSecond = 0.5f;
 
 	[HideInInspector]
 	public int _spawnTypeIndex = 0;
 	[HideInInspector]
 	public string spawnType;
+	[HideInInspector]
+	public Vector3[] movementPoints = new Vector3[20];
+	[HideInInspector]
+	public float currentPathPercent = 0.0f; //min 0, max 1
 
 	float _MoveSpeed;
 	MeshRenderer rend; 
+
+  public Vector3 ClampToScreen(Vector3 vector) {
+
+  	Vector3 pos = Camera.main.ScreenToWorldPoint(vector);
+		pos.z = 0;
+
+  	return pos;
+
+  }
 	
 	// Update is called once per frame
 	public void Update () {

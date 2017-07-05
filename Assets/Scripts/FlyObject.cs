@@ -6,36 +6,36 @@ using UnityEngine.Events;
 
 public class FlyObject : SpawnObject {
 	
-  public float percentsPerSecond = 0.5f;
-
 	int placeholderIndex = 0;
-	Vector3[] movementPoints = new Vector3[10];
-  float currentPathPercent = 0.0f; //min 0, max 1
-
-  Vector3 ClampToScreen(Vector3 vector) {
-
-  	Vector3 pos = Camera.main.ScreenToWorldPoint(vector);
-		pos.z = 0;
-
-  	return pos;
-
-  }
-
+	
 	// Use this for initialization
 	void Awake () {
 
-		for(int i = 0; i < 9; i++)
-			movementPoints[i] = ClampToScreen(new Vector3(Random.Range(0, Screen.width), Random.Range(Screen.height, 0), 0));
-		
-		movementPoints[9] = ClampToScreen(new Vector3(Random.Range(0, Screen.width), Screen.height+50, 0));
+		movementPoints = new Vector3[10];
+
+		if(!wizardMode) {
+			for(int i = 0; i < 9; i++)
+				movementPoints[i] = ClampToScreen(new Vector3(Random.Range(0, Screen.width), Random.Range(Screen.height, 0), 0));
+			
+			movementPoints[9] = ClampToScreen(new Vector3(Random.Range(0, Screen.width), Screen.height+50, 0));
+		}
+
+		// else {
+		// 	for(int i = 0; i < 10; i++)
+		// 		movementPoints[i] = new Vector3(Random.Range(-5, 5), Random.Range(-10, 10), 0);
+
+		// 	iTween.MoveTo(gameObject, iTween.Hash("path", movementPoints, "islocal", true, "time", Random.Range(20, 30), "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.easeInOutSine));
+
+		// }
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-		// base.Update();
 
+		if(wizardMode)
+			return;
+		
     if(movementPoints.Length > 0) {
     	if(currentPathPercent < 1) {
 	        

@@ -14,6 +14,8 @@ public class PowerUpObject : SpawnObject {
 	int placeholderIndex = 0;
 	float health = 2;
 
+	Vector3[] movements = new Vector3[4];
+
   IEnumerator RemoveVillager()
   {
       yield return new WaitForSeconds(1);
@@ -21,6 +23,26 @@ public class PowerUpObject : SpawnObject {
   }
 
 	public void BubbleHitEvent(Transform t, GameObject bubble) {
+
+	}
+
+	// Use this for initialization
+	void Awake () {
+
+		if(wizardMode) {
+			/*for(int i = 0; i < 4; i++) {
+				Vector3 v = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0);
+				Debug.Log(v);
+				movementPoints[i] = v;
+			}*/
+
+			movements[0] = transform.localPosition;
+			movements[1] = new Vector3(Random.Range(transform.position.x-5, transform.position.x+5), transform.position.y, 0);
+			movements[2] = new Vector3(transform.position.x, Random.Range(transform.position.y+5, transform.position.y-5), 0);
+			movements[3] = new Vector3(Random.Range(transform.position.x-5, transform.position.x+5), transform.position.y, 0);
+	   
+			iTween.MoveTo(gameObject, iTween.Hash("path", movements, "islocal", true, "time", Random.Range(5, 10), "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.easeInOutSine));
+		}
 
 	}
 	

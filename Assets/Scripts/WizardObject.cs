@@ -9,22 +9,11 @@ public class WizardObject : SpawnObject {
 	public RawImage healthBg;
 	public RawImage healthFill;
 
-  public float percentsPerSecond = 0.5f;
+	public Transform fliesParent;
+
   public float health = 5;
 
-	Vector3[] movementPoints = new Vector3[20];
-  float currentPathPercent = 0.0f; //min 0, max 1
-
 	int placeholderIndex = 0;
-
-  Vector3 ClampToScreen(Vector3 vector) {
-
-  	Vector3 pos = Camera.main.ScreenToWorldPoint(vector);
-		pos.z = 0;
-
-  	return pos;
-
-  }
 
 	// Use this for initialization
 	void Awake () {
@@ -34,12 +23,18 @@ public class WizardObject : SpawnObject {
 		
 		movementPoints[19] = ClampToScreen(new Vector3(Random.Range(0, Screen.width), -Screen.height-50, 0));
 
+			// iTween.RotateBy(fliesParent.gameObject, iTween.Hash("z", 1, "looptype", iTween.LoopType.loop));
+
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 		// base.Update();
+
+		if(fliesParent != null)
+			fliesParent.Rotate(0, 0, -1.0f*20.0f*Time.deltaTime);
 
     if(movementPoints.Length > 0 && currentPathPercent < 1) {
         
@@ -48,7 +43,7 @@ public class WizardObject : SpawnObject {
       iTween.PutOnPath(transform, movementPoints, currentPathPercent);
 
     }
-    
+
     if(GetComponentsInChildren(typeof(PowerUpObject)).Length == 0)
 	    healthCanvas.gameObject.SetActive(true);
 
