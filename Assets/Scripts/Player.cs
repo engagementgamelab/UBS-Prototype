@@ -19,6 +19,7 @@ public class Player : MonoBehaviour {
 	public float bubbleFollowSpeed = .5f;
 
 	public bool inBossBattle = false;
+	public bool shootingMode;
 	
   GameObject lastBubble;
 	GameObject gameOverText;
@@ -146,7 +147,7 @@ public class Player : MonoBehaviour {
 				}
 				else {
 
-					if(currentBubbles.Count > 3) {
+					if(currentBubbles.Count > 3 || shootingMode) {
 
 			  		int indBubble = currentBubbles.IndexOf(bubble.gameObject);
 			  		List<GameObject> bubblesRemove = currentBubbles.GetRange(currentBubbles.Count-4, 4);

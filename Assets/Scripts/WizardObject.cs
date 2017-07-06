@@ -47,6 +47,11 @@ public class WizardObject : SpawnObject {
     if(GetComponentsInChildren(typeof(PowerUpObject)).Length == 0)
 	    healthCanvas.gameObject.SetActive(true);
 
+    if(GetComponentsInChildren(typeof(FlyObject)).Length == 0) {
+    	foreach(PowerUpObject villager in GetComponentsInChildren(typeof(PowerUpObject)))
+		    villager.healthCanvas.gameObject.SetActive(true);
+    }
+
 	}
 
 	void OnTriggerEnter(Collider collider) {
@@ -70,10 +75,7 @@ public class WizardObject : SpawnObject {
 		if(v.x == health) {
 
 			iTween.ScaleTo(gameObject, Vector3.zero, 1.0f);
-			Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Good));	
-
-			// isDestroyed = true;
-			// GameConfig.peopleSaved++;
+			Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Good));
 
 			return;
 		}

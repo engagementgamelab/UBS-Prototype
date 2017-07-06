@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public class PowerUpObject : SpawnObject {
 	
-	// public GameObject[] bubblePlaceholders;
+	public Canvas healthCanvas;
 	public RawImage healthBg;
 	public RawImage healthFill;
 
@@ -37,9 +37,9 @@ public class PowerUpObject : SpawnObject {
 			}*/
 
 			movements[0] = transform.localPosition;
-			movements[1] = new Vector3(Random.Range(transform.position.x-5, transform.position.x+5), transform.position.y, 0);
-			movements[2] = new Vector3(transform.position.x, Random.Range(transform.position.y+5, transform.position.y-5), 0);
-			movements[3] = new Vector3(Random.Range(transform.position.x-5, transform.position.x+5), transform.position.y, 0);
+			movements[1] = new Vector3(Random.Range(transform.position.x-15, transform.position.x+15), transform.position.y, 0);
+			movements[2] = new Vector3(transform.position.x, Random.Range(transform.position.y-15, transform.position.y+15), 0);
+			movements[3] = new Vector3(Random.Range(transform.position.x-15, transform.position.x+15), transform.position.y, 0);
 	   
 			iTween.MoveTo(gameObject, iTween.Hash("path", movements, "islocal", true, "time", Random.Range(5, 10), "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.easeInOutSine));
 		}
@@ -54,6 +54,9 @@ public class PowerUpObject : SpawnObject {
 	}
 
 	void OnTriggerEnter(Collider collider) {
+
+		if(healthCanvas != null && !healthCanvas.gameObject.activeSelf)
+			return;
 
   	if(collider.gameObject.GetComponent<SpawnObject>() != null) {
   		if(collider.gameObject.GetComponent<SpawnObject>().isFly) {

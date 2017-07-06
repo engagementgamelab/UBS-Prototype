@@ -1,12 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour {
 
 	public GameObject EnemyObject;
 	public GameObject FriendObject;
-	public GameObject PowerupObject;
+	public GameObject WizardObject;
+	public GameObject WizardPeopleObject;
+	public GameObject WizardPeopleFliesObject;
+
+	public Button wizardSpawnButton;
+	public Button wizardVillagersSpawnButton;
+	public Button wizardVillagersFliesSpawnButton;
 
 	public float SpawnIntervalMax = 2.0f;
 	public float SpawnIntervalMin = 1.0f;
@@ -48,18 +55,17 @@ public class SpawnManager : MonoBehaviour {
 
 		NextSpawnInterval = Random.Range(SpawnIntervalMin, SpawnIntervalMax);
 		
-		GameObject[] objArr = {EnemyObject, FriendObject, PowerupObject};
+		GameObject[] objArr = {EnemyObject, FriendObject, WizardObject, WizardPeopleObject, WizardPeopleFliesObject};
 		objList = new List<GameObject>(objArr);
 
 		for(int i = 0; i < GameConfig.fliesNumberStart; i++)
 			SpawnObject(Random.Range(0, GameConfig.fliesSpeedStart), objList[1]);		
 
-	}
+		wizardSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[2]);});
+		wizardVillagersSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[3]);});
+		wizardVillagersFliesSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[4]);});
 
-		// bool allSpawns = GameConfig.peopleInGame && GameConfig.fliesInGame && GameConfig.wizardInGame;
-		// bool peopleAndFlies = GameConfig.peopleInGame && GameConfig.fliesInGame && !GameConfig.wizardInGame;
-		// bool peopleAndWizard = GameConfig.peopleInGame && GameConfig.wizardInGame;
-		// bool fliesAndWizard = GameConfig.fliesInGame && GameConfig.wizardInGame;
+	}
 
 	void FixedUpdate() {
 

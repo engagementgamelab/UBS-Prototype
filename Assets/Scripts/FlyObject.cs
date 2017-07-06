@@ -11,22 +11,26 @@ public class FlyObject : SpawnObject {
 	// Use this for initialization
 	void Awake () {
 
-		movementPoints = new Vector3[10];
 
 		if(!wizardMode) {
+			movementPoints = new Vector3[10];
+			
 			for(int i = 0; i < 9; i++)
 				movementPoints[i] = ClampToScreen(new Vector3(Random.Range(0, Screen.width), Random.Range(Screen.height, 0), 0));
 			
 			movementPoints[9] = ClampToScreen(new Vector3(Random.Range(0, Screen.width), Screen.height+50, 0));
 		}
 
-		// else {
-		// 	for(int i = 0; i < 10; i++)
-		// 		movementPoints[i] = new Vector3(Random.Range(-5, 5), Random.Range(-10, 10), 0);
+		else {
+			movementPoints = new Vector3[4];
 
-		// 	iTween.MoveTo(gameObject, iTween.Hash("path", movementPoints, "islocal", true, "time", Random.Range(20, 30), "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.easeInOutSine));
-
-		// }
+			movementPoints[0] = new Vector3(Random.Range(transform.localPosition.x-1, transform.localPosition.x+1), Random.Range(transform.localPosition.y-1, transform.localPosition.y+1), 0);
+			movementPoints[1] = new Vector3(Random.Range(transform.localPosition.x-1, transform.localPosition.x+1), transform.localPosition.y, 0);
+			movementPoints[2] = new Vector3(transform.localPosition.x, Random.Range(transform.localPosition.y-1, transform.localPosition.y+1), 0);
+			movementPoints[3] = new Vector3(Random.Range(transform.localPosition.x-1, transform.localPosition.x+1), transform.localPosition.y, 0);
+	   
+			iTween.MoveTo(gameObject, iTween.Hash("path", movementPoints, "islocal", true, "time", Random.Range(1, 10), "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.easeInOutSine));
+		}
 
 	}
 	
