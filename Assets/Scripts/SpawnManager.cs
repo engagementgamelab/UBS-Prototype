@@ -23,7 +23,7 @@ public class SpawnManager : MonoBehaviour {
 	public float speedFactor = .1f;
 	public float topSpeed = 1f;
 
-	public bool inBossBattle = false;
+	public bool shootingMode = false;
 
 	float NextSpawnInterval = 0.0f;
 	float PersonWaitTime = 0.0f;
@@ -35,7 +35,7 @@ public class SpawnManager : MonoBehaviour {
 
 	void SpawnObject(float speed, GameObject objToSpawn) {
 
-		Vector3 randomPos = new Vector3(Random.Range(50, Screen.width-50), Screen.height, Camera.main.nearClipPlane);
+		Vector3 randomPos = new Vector3(Random.Range(shootingMode ? 150 : 50, Screen.width-(shootingMode ? 150 : 50)), Screen.height, Camera.main.nearClipPlane);
 		Vector3 pos = Camera.main.ScreenToWorldPoint(randomPos);
 		pos.z = 0;
 

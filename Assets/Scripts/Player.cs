@@ -13,10 +13,13 @@ public class Player : MonoBehaviour {
 	public Text badScoreText;
 	public Text goodScoreText;
 
+	public Image meterImage; 
+
 	public float startingLifeAmount = 100.0f;
 	public float movementSpeed = 5;
 	public float smoothTime = 0.3f;
 	public float bubbleFollowSpeed = .5f;
+	public float fillTime = 2; 
 
 	public bool inBossBattle = false;
 	public bool shootingMode;
@@ -63,6 +66,9 @@ public class Player : MonoBehaviour {
   }
 
   void AddBubble() {
+
+  	if(shootingMode)
+  		return;
 		
 		Transform target = (currentBubbleConfigs.Count > 0) ? currentBubbleConfigs[currentBubbleConfigs.Count-1].transform : transform;
 		
@@ -148,9 +154,15 @@ public class Player : MonoBehaviour {
 				else {
 
 					if(currentBubbles.Count > 3 || shootingMode) {
-
-			  		int indBubble = currentBubbles.IndexOf(bubble.gameObject);
-			  		List<GameObject> bubblesRemove = currentBubbles.GetRange(currentBubbles.Count-4, 4);
+						
+						List<GameObject> bubblesRemove;
+						
+						if(!shootingMode) {
+				  		int indBubble = currentBubbles.IndexOf(bubble.gameObject);
+				  		bubblesRemove = currentBubbles.GetRange(currentBubbles.Count-4, 4);
+			  		}
+			  		else
+			  			bubblesRemove = new List<GameObject>(new GameObject[] {bubble.gameObject});
 
 				  	foreach(GameObject thisBubble in bubblesRemove) {
 				  		currentBubbles.Remove(thisBubble);
@@ -277,7 +289,14 @@ public class Player : MonoBehaviour {
 
 	void Update() {
 
-  	Vector3 targetPosition = transform.TransformPoint(new Vector3((moveLeft ? -movementSpeed : movementSpeed), 0, 0));
+  	Vector3 targetPosition;
+
+  	if(shootingMode) {
+	  	targetPosition = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, transform.position.y, transform.position.z);
+			transform.position = ClampToScreen(Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime));
+		}
+  	else
+	  	targetPosition = transform.TransformPoint(new Vector3((moveLeft ? -movementSpeed : movementSpeed), 0, 0));
 
 		if(moveLeft || moveRight) {
 			transform.position = ClampToScreen(Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime));
@@ -286,9 +305,10 @@ public class Player : MonoBehaviour {
 	  else if(!freeMovement && !mouseDrag)
 	  	transform.position = Vector3.SmoothDamp(transform.position, deltaMovement, ref velocity, 0.2f);
 
-	  // if(currentBadScore < targetScore) {
-  	// currentBadScore += targetScore/20;
-	  // }
+	  if(currentBadScore < targetScore) {
+	  	currentBadScore += targetScore/20;
+	  }
+	  
 	}
 
 	void OnDestroy() {
@@ -316,6 +336,9 @@ public class Player : MonoBehaviour {
   }
       
   void OnMouseDrag() {
+  	
+  	if(shootingMode)
+  		return;
 
     Vector3 cursorPoint = new Vector3(Input.mousePosition.x, freeMovement ? Input.mousePosition.y : 250, 0);
     Vector3 cursorPosition = mainCamera.ScreenToWorldPoint(cursorPoint);
@@ -359,22 +382,17 @@ public class Player : MonoBehaviour {
 
   }
 
-/*  void OnTriggerStay(Collider other)
+	void OnTriggerStay(Collider other)
   {
 
-  	if(GetComponent<Collider>().gameObject.tag == "Spawn")
-  		return;
-
-  	bossSpawnDelta += Time.deltaTime;
-
-	  if(inBossBattle && bossSpawnDelta > 2) {
-	  	AddBubble();
-	  	bossSpawnDelta = 0;
-	  	
+	  if(other.gameObject.tag == "Spawner" && inBossBattle && meterImage != null) {
+	  	if(meterImage.fillAmount < 1)
+	  		meterImage.fillAmount += Time.deltaTime / fillTime;
+				
 	  	return;
 	  }
 
-  }*/
+  }
 
   void OnTriggerEnter2D(Collider2D collider) {
 
