@@ -36,11 +36,19 @@ public class WizardObject : SpawnObject {
 		if(fliesParent != null)
 			fliesParent.Rotate(0, 0, -1.0f*20.0f*Time.deltaTime);
 
-    if(movementPoints.Length > 0 && currentPathPercent < 1) {
-        
-      currentPathPercent += percentsPerSecond * Time.deltaTime;
+    if(movementPoints.Length > 0) {
 
-      iTween.PutOnPath(transform, movementPoints, currentPathPercent);
+    	if(currentPathPercent < 1) {        
+	      currentPathPercent += percentsPerSecond * Time.deltaTime;
+	      iTween.PutOnPath(transform, movementPoints, currentPathPercent);
+    	}
+    	
+    	else {
+    		
+				Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Bad));
+				Destroy(gameObject);
+
+    	}
 
     }
 

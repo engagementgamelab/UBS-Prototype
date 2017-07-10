@@ -56,7 +56,7 @@ public class FlyObject : SpawnObject {
     	}
     	else {
     		
-				// Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Bad));
+				Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Bad));
 				Destroy(gameObject);
 
     	}

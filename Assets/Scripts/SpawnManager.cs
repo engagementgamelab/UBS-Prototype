@@ -61,9 +61,11 @@ public class SpawnManager : MonoBehaviour {
 		for(int i = 0; i < GameConfig.fliesNumberStart; i++)
 			SpawnObject(Random.Range(0, GameConfig.fliesSpeedStart), objList[1]);		
 
-		wizardSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[2]);});
-		wizardVillagersSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[3]);});
-		wizardVillagersFliesSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[4]);});
+		if(wizardSpawnButton != null) {
+			wizardSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[2]);});
+			wizardVillagersSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[3]);});
+			wizardVillagersFliesSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[4]);});
+		}
 
 	}
 
@@ -96,7 +98,10 @@ public class SpawnManager : MonoBehaviour {
 		}
 		else {
 			
+			Debug.Log(randValue);
+			Debug.Log(randValue > .5f);
 			if(randValue > .5f && GameConfig.fliesInGame) {
+
 			
 				objToSpawn = objList[1];
 				

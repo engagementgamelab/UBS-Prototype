@@ -46,13 +46,14 @@ public class ConfigPanel : MonoBehaviour {
   [Header("Wizard")]
   public Toggle badWizardToggle;
   public Slider wizardStartSpeedSlider;
-  public Slider wizardNumberOverTimeSlider;
+  public Slider wizardNumberPerMinSlider;
   public Slider wizardSpeedOverTimeSlider;
+  public Slider wizardNumberOverTimeSlider;
 
   public Text wizardStartSpeedValue;
+  public Text wizardNumberPerMinValue;
   public Text wizardNumberOverTimeValue;
   public Text wizardSpeedOverTimeValue;
-
 
   public RectTransform wizardGroup;
 
@@ -81,9 +82,10 @@ public class ConfigPanel : MonoBehaviour {
     fliesNumberOverTimeSlider.onValueChanged.AddListener(delegate {OnFliesOverTimeSlider(); });
     fliesSpeedOverTimeSlider.onValueChanged.AddListener(delegate {OnFliesSpeedOverTimeSlider(); });
     
-    // wizardStartSpeedSlider.onValueChanged.AddListener(delegate {OnWizardStartSpeedSlider(); });
+    wizardStartSpeedSlider.onValueChanged.AddListener(delegate {OnWizardStartSpeedSlider(); });
+    wizardNumberPerMinSlider.onValueChanged.AddListener(delegate {OnWizardNumberPerMinSlider(); });
     // wizardNumberOverTimeSlider.onValueChanged.AddListener(delegate {OnWizardOverTimeSlider(); });
-    // wizardSpeedOverTimeSlider.onValueChanged.AddListener(delegate {OnWizardSpeedOverTimeSlider(); });
+    wizardSpeedOverTimeSlider.onValueChanged.AddListener(delegate {OnWizardSpeedOverTimeSlider(); });
 
     GameConfig.peopleInGame = villagersToggle.isOn;
     GameConfig.wizardInGame = badWizardToggle.isOn;
@@ -150,29 +152,29 @@ public class ConfigPanel : MonoBehaviour {
   // WIZARD
   void OnWizardStartSpeedSlider() {
 
-    wizardStartSpeedValue.text = peopleStartSpeedSlider.value + "";
-    GameConfig.peopleSpeedStart = peopleStartSpeedSlider.value;
+    wizardStartSpeedValue.text = wizardStartSpeedSlider.value + "";
+    GameConfig.wizardSpeedStart = wizardStartSpeedSlider.value;
 
   }
 
   void OnWizardNumberPerMinSlider() {
 
-    peopleNumberPerMinValue.text = peopleNumberPerMinSlider.value + "";
-    GameConfig.peopleNumberPerMin = peopleNumberPerMinSlider.value;
+    wizardNumberPerMinValue.text = wizardNumberPerMinSlider.value + "";
+    GameConfig.wizardsNumberPerMin = wizardNumberPerMinSlider.value;
 
   }
 
   void OnWizardOverTimeSlider() {
 
-    peopleNumberOverTimeValue.text = peopleNumberOverTimeSlider.value + "";
-    GameConfig.peopleSpeedIncreaseFactor = peopleNumberOverTimeSlider.value;
+    wizardNumberOverTimeValue.text = wizardNumberOverTimeSlider.value + "";
+    GameConfig.wizardAmountIncreaseFactor = wizardNumberOverTimeSlider.value;
 
   }
 
   void OnWizardSpeedOverTimeSlider() {
 
-    peopleSpeedOverTimeValue.text = peopleSpeedOverTimeSlider.value + "";
-    GameConfig.peopleSpeedIncreaseFactor = peopleSpeedOverTimeSlider.value;
+    wizardSpeedOverTimeValue.text = wizardSpeedOverTimeSlider.value + "";
+    GameConfig.wizardSpeedIncreaseFactor = wizardSpeedOverTimeSlider.value;
 
   }
 
