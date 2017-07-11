@@ -12,6 +12,8 @@ public class Shooting : MonoBehaviour {
 	public float bubbleSpeed;
 
 	public float shootInterval = 20;
+	public bool isStatic;
+
 	float intervalTime = 0;
 
 	bool reloading;
@@ -23,12 +25,16 @@ public class Shooting : MonoBehaviour {
 
 		if(Input.GetMouseButton(0) && (intervalTime >= shootInterval)) {
 
+			Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+
 			if(meterImage.fillAmount == 0)
 				return;
 
 		 	intervalTime = 0;
 
-			Vector2 touchPos = new Vector2(transform.position.x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+		 	float xPos = isStatic ? Camera.main.ScreenToWorldPoint(Input.mousePosition).x : transform.position.x;
+
+			Vector2 touchPos = new Vector2(xPos, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
 			Vector2 dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
 			dir.Normalize ();
 			
@@ -49,6 +55,32 @@ public class Shooting : MonoBehaviour {
 			intervalTime += Time.deltaTime;
 
 	}
+	
+  void OnMouseEnter() {
+
+  	reloading = true;
+
+	  if(meterImage != null) {
+	  	if(meterImage.fillAmount < 1)
+	  		meterImage.fillAmount += Time.deltaTime / .5f;
+		}
+
+  }
+
+  void OnMouseExit() {
+
+	  if(meterImage != null) {
+	  	if(meterImage.fillAmount < 1)
+	  		meterImage.fillAmount += Time.deltaTime / .5f;
+		}
+
+  	reloading = false;
+
+  }
+      
+  void OnMouseDrag() {
+
+  }
 
 	void OnTriggerEnter(Collider other)
   {

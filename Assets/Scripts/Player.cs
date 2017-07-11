@@ -23,6 +23,7 @@ public class Player : MonoBehaviour {
 
 	public bool inBossBattle = false;
 	public bool shootingMode;
+	public bool shootingStaticMode;
 	
   GameObject lastBubble;
 	GameObject gameOverText;
@@ -292,6 +293,8 @@ public class Player : MonoBehaviour {
   	Vector3 targetPosition;
 
   	if(shootingMode) {
+  		if(shootingStaticMode) return;
+
 	  	targetPosition = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, transform.position.y, transform.position.z);
 			transform.position = ClampToScreen(Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime));
 		}
@@ -321,7 +324,6 @@ public class Player : MonoBehaviour {
 	
   void OnMouseDown() {
 
-  	mouseDrag = true;
   	// GetComponent("Halo").GetType().enabled = true;
 		Behaviour h = (Behaviour)GetComponent("Halo");
 		h.enabled = true;
@@ -332,18 +334,6 @@ public class Player : MonoBehaviour {
   	// GetComponent("Halo").GetType().enabled = false;/**/
 		Behaviour h = (Behaviour)GetComponent("Halo");
 		h.enabled = false;
-
-  }
-      
-  void OnMouseDrag() {
-  	
-  	if(shootingMode)
-  		return;
-
-    Vector3 cursorPoint = new Vector3(Input.mousePosition.x, freeMovement ? Input.mousePosition.y : 250, 0);
-    Vector3 cursorPosition = mainCamera.ScreenToWorldPoint(cursorPoint);
-
-    transform.position = ClampToScreen(cursorPosition);
 
   }
 
