@@ -31,7 +31,10 @@ public class WizardObject : SpawnObject {
 	// Update is called once per frame
 	void Update () {
 		
-		// base.Update();
+		if(!GameConfig.wizardFloatMovement) {
+			base.Update();
+			return;
+		}
 
 		if(fliesParent != null)
 			fliesParent.Rotate(0, 0, -1.0f*20.0f*Time.deltaTime);

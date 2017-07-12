@@ -11,7 +11,7 @@ public class Shooting : MonoBehaviour {
 	public Image meterImage; 
 	public float bubbleSpeed;
 
-	public float shootInterval = 20;
+	// public float shootInterval = 20;
 	public bool isStatic;
 
 	float intervalTime = 0;
@@ -23,11 +23,14 @@ public class Shooting : MonoBehaviour {
 		if(reloading)
 			return;
 
-		if(Input.GetMouseButton(0) && (intervalTime >= shootInterval)) {
-
-			Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+		if(Input.GetMouseButton(0) && (intervalTime >= GameConfig.numBubblesInterval)) {
 
 			if(meterImage.fillAmount == 0)
+				return;
+
+			float yPos =	Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
+
+			if(yPos < -3.9f)
 				return;
 
 		 	intervalTime = 0;
@@ -48,7 +51,7 @@ public class Shooting : MonoBehaviour {
 			Destroy(projectile, 2);
 
 			if(meterImage.fillAmount > 0)
-				meterImage.fillAmount -= .05f;
+				meterImage.fillAmount -= (meterImage.fillAmount / GameConfig.numBubblesFull);
 
 		}
 		else
@@ -62,7 +65,7 @@ public class Shooting : MonoBehaviour {
 
 	  if(meterImage != null) {
 	  	if(meterImage.fillAmount < 1)
-	  		meterImage.fillAmount += Time.deltaTime / .5f;
+	  		meterImage.fillAmount += (meterImage.fillAmount / GameConfig.numBubblesFull);
 		}
 
   }
@@ -71,7 +74,7 @@ public class Shooting : MonoBehaviour {
 
 	  if(meterImage != null) {
 	  	if(meterImage.fillAmount < 1)
-	  		meterImage.fillAmount += Time.deltaTime / .5f;
+	  		meterImage.fillAmount += (meterImage.fillAmount / GameConfig.numBubblesFull);
 		}
 
   	reloading = false;

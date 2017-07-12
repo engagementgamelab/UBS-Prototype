@@ -8,9 +8,13 @@ public class ConfigPanel : MonoBehaviour {
   [Header("Bubbles")]
   public Text bubblesToStartValue;
   public Text bubblesGainedValue;
+  public Text bubblesIntervalValue;
+  public Text bubblesCapacityValue;
 
   public Slider bubblesToStartSlider;
   public Slider bubblesGainedSlider;
+  public Slider bubblesIntervalSlider;
+  public Slider bubblesCapacitySlider;
   
   [Header("People")]
   public Toggle villagersToggle;
@@ -45,6 +49,7 @@ public class ConfigPanel : MonoBehaviour {
 
   [Header("Wizard")]
   public Toggle badWizardToggle;
+  public Toggle wizardMovementToggle;
   public Slider wizardStartSpeedSlider;
   public Slider wizardNumberPerMinSlider;
   public Slider wizardSpeedOverTimeSlider;
@@ -70,6 +75,11 @@ public class ConfigPanel : MonoBehaviour {
 
 		bubblesToStartSlider.onValueChanged.AddListener(delegate {OnBubblesToStartSlider(); });
     bubblesGainedSlider.onValueChanged.AddListener(delegate {OnBubblesGainedSlider(); });
+
+    if(bubblesIntervalSlider != null)
+      bubblesIntervalSlider.onValueChanged.AddListener(delegate {OnBubblesIntervalSlider(); });
+    if(bubblesCapacitySlider != null)
+      bubblesCapacitySlider.onValueChanged.AddListener(delegate {OnBubblesCapacitySlider(); });
     
     peopleStartSpeedSlider.onValueChanged.AddListener(delegate {OnPeopleStartSpeedSlider(); });
     peopleNumberPerMinSlider.onValueChanged.AddListener(delegate {OnPeopleNumberPerMinSlider(); });
@@ -93,7 +103,11 @@ public class ConfigPanel : MonoBehaviour {
 
 		startButton.onClick.AddListener(OnStart);
 
-		badWizardToggle.onValueChanged.AddListener(BadWizardToggle);
+    badWizardToggle.onValueChanged.AddListener(BadWizardToggle);
+
+    if(wizardMovementToggle != null)
+  		wizardMovementToggle.onValueChanged.AddListener(WizardMovementToggle);
+      
     villagersToggle.onValueChanged.AddListener(VillagersToggle);
 		fliesToggle.onValueChanged.AddListener(FliesToggle);
 		
@@ -112,6 +126,21 @@ public class ConfigPanel : MonoBehaviour {
   	GameConfig.numBubblesGained = bubblesGainedSlider.value;
 
   }
+
+  void OnBubblesIntervalSlider() {
+
+    bubblesIntervalValue.text = bubblesIntervalSlider.value + "";
+    GameConfig.numBubblesInterval = bubblesIntervalSlider.value;
+
+  }
+
+  void OnBubblesCapacitySlider() {
+
+    bubblesCapacityValue.text = bubblesCapacitySlider.value + "";
+    GameConfig.numBubblesFull = bubblesCapacitySlider.value;
+
+  }
+
 
   // PEOPLE
   void OnPeopleStartSpeedSlider() {
@@ -182,6 +211,12 @@ public class ConfigPanel : MonoBehaviour {
 
   	GameConfig.wizardInGame = value;
     // badWizardGroup.gameObject.SetActive(value);
+
+  }
+  
+  void WizardMovementToggle(bool value) {
+
+    GameConfig.wizardFloatMovement = value;
 
   }
 

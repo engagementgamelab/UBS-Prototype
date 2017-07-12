@@ -62,7 +62,7 @@ public class SpawnManager : MonoBehaviour {
 			SpawnObject(Random.Range(0, GameConfig.fliesSpeedStart), objList[1]);		
 
 		if(wizardSpawnButton != null) {
-			wizardSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[2]);});
+			wizardSpawnButton.onClick.AddListener(delegate{SpawnObject(Random.Range(0, GameConfig.wizardSpeedStart), objList[2]);});
 			wizardVillagersSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[3]);});
 			wizardVillagersFliesSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[4]);});
 		}

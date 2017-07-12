@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Bubble.cs" />
+     <Compile Include="Assets\Scripts\BubbleParticles.cs" />
      <Compile Include="Assets\Scripts\BubbleSpace.cs" />
      <Compile Include="Assets\Scripts\ConfigPanel.cs" />
      <Compile Include="Assets\Scripts\EventHandling\Events.cs" />

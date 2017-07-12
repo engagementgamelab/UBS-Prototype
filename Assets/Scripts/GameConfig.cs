@@ -7,6 +7,8 @@ public class GameConfig : MonoBehaviour {
 
   public static float numBubblesToStart = 4;
   public static float numBubblesGained = 1;
+  public static float numBubblesInterval = .5f;
+  public static float numBubblesFull = 20;
 
   public static float peopleSpeedStart = 1;
   public static float peopleSpeedCurrent = 1;
@@ -30,6 +32,7 @@ public class GameConfig : MonoBehaviour {
   public static bool increaseToggle;
   public static bool peopleInGame = true;
   public static bool wizardInGame;
+  public static bool wizardFloatMovement;
   public static bool fliesInGame = true;
   
   public static int powerUpsCount = 0;
