@@ -14,7 +14,7 @@ public class BubbleSpace : MonoBehaviour {
   	if(collider.gameObject.tag != "Bubble")
   		return;
 
-  	PowerUpObject parent = transform.parent.GetComponent<PowerUpObject>();
+  	VillagerObject parent = transform.parent.GetComponent<VillagerObject>();
   	parent.BubbleHitEvent(transform, collider.gameObject);
 
 		Events.instance.Raise (new HitEvent(HitEvent.Type.PowerUp, collider, collider.gameObject));  

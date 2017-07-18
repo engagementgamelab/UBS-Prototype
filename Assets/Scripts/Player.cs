@@ -109,7 +109,7 @@ public class Player : MonoBehaviour {
 
   void SpawnHit(Collider collider, GameObject bubble=null) {
 
-	  	if(collider.gameObject.GetComponent<PowerUpObject>() != null)
+	  	if(collider.gameObject.GetComponent<VillagerObject>() != null)
 	  		return;
 
 	  	if(collider.gameObject.GetComponent<SpawnObject>() != null &&
@@ -295,7 +295,7 @@ public class Player : MonoBehaviour {
   	if(shootingMode) {
   		if(shootingStaticMode) return;
 
-	  	targetPosition = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, transform.position.y, transform.position.z);
+	  	targetPosition = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, transform.position.z);
 			transform.position = ClampToScreen(Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime));
 		}
   	else
@@ -339,6 +339,16 @@ public class Player : MonoBehaviour {
 
 	void OnTriggerEnter(Collider collider)
   {		
+
+  	Debug.Log(collider.gameObject.tag);
+
+	  if(collider.gameObject.tag == "PowerUp") {
+
+	  	GameConfig.numBubblesInterval -= .05f;
+	  	Destroy(collider.gameObject);
+	  
+	  	return;
+	  }
 
 	  if(collider.gameObject.tag == "Spawner" && inBossBattle) {
 	  	bossSpawnDelta = 0;

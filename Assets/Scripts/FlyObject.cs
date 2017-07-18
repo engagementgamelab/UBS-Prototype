@@ -11,7 +11,6 @@ public class FlyObject : SpawnObject {
 	// Use this for initialization
 	void Awake () {
 
-
 		if(!wizardMode) {
 			movementPoints = new Vector3[10];
 			

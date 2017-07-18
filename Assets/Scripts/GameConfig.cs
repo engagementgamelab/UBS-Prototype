@@ -28,12 +28,16 @@ public class GameConfig : MonoBehaviour {
   public static float fliesAmountIncreaseFactor = 0;
   public static float fliesSpeedIncreaseFactor = 1;
   
+  public static float powerUpChance = 0.55f;
+  public static float powerUpNumberPerMin = 15;
+
   public static bool speedUpToggle;
   public static bool increaseToggle;
   public static bool peopleInGame = true;
   public static bool wizardInGame;
   public static bool wizardFloatMovement;
   public static bool fliesInGame = true;
+  public static bool powerUpsInGame = true;
   
   public static int powerUpsCount = 0;
   public static int fliesCaught = 0;

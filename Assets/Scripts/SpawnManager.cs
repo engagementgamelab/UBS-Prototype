@@ -10,6 +10,7 @@ public class SpawnManager : MonoBehaviour {
 	public GameObject WizardObject;
 	public GameObject WizardPeopleObject;
 	public GameObject WizardPeopleFliesObject;
+	public GameObject PowerUpObject;
 
 	public Button wizardSpawnButton;
 	public Button wizardVillagersSpawnButton;
@@ -25,10 +26,11 @@ public class SpawnManager : MonoBehaviour {
 
 	public bool shootingMode = false;
 
-	float NextSpawnInterval = 0.0f;
-	float PersonWaitTime = 0.0f;
-	float FlyWaitTime = 0.0f;
-	float WizardWaitTime = 0.0f;
+	float NextSpawnInterval = 0;
+	float PersonWaitTime = 0;
+	float FlyWaitTime = 0;
+	float WizardWaitTime = 0;
+	float PowerUpWaitTime = 0;
 	float initialSpeedFactor = 1;
 
 	List<GameObject> objList;
@@ -55,7 +57,7 @@ public class SpawnManager : MonoBehaviour {
 
 		NextSpawnInterval = Random.Range(SpawnIntervalMin, SpawnIntervalMax);
 		
-		GameObject[] objArr = {EnemyObject, FriendObject, WizardObject, WizardPeopleObject, WizardPeopleFliesObject};
+		GameObject[] objArr = {EnemyObject, FriendObject, WizardObject, WizardPeopleObject, WizardPeopleFliesObject, PowerUpObject};
 		objList = new List<GameObject>(objArr);
 
 		for(int i = 0; i < GameConfig.fliesNumberStart; i++)
@@ -78,6 +80,7 @@ public class SpawnManager : MonoBehaviour {
 		PersonWaitTime += Time.deltaTime;
 		FlyWaitTime += Time.deltaTime;
 		WizardWaitTime += Time.deltaTime;
+		PowerUpWaitTime += Time.deltaTime;
 
 		float speed = 0;
 		float spawnTime = 0;
@@ -95,6 +98,17 @@ public class SpawnManager : MonoBehaviour {
 			spawn = (WizardWaitTime >= spawnTime);
 			if(spawn)
 				WizardWaitTime = 0;
+		}
+
+		if(randValue >= GameConfig.powerUpChance && GameConfig.powerUpsInGame) {
+			objToSpawn = objList[5];
+
+			speed = Random.Range(1, 5);
+			spawnTime = 60/GameConfig.powerUpNumberPerMin;
+			
+			spawn = (PowerUpWaitTime >= spawnTime);
+			if(spawn)
+				PowerUpWaitTime = 0;
 		}
 		else {
 			

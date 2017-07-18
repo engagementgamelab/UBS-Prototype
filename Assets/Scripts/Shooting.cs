@@ -20,29 +20,31 @@ public class Shooting : MonoBehaviour {
 
 	void Update () {
 
-		if(reloading)
-			return;
+		// if(reloading)
+		// 	return;
 
-		if(Input.GetMouseButton(0) && (intervalTime >= GameConfig.numBubblesInterval)) {
+		if(intervalTime >= GameConfig.numBubblesInterval) {
 
-			if(meterImage.fillAmount == 0)
-				return;
+			// if(meterImage.fillAmount == 0)
+			// 	return;
 
-			float yPos =	Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
+			/*float yPos =	Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
 
 			if(yPos < -3.9f)
-				return;
+				return;*/
 
 		 	intervalTime = 0;
 
 		 	float xPos = isStatic ? Camera.main.ScreenToWorldPoint(Input.mousePosition).x : transform.position.x;
 
-			Vector2 touchPos = new Vector2(xPos, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-			Vector2 dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
+			// Vector2 touchPos = new Vector2(xPos, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+			// Vector2 dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
+			Vector2 endPos = new Vector2(transform.position.x, 0);
+			Vector2 dir = endPos  - (new Vector2(transform.position.x, transform.position.y));
 			dir.Normalize ();
 			
 			GameObject projectile = Instantiate (bubble, transform.position, Quaternion.identity) as GameObject;
-		  Vector2 lookDelta = (touchPos - new Vector2(projectile.transform.position.x, projectile.transform.position.y));
+		  Vector2 lookDelta = (endPos - new Vector2(projectile.transform.position.x, projectile.transform.position.y));
 		  
 		  float angle = Mathf.Atan2(lookDelta.x, lookDelta.y);
 			projectile.transform.rotation = Quaternion.Euler(0f, 0f, angle * Mathf.Rad2Deg );

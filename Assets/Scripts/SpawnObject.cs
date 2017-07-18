@@ -33,7 +33,9 @@ public class SpawnObject : MonoBehaviour {
 	[HideInInspector]
 	public float currentPathPercent = 0.0f; //min 0, max 1
 
-	float _MoveSpeed;
+	[HideInInspector]
+	public float _MoveSpeed;
+	
 	MeshRenderer rend; 
 
   public Vector3 ClampToScreen(Vector3 vector) {

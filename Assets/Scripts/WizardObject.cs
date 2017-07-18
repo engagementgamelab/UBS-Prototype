@@ -55,11 +55,11 @@ public class WizardObject : SpawnObject {
 
     }
 
-    if(GetComponentsInChildren(typeof(PowerUpObject)).Length == 0)
+    if(GetComponentsInChildren(typeof(VillagerObject)).Length == 0)
 	    healthCanvas.gameObject.SetActive(true);
 
     if(GetComponentsInChildren(typeof(FlyObject)).Length == 0) {
-    	foreach(PowerUpObject villager in GetComponentsInChildren(typeof(PowerUpObject)))
+    	foreach(VillagerObject villager in GetComponentsInChildren(typeof(VillagerObject)))
 		    villager.healthCanvas.gameObject.SetActive(true);
     }
 
@@ -67,7 +67,7 @@ public class WizardObject : SpawnObject {
 
 	void OnTriggerEnter(Collider collider) {
 
-    if(GetComponentsInChildren(typeof(PowerUpObject)).Length > 0)
+    if(GetComponentsInChildren(typeof(VillagerObject)).Length > 0)
     	return;
 
 		if(spawnType != "wizard")
