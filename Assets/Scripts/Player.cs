@@ -344,7 +344,7 @@ public class Player : MonoBehaviour {
 
 	  if(collider.gameObject.tag == "PowerUp") {
 
-	  	GameConfig.numBubblesInterval -= .05f;
+	  	GameConfig.numBubblesInterval -= GameConfig.numBubblesSpeedGained;
 	  	Destroy(collider.gameObject);
 	  
 	  	return;

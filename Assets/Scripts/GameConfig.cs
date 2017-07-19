@@ -7,6 +7,7 @@ public class GameConfig : MonoBehaviour {
 
   public static float numBubblesToStart = 4;
   public static float numBubblesGained = 1;
+	public static float numBubblesSpeedGained = .05f;
   public static float numBubblesInterval = .5f;
   public static float numBubblesFull = 20;
 

@@ -36,7 +36,7 @@ public class FlyObject : SpawnObject {
 	// Update is called once per frame
 	void Update () {
 
-		if(wizardMode)
+		if(!moveEnabled)
 			return;
 		
     if(movementPoints.Length > 0) {

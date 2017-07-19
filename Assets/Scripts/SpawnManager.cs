@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SpawnManager : MonoBehaviour {
 
 	public GameObject EnemyObject;
-	public GameObject FriendObject;
+	public GameObject FliesObject;
 	public GameObject WizardObject;
 	public GameObject WizardPeopleObject;
 	public GameObject WizardPeopleFliesObject;
@@ -35,7 +35,7 @@ public class SpawnManager : MonoBehaviour {
 
 	List<GameObject> objList;
 
-	void SpawnObject(float speed, GameObject objToSpawn) {
+	void SpawnObject(float speed, GameObject objToSpawn, bool zeroPos=false) {
 
 		Vector3 randomPos = new Vector3(Random.Range(shootingMode ? 150 : 50, Screen.width-(shootingMode ? 150 : 50)), Screen.height, Camera.main.nearClipPlane);
 		Vector3 pos = Camera.main.ScreenToWorldPoint(randomPos);
@@ -43,7 +43,7 @@ public class SpawnManager : MonoBehaviour {
 
 		speed = Mathf.Clamp(speed, 0, topSpeed);
 
-		GameObject spawnObj = Instantiate(objToSpawn, pos, Quaternion.identity);
+		GameObject spawnObj = Instantiate(objToSpawn, (zeroPos ? Vector3.zero : pos), Quaternion.identity);
 
 		SpawnObject spawnScript = spawnObj.gameObject.GetComponent<SpawnObject>();
 
@@ -57,7 +57,7 @@ public class SpawnManager : MonoBehaviour {
 
 		NextSpawnInterval = Random.Range(SpawnIntervalMin, SpawnIntervalMax);
 		
-		GameObject[] objArr = {EnemyObject, FriendObject, WizardObject, WizardPeopleObject, WizardPeopleFliesObject, PowerUpObject};
+		GameObject[] objArr = {EnemyObject, FliesObject, WizardObject, WizardPeopleObject, WizardPeopleFliesObject, PowerUpObject};
 		objList = new List<GameObject>(objArr);
 
 		for(int i = 0; i < GameConfig.fliesNumberStart; i++)
@@ -86,6 +86,7 @@ public class SpawnManager : MonoBehaviour {
 		float spawnTime = 0;
 		float randValue = Random.value;
 		bool spawn = false;
+		bool zeroPos = false;
 			
 		GameObject objToSpawn = null;
 
@@ -120,8 +121,10 @@ public class SpawnManager : MonoBehaviour {
 				spawnTime = 60/GameConfig.fliesNumberPerMin;
 				
 				spawn = (FlyWaitTime >= spawnTime);
-				if(spawn)
+				if(spawn) {
 					FlyWaitTime = 0;
+					zeroPos = true;
+				}
 			
 			}
 
@@ -147,7 +150,7 @@ public class SpawnManager : MonoBehaviour {
 			if(objToSpawn == null)
 				return;
 
-			SpawnObject(speed, objToSpawn);
+			SpawnObject(speed, objToSpawn, zeroPos);
 
 			initialSpeedFactor += speedFactor;
 

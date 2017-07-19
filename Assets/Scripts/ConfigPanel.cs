@@ -8,11 +8,13 @@ public class ConfigPanel : MonoBehaviour {
   [Header("Bubbles")]
   public Text bubblesToStartValue;
   public Text bubblesGainedValue;
+  public Text bubblesGainedSpeedValue;
   public Text bubblesIntervalValue;
   public Text bubblesCapacityValue;
 
   public Slider bubblesToStartSlider;
   public Slider bubblesGainedSlider;
+  public Slider bubblesGainedSpeedSlider;
   public Slider bubblesIntervalSlider;
   public Slider bubblesCapacitySlider;
   
@@ -73,9 +75,6 @@ public class ConfigPanel : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		bubblesToStartSlider.onValueChanged.AddListener(delegate {OnBubblesToStartSlider(); });
-    bubblesGainedSlider.onValueChanged.AddListener(delegate {OnBubblesGainedSlider(); });
-
     if(bubblesIntervalSlider != null)
       bubblesIntervalSlider.onValueChanged.AddListener(delegate {OnBubblesIntervalSlider(); });
     if(bubblesCapacitySlider != null)
@@ -124,6 +123,13 @@ public class ConfigPanel : MonoBehaviour {
 
   	bubblesGainedValue.text = bubblesGainedSlider.value + "";
   	GameConfig.numBubblesGained = bubblesGainedSlider.value;
+
+  }
+
+  public void OnBubblesGainedSpeedSlider() {
+
+    bubblesGainedSpeedValue.text = bubblesGainedSpeedSlider.value + "";
+    GameConfig.numBubblesSpeedGained = bubblesGainedSpeedSlider.value;
 
   }
 
