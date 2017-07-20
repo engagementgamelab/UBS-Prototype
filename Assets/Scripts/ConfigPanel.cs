@@ -64,8 +64,13 @@ public class ConfigPanel : MonoBehaviour {
 
   public RectTransform wizardGroup;
 
-  [Header("Game")]
+  [Header("Powerups")]
+  public Slider powerUpChanceSlider;
+  public Slider powerUpPerMinSlider;
+  public Text powerUpChanceValue;
+  public Text powerUpPerMinValue;
 
+  [Header("Game")]
   public Button startButton;
 
   public RectTransform badWizardGroup;
@@ -75,8 +80,6 @@ public class ConfigPanel : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-    if(bubblesIntervalSlider != null)
-      bubblesIntervalSlider.onValueChanged.AddListener(delegate {OnBubblesIntervalSlider(); });
     if(bubblesCapacitySlider != null)
       bubblesCapacitySlider.onValueChanged.AddListener(delegate {OnBubblesCapacitySlider(); });
     
@@ -133,7 +136,7 @@ public class ConfigPanel : MonoBehaviour {
 
   }
 
-  void OnBubblesIntervalSlider() {
+  public void OnBubblesIntervalSlider() {
 
     bubblesIntervalValue.text = bubblesIntervalSlider.value + "";
     GameConfig.numBubblesInterval = bubblesIntervalSlider.value;
@@ -265,6 +268,20 @@ public class ConfigPanel : MonoBehaviour {
 
     GameConfig.fliesInGame = value;
     fliesGroup.gameObject.SetActive(value);
+
+  }
+
+  public void OnPowerUpChanceSlider() {
+
+    powerUpChanceValue.text = powerUpChanceSlider.value + "";
+    GameConfig.powerUpChance = powerUpChanceSlider.value;
+
+  }
+
+  public void OnPowerUpPerMinSlider() {
+
+    powerUpPerMinValue.text = powerUpPerMinSlider.value + "";
+    GameConfig.powerUpNumberPerMin = powerUpPerMinSlider.value;
 
   }
 

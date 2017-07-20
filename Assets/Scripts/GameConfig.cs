@@ -30,7 +30,7 @@ public class GameConfig : MonoBehaviour {
   public static float fliesSpeedIncreaseFactor = 1;
   
   public static float powerUpChance = 0.55f;
-  public static float powerUpNumberPerMin = 15;
+  public static float powerUpNumberPerMin = 10;
 
   public static bool speedUpToggle;
   public static bool increaseToggle;

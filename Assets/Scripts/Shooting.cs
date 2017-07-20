@@ -40,15 +40,16 @@ public class Shooting : MonoBehaviour {
 			// Vector2 touchPos = new Vector2(xPos, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
 			// Vector2 dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
 			Vector2 endPos = new Vector2(transform.position.x, 0);
-			Vector2 dir = endPos  - (new Vector2(transform.position.x, transform.position.y));
-			dir.Normalize ();
+			Vector2 dir = endPos - new Vector2(transform.position.x, transform.position.y);
+			dir.Normalize();
 			
 			GameObject projectile = Instantiate (bubble, transform.position, Quaternion.identity) as GameObject;
-		  Vector2 lookDelta = (endPos - new Vector2(projectile.transform.position.x, projectile.transform.position.y));
-		  
-		  float angle = Mathf.Atan2(lookDelta.x, lookDelta.y);
-			projectile.transform.rotation = Quaternion.Euler(0f, 0f, angle * Mathf.Rad2Deg );
-			projectile.GetComponent<Rigidbody> ().velocity = dir * bubbleSpeed; 
+//		  Vector2 lookDelta = (endPos - new Vector2(projectile.transform.position.x, projectile.transform.position.y));
+//		  
+//		  float angle = Mathf.Atan2(lookDelta.x, lookDelta.y);
+//			projectile.transform.rotation = Quaternion.Euler(0f, 0f, angle * Mathf.Rad2Deg );
+			Debug.Log(dir);
+			projectile.GetComponent<Rigidbody> ().velocity = new Vector2(0, 1) * bubbleSpeed; 
 
 			Destroy(projectile, 2);
 

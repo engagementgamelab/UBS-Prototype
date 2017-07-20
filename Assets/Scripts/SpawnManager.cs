@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SpawnManager : MonoBehaviour {
 
 	public GameObject EnemyObject;
-	public GameObject FliesObject;
+	public GameObject[] FliesObject;
 	public GameObject WizardObject;
 	public GameObject WizardPeopleObject;
 	public GameObject WizardPeopleFliesObject;
@@ -34,6 +34,7 @@ public class SpawnManager : MonoBehaviour {
 	float initialSpeedFactor = 1;
 
 	List<GameObject> objList;
+	List<GameObject> fliesList;
 
 	void SpawnObject(float speed, GameObject objToSpawn, bool zeroPos=false) {
 
@@ -57,8 +58,9 @@ public class SpawnManager : MonoBehaviour {
 
 		NextSpawnInterval = Random.Range(SpawnIntervalMin, SpawnIntervalMax);
 		
-		GameObject[] objArr = {EnemyObject, FliesObject, WizardObject, WizardPeopleObject, WizardPeopleFliesObject, PowerUpObject};
+		GameObject[] objArr = {EnemyObject, WizardObject, WizardPeopleObject, WizardPeopleFliesObject, PowerUpObject};
 		objList = new List<GameObject>(objArr);
+		fliesList = new List<GameObject>(FliesObject);
 
 		for(int i = 0; i < GameConfig.fliesNumberStart; i++)
 			SpawnObject(Random.Range(0, GameConfig.fliesSpeedStart), objList[1]);		
@@ -91,7 +93,7 @@ public class SpawnManager : MonoBehaviour {
 		GameObject objToSpawn = null;
 
 		if(randValue >= GameConfig.wizardChance && GameConfig.wizardInGame) {
-			objToSpawn = objList[2];
+			objToSpawn = objList[1];
 
 			speed = Random.Range(0, GameConfig.wizardSpeedStart);
 			spawnTime = 60/GameConfig.wizardsNumberPerMin;
@@ -102,7 +104,7 @@ public class SpawnManager : MonoBehaviour {
 		}
 
 		if(randValue >= GameConfig.powerUpChance && GameConfig.powerUpsInGame) {
-			objToSpawn = objList[5];
+			objToSpawn = objList[4];
 
 			speed = Random.Range(1, 5);
 			spawnTime = 60/GameConfig.powerUpNumberPerMin;
@@ -115,7 +117,13 @@ public class SpawnManager : MonoBehaviour {
 			
 			if(randValue > .5f && GameConfig.fliesInGame) {
 			
-				objToSpawn = objList[1];
+//				objToSpawn = objList[1];
+
+				if (fliesList.Count > 1)
+					objToSpawn =
+						fliesList[Random.Range(0, fliesList.Count)];
+				else
+					objToSpawn = fliesList[0];
 				
 				speed = Random.Range(0, GameConfig.fliesSpeedStart);
 				spawnTime = 60/GameConfig.fliesNumberPerMin;

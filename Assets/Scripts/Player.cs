@@ -338,9 +338,16 @@ public class Player : MonoBehaviour {
   }
 
 	void OnTriggerEnter(Collider collider)
-  {		
+  {
 
-  	Debug.Log(collider.gameObject.tag);
+	  if (collider.gameObject.GetComponent<SpawnObject>() != null && shootingMode)
+	  {
+		  if (collider.gameObject.GetComponent<SpawnObject>().isFly)
+		  {
+				  gameObject.SetActive(false);
+				  gameOverText.SetActive(true); 
+		  }
+	  }
 
 	  if(collider.gameObject.tag == "PowerUp") {
 
