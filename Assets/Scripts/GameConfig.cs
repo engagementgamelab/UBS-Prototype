@@ -31,6 +31,11 @@ public class GameConfig : MonoBehaviour {
   
   public static float powerUpChance = 0.55f;
   public static float powerUpNumberPerMin = 10;
+  
+  public static float poopChance = 0.25f;
+	public static float numPoopSpeed = 1;
+	public static float numPoopSize = 1;
+	public static float numPoopPerMin = 5;
 
   public static bool speedUpToggle;
   public static bool increaseToggle;
@@ -39,6 +44,7 @@ public class GameConfig : MonoBehaviour {
   public static bool wizardFloatMovement;
   public static bool fliesInGame = true;
   public static bool powerUpsInGame = true;
+  public static bool poopInGame;
   
   public static int powerUpsCount = 0;
   public static int fliesCaught = 0;

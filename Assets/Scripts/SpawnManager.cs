@@ -11,6 +11,7 @@ public class SpawnManager : MonoBehaviour {
 	public GameObject WizardPeopleObject;
 	public GameObject WizardPeopleFliesObject;
 	public GameObject PowerUpObject;
+	public GameObject PoopObject;
 
 	public Button wizardSpawnButton;
 	public Button wizardVillagersSpawnButton;
@@ -31,6 +32,7 @@ public class SpawnManager : MonoBehaviour {
 	float FlyWaitTime = 0;
 	float WizardWaitTime = 0;
 	float PowerUpWaitTime = 0;
+	float PoopWaitTime = 0;
 	float initialSpeedFactor = 1;
 
 	List<GameObject> objList;
@@ -46,6 +48,11 @@ public class SpawnManager : MonoBehaviour {
 
 		GameObject spawnObj = Instantiate(objToSpawn, (zeroPos ? Vector3.zero : pos), Quaternion.identity);
 
+		if(objToSpawn == objList[5]) {
+			Vector3 scale = spawnObj.transform.localScale * GameConfig.numPoopSize;
+			spawnObj.transform.localScale = scale;
+		}
+
 		SpawnObject spawnScript = spawnObj.gameObject.GetComponent<SpawnObject>();
 
 		if(spawnScript != null)
@@ -58,7 +65,7 @@ public class SpawnManager : MonoBehaviour {
 
 		NextSpawnInterval = Random.Range(SpawnIntervalMin, SpawnIntervalMax);
 		
-		GameObject[] objArr = {EnemyObject, WizardObject, WizardPeopleObject, WizardPeopleFliesObject, PowerUpObject};
+		GameObject[] objArr = {EnemyObject, WizardObject, WizardPeopleObject, WizardPeopleFliesObject, PowerUpObject, PoopObject};
 		objList = new List<GameObject>(objArr);
 		fliesList = new List<GameObject>(FliesObject);
 
@@ -83,6 +90,7 @@ public class SpawnManager : MonoBehaviour {
 		FlyWaitTime += Time.deltaTime;
 		WizardWaitTime += Time.deltaTime;
 		PowerUpWaitTime += Time.deltaTime;
+		PoopWaitTime += Time.deltaTime;
 
 		float speed = 0;
 		float spawnTime = 0;
@@ -113,11 +121,20 @@ public class SpawnManager : MonoBehaviour {
 			if(spawn)
 				PowerUpWaitTime = 0;
 		}
+
+		if(randValue >= GameConfig.poopChance && GameConfig.poopInGame) {
+			objToSpawn = objList[5];
+
+			speed = GameConfig.numPoopSpeed;
+			spawnTime = 60/GameConfig.numPoopPerMin;
+			
+			spawn = (PoopWaitTime >= spawnTime);
+			if(spawn)
+				PoopWaitTime = 0;
+		}
 		else {
 			
 			if(randValue > .5f && GameConfig.fliesInGame) {
-			
-//				objToSpawn = objList[1];
 
 				if (fliesList.Count > 1)
 					objToSpawn =

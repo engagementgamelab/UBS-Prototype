@@ -70,6 +70,17 @@ public class ConfigPanel : MonoBehaviour {
   public Text powerUpChanceValue;
   public Text powerUpPerMinValue;
 
+  [Header("Poop")]
+  public Toggle poopToggle;
+  public Slider poopSpeedSlider;
+  public Slider poopSizeSlider;
+  public Slider poopPerMinSlider;
+  public Slider poopChanceSlider;
+  public Text poopSpeedValue;
+  public Text poopSizeValue;
+  public Text poopPerMinValue;
+  public Text poopChanceValue;
+
   [Header("Game")]
   public Button startButton;
 
@@ -102,6 +113,7 @@ public class ConfigPanel : MonoBehaviour {
     GameConfig.peopleInGame = villagersToggle.isOn;
     GameConfig.wizardInGame = badWizardToggle.isOn;
     GameConfig.fliesInGame = fliesToggle.isOn;
+	  GameConfig.poopInGame = poopToggle.isOn;
 
 		startButton.onClick.AddListener(OnStart);
 
@@ -282,6 +294,35 @@ public class ConfigPanel : MonoBehaviour {
 
     powerUpPerMinValue.text = powerUpPerMinSlider.value + "";
     GameConfig.powerUpNumberPerMin = powerUpPerMinSlider.value;
+
+  }
+
+  // POOP
+  public void OnPoopSpeedSlider() {
+
+    poopSpeedValue.text = poopSpeedSlider.value + "";
+    GameConfig.numPoopSpeed = poopSpeedSlider.value;
+
+  }
+
+  public void OnPoopSizeSlider() {
+
+    poopSizeValue.text = poopSizeSlider.value + "";
+    GameConfig.numPoopSize = poopSizeSlider.value;
+
+  }
+
+  public void OnPoopChanceSlider() {
+
+    poopChanceValue.text = poopChanceSlider.value + "";
+    GameConfig.poopChance = poopChanceSlider.value;
+
+  }
+
+  public void OnPoopPerMinSlider() {
+
+    poopPerMinValue.text = poopPerMinSlider.value + "";
+    GameConfig.numPoopPerMin = poopPerMinSlider.value;
 
   }
 

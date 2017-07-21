@@ -340,9 +340,11 @@ public class Player : MonoBehaviour {
 	void OnTriggerEnter(Collider collider)
   {
 
-	  if (collider.gameObject.GetComponent<SpawnObject>() != null && shootingMode)
+	  if (shootingMode)
 	  {
-		  if (collider.gameObject.GetComponent<SpawnObject>().isFly)
+		  bool die = collider.gameObject.GetComponent<SpawnObject>() != null && collider.gameObject.GetComponent<SpawnObject>().isFly;
+		  die = collider.tag == "Poop";
+		  if (die)
 		  {
 				  gameObject.SetActive(false);
 				  gameOverText.SetActive(true); 
