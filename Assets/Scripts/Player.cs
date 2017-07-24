@@ -324,18 +324,28 @@ public class Player : MonoBehaviour {
 	
   void OnMouseDown() {
 
-  	// GetComponent("Halo").GetType().enabled = true;
 		Behaviour h = (Behaviour)GetComponent("Halo");
 		h.enabled = true;
   }
 	
   void OnMouseUp() {
 
-  	// GetComponent("Halo").GetType().enabled = false;/**/
 		Behaviour h = (Behaviour)GetComponent("Halo");
 		h.enabled = false;
 
   }
+
+	void OnMouseDrag() {
+  	
+		if(shootingMode)
+			return;
+
+		Vector3 cursorPoint = new Vector3(Input.mousePosition.x, freeMovement ? Input.mousePosition.y : 250, 0);
+		Vector3 cursorPosition = mainCamera.ScreenToWorldPoint(cursorPoint);
+
+		transform.position = ClampToScreen(cursorPosition);
+
+	}
 
 	void OnTriggerEnter(Collider collider)
   {

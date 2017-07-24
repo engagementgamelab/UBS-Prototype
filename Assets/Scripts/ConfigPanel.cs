@@ -113,7 +113,9 @@ public class ConfigPanel : MonoBehaviour {
     GameConfig.peopleInGame = villagersToggle.isOn;
     GameConfig.wizardInGame = badWizardToggle.isOn;
     GameConfig.fliesInGame = fliesToggle.isOn;
-	  GameConfig.poopInGame = poopToggle.isOn;
+    
+    if(poopToggle != null)
+	    GameConfig.poopInGame = poopToggle.isOn;
 
 		startButton.onClick.AddListener(OnStart);
 

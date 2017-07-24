@@ -25,31 +25,37 @@ public class Shooting : MonoBehaviour {
 
 		if(intervalTime >= GameConfig.numBubblesInterval) {
 
-			// if(meterImage.fillAmount == 0)
-			// 	return;
+			if(isStatic)
+			{
+				if(meterImage.fillAmount == 0)
+					return;
 
-			/*float yPos =	Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
+				float yPos = Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
 
-			if(yPos < -3.9f)
-				return;*/
+				if(yPos < -3.9f)
+					return;
+			}
 
-		 	intervalTime = 0;
+			intervalTime = 0;
+			Vector2 dir;
 
 		 	float xPos = isStatic ? Camera.main.ScreenToWorldPoint(Input.mousePosition).x : transform.position.x;
 
-			// Vector2 touchPos = new Vector2(xPos, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-			// Vector2 dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
-			Vector2 endPos = new Vector2(transform.position.x, 0);
-			Vector2 dir = endPos - new Vector2(transform.position.x, transform.position.y);
+			if(isStatic)
+			{
+				Vector2 touchPos = new Vector2(xPos, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+				dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
+			} 
+			else
+			{
+				Vector2 endPos = new Vector2(transform.position.x, 0);
+				dir = new Vector2(0, 1);
+			}
+			
 			dir.Normalize();
 			
 			GameObject projectile = Instantiate (bubble, transform.position, Quaternion.identity) as GameObject;
-//		  Vector2 lookDelta = (endPos - new Vector2(projectile.transform.position.x, projectile.transform.position.y));
-//		  
-//		  float angle = Mathf.Atan2(lookDelta.x, lookDelta.y);
-//			projectile.transform.rotation = Quaternion.Euler(0f, 0f, angle * Mathf.Rad2Deg );
-			Debug.Log(dir);
-			projectile.GetComponent<Rigidbody> ().velocity = new Vector2(0, 1) * bubbleSpeed; 
+			projectile.GetComponent<Rigidbody> ().velocity = dir * bubbleSpeed; 
 
 			Destroy(projectile, 2);
 

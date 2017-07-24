@@ -43,7 +43,7 @@ public class GameConfig : MonoBehaviour {
   public static bool wizardInGame;
   public static bool wizardFloatMovement;
   public static bool fliesInGame = true;
-  public static bool powerUpsInGame = true;
+  public static bool powerUpsInGame;
   public static bool poopInGame;
   
   public static int powerUpsCount = 0;
