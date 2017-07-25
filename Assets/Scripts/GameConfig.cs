@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameConfig : MonoBehaviour {
+public class GameConfig : MonoBehaviour
+{
+
+	public static bool sandboxMode = true;
 
   public static float numBubblesToStart = 4;
   public static float numBubblesGained = 1;
 	public static float numBubblesSpeedGained = .05f;
-  public static float numBubblesInterval = .5f;
+  public static float numBubblesInterval = .25f;
   public static float numBubblesFull = 20;
 
-  public static float peopleSpeedStart = 1;
+  public static float peopleSpeedStart = .2f;
   public static float peopleSpeedCurrent = 1;
   public static float peopleNumberPerMin = 10;
   public static float peopleAmountIncreaseFactor = 0;
-  public static float peopleSpeedIncreaseFactor = 1;
+	public static float peopleSpeedIncreaseFactor = 0;
 
   public static float wizardSpeedStart = 1;
   public static float wizardAmountIncreaseFactor = 0;
@@ -33,7 +36,7 @@ public class GameConfig : MonoBehaviour {
   public static float powerUpNumberPerMin = 10;
   
   public static float poopChance = 0.25f;
-	public static float numPoopSpeed = 1;
+	public static float numPoopSpeed = .1f;
 	public static float numPoopSize = 1;
 	public static float numPoopPerMin = 5;
 
@@ -64,7 +67,7 @@ public class GameConfig : MonoBehaviour {
 
 		peopleSpeedStart = 1;
 		peopleNumberPerMin = 10;
-		peopleSpeedIncreaseFactor = 1;
+		peopleSpeedIncreaseFactor = 0;
 		peopleAmountIncreaseFactor = 0;
 
 		wizardSpeedStart = 1;

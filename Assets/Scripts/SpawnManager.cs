@@ -44,7 +44,7 @@ public class SpawnManager : MonoBehaviour {
 		Vector3 pos = Camera.main.ScreenToWorldPoint(randomPos);
 		pos.z = 0;
 
-		speed = Mathf.Clamp(speed, 0, topSpeed);
+//		speed = Mathf.Clamp(speed, 0, topSpeed);
 
 		GameObject spawnObj = Instantiate(objToSpawn, (zeroPos ? Vector3.zero : pos), Quaternion.identity);
 
@@ -70,12 +70,20 @@ public class SpawnManager : MonoBehaviour {
 		fliesList = new List<GameObject>(FliesObject);
 
 		for(int i = 0; i < GameConfig.fliesNumberStart; i++)
-			SpawnObject(Random.Range(0, GameConfig.fliesSpeedStart), objList[1]);		
+		{
+			GameObject objToSpawn;
+			if(fliesList.Count > 1)
+				objToSpawn = fliesList[Random.Range(0, fliesList.Count)];
+			else
+				objToSpawn = fliesList[0];
+			
+			SpawnObject(Random.Range(0, GameConfig.fliesSpeedStart), objToSpawn, true);
+		}
 
 		if(wizardSpawnButton != null) {
-			wizardSpawnButton.onClick.AddListener(delegate{SpawnObject(Random.Range(0, GameConfig.wizardSpeedStart), objList[2]);});
-			wizardVillagersSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[3]);});
-			wizardVillagersFliesSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[4]);});
+			wizardSpawnButton.onClick.AddListener(delegate{SpawnObject(Random.Range(0, GameConfig.wizardSpeedStart), objList[1]);});
+			wizardVillagersSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[2]);});
+			wizardVillagersFliesSpawnButton.onClick.AddListener(delegate{SpawnObject(1, objList[3]);});
 		}
 
 	}
@@ -156,9 +164,17 @@ public class SpawnManager : MonoBehaviour {
 			else if(GameConfig.peopleInGame) {
 			
 				objToSpawn = objList[0];
+
+				if(GameConfig.sandboxMode)
+				{
+					speed = Random.Range(GameConfig.peopleSpeedStart, GameConfig.peopleSpeedStart + .2f);
+					speed *= GameConfig.peopleSpeedCurrent;
+				} 
+				else
+					speed = Random.Range(GameConfig.peopleSpeedStart, GameConfig.peopleSpeedStart + .2f);
 				
-				speed = Random.Range(0, GameConfig.peopleSpeedStart);
-				speed *= GameConfig.peopleSpeedCurrent;
+				speed = Mathf.Clamp(speed, 0, 2);
+				
 				spawnTime = 60/GameConfig.peopleNumberPerMin;
 				
 				spawn = (PersonWaitTime >= spawnTime);

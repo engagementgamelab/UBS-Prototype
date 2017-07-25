@@ -7,7 +7,7 @@ public class PoopObject : SpawnObject {
 	// Use this for initialization
 	void Start ()
 	{
-		_MoveSpeed = .05f;
+//		_MoveSpeed = .05f;
 	}
 	
 	// Update is called once per frame
