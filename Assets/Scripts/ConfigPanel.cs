@@ -65,6 +65,7 @@ public class ConfigPanel : MonoBehaviour {
   public RectTransform wizardGroup;
 
   [Header("Powerups")]
+  public Toggle powerUpToggle;
   public Slider powerUpChanceSlider;
   public Slider powerUpPerMinSlider;
   public Text powerUpChanceValue;
@@ -123,8 +124,14 @@ public class ConfigPanel : MonoBehaviour {
 
     if(wizardMovementToggle != null)
   		wizardMovementToggle.onValueChanged.AddListener(WizardMovementToggle);
-      
-    villagersToggle.onValueChanged.AddListener(VillagersToggle);
+
+	  if(powerUpToggle != null)
+	  {
+	    powerUpToggle.onValueChanged.AddListener(OnPowerUpToggle);
+	    GameConfig.powerUpsInGame = powerUpToggle.isOn;
+	  }
+
+	  villagersToggle.onValueChanged.AddListener(VillagersToggle);
 		fliesToggle.onValueChanged.AddListener(FliesToggle);
 		
 	}
@@ -326,6 +333,11 @@ public class ConfigPanel : MonoBehaviour {
     poopPerMinValue.text = poopPerMinSlider.value + "";
     GameConfig.numPoopPerMin = poopPerMinSlider.value;
 
+  }
+
+  void OnPowerUpToggle(bool value)
+  {
+    GameConfig.powerUpsInGame = value;
   }
 
   void OnStart() {

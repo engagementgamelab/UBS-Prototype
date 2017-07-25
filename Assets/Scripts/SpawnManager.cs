@@ -119,72 +119,75 @@ public class SpawnManager : MonoBehaviour {
 				WizardWaitTime = 0;
 		}
 
-		if(randValue >= GameConfig.powerUpChance && GameConfig.powerUpsInGame) {
+		if(randValue >= GameConfig.powerUpChance && GameConfig.powerUpsInGame)
+		{
 			objToSpawn = objList[4];
 
 			speed = Random.Range(1, 5);
-			spawnTime = 60/GameConfig.powerUpNumberPerMin;
-			
+			spawnTime = 60 / GameConfig.powerUpNumberPerMin;
+
 			spawn = (PowerUpWaitTime >= spawnTime);
 			if(spawn)
 				PowerUpWaitTime = 0;
-		}
+		} else
+		{
+			if(randValue >= GameConfig.poopChance && GameConfig.poopInGame)
+			{
+				objToSpawn = objList[5];
 
-		if(randValue >= GameConfig.poopChance && GameConfig.poopInGame) {
-			objToSpawn = objList[5];
+				speed = GameConfig.numPoopSpeed;
+				spawnTime = 60 / GameConfig.numPoopPerMin;
 
-			speed = GameConfig.numPoopSpeed;
-			spawnTime = 60/GameConfig.numPoopPerMin;
-			
-			spawn = (PoopWaitTime >= spawnTime);
-			if(spawn)
-				PoopWaitTime = 0;
-		}
-		else {
-			
-			if(randValue > .5f && GameConfig.fliesInGame) {
-
-				if (fliesList.Count > 1)
-					objToSpawn =
-						fliesList[Random.Range(0, fliesList.Count)];
-				else
-					objToSpawn = fliesList[0];
-				
-				speed = Random.Range(0, GameConfig.fliesSpeedStart);
-				spawnTime = 60/GameConfig.fliesNumberPerMin;
-				
-				spawn = (FlyWaitTime >= spawnTime);
-				if(spawn) {
-					FlyWaitTime = 0;
-					zeroPos = true;
-				}
-			
-			}
-
-			else if(GameConfig.peopleInGame) {
-			
-				objToSpawn = objList[0];
-
-				if(GameConfig.sandboxMode)
-				{
-					speed = Random.Range(GameConfig.peopleSpeedStart, GameConfig.peopleSpeedStart + .2f);
-					speed *= GameConfig.peopleSpeedCurrent;
-				} 
-				else
-					speed = Random.Range(GameConfig.peopleSpeedStart, GameConfig.peopleSpeedStart + .2f);
-				
-				speed = Mathf.Clamp(speed, 0, 2);
-				
-				spawnTime = 60/GameConfig.peopleNumberPerMin;
-				
-				spawn = (PersonWaitTime >= spawnTime);
+				spawn = (PoopWaitTime >= spawnTime);
 				if(spawn)
-					PersonWaitTime = 0;
-			
+					PoopWaitTime = 0;
+			} else
+			{
+
+				if(randValue > .5f && GameConfig.fliesInGame)
+				{
+
+					if(fliesList.Count > 1)
+						objToSpawn =
+							fliesList[Random.Range(0, fliesList.Count)];
+					else
+						objToSpawn = fliesList[0];
+
+					speed = Random.Range(0, GameConfig.fliesSpeedStart);
+					spawnTime = 60 / GameConfig.fliesNumberPerMin;
+
+					spawn = (FlyWaitTime >= spawnTime);
+					if(spawn)
+					{
+						FlyWaitTime = 0;
+						zeroPos = true;
+					}
+
+				} else if(GameConfig.peopleInGame)
+				{
+
+					objToSpawn = objList[0];
+
+					if(GameConfig.sandboxMode)
+					{
+						speed = Random.Range(GameConfig.peopleSpeedStart, GameConfig.peopleSpeedStart + .2f);
+						speed *= GameConfig.peopleSpeedCurrent;
+					} else
+						speed = Random.Range(GameConfig.peopleSpeedStart, GameConfig.peopleSpeedStart + .2f);
+
+					speed = Mathf.Clamp(speed, 0, 2);
+
+					spawnTime = 60 / GameConfig.peopleNumberPerMin;
+
+					spawn = (PersonWaitTime >= spawnTime);
+					if(spawn)
+						PersonWaitTime = 0;
+
+				}
+
 			}
-
 		}
-
+		
 		// Check if its the right time to spawn the object
 		if(spawn) {
 
