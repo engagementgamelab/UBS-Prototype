@@ -27,13 +27,19 @@ public class SpawnObject : MonoBehaviour {
 	[HideInInspector]
 	public int _spawnTypeIndex = 0;
 	[HideInInspector]
+	public int _direction= 0;
+	[HideInInspector]
 	public string spawnType;
+	
+	[HideInInspector]
+	public string movementDir;
+	
 	[HideInInspector]
 	public Vector3[] movementPoints = new Vector3[20];
 	[HideInInspector]
 	public float currentPathPercent = 0.0f; //min 0, max 1
 
-	[HideInInspector]
+//	[HideInInspector]
 	public float _MoveSpeed;
 	
 	MeshRenderer rend; 
@@ -58,10 +64,16 @@ public class SpawnObject : MonoBehaviour {
 
 		if(spawnType != "fly") {
 
-			float step = 10.0f * Time.deltaTime;
-
 			Vector3 target = transform.position;
-			target.y -= _MoveSpeed;
+			
+			if(movementDir == "up")
+				target.y += _MoveSpeed;
+			else if(movementDir == "right")
+				target.x += _MoveSpeed;
+			else if(movementDir == "left")
+				target.x -= _MoveSpeed;
+			else
+				target.y -= _MoveSpeed;
 
 			transform.position = Vector3.Lerp(transform.position, target, .2f);
 

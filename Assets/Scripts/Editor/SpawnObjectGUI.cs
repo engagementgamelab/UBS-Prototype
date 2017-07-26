@@ -1,4 +1,5 @@
 
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEditor;
 
@@ -13,6 +14,14 @@ public class TestOnInspector : Editor
 									       "fly",
 									       "wizard"
 									     };
+	
+	string[] movementDirections = new string[]
+	{
+		"down",
+		"up",
+		"left",
+		"right"
+	};
 
   public override void OnInspectorGUI()
   {
@@ -21,6 +30,13 @@ public class TestOnInspector : Editor
     
     // Draw the default inspector
     DrawDefaultInspector();
+    
+	  GUILayout.Label ("Movement Direction:");
+
+	  _spawnObject._direction = EditorGUILayout.Popup(_spawnObject._direction, movementDirections);
+    
+	  // // Update the selected choice in the underlying object
+	  _spawnObject.movementDir = movementDirections[_spawnObject._direction];
     
     GUILayout.Label ("Type:");
 

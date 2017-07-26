@@ -11,7 +11,8 @@ public class PowerUpObject : SpawnObject {
 	// Use this for initialization
 	void Awake () {
 
-		_MoveSpeed = .1f;
+		if(_MoveSpeed == 0)	
+			_MoveSpeed = .1f;
 
 	}
 	

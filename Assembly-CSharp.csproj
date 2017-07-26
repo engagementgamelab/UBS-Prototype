@@ -62,8 +62,10 @@
     <Compile Include="Assets\Scripts\EventHandling\Events\SwipeEvent.cs" />
     <Compile Include="Assets\Scripts\ExampleClass.cs" />
     <Compile Include="Assets\Scripts\FlyObject.cs" />
+    <Compile Include="Assets\Scripts\FlyTrigger.cs" />
     <Compile Include="Assets\Scripts\Follower.cs" />
     <Compile Include="Assets\Scripts\GameConfig.cs" />
+    <Compile Include="Assets\Scripts\GameLevel.cs" />
     <Compile Include="Assets\Scripts\LevelLoader.cs" />
     <Compile Include="Assets\Scripts\MovementButton.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
