@@ -343,8 +343,12 @@ public class ConfigPanel : MonoBehaviour {
   void OnStart() {
   	// GetComponent
   	gameObject.SetActive(false);
-    spawnManager.gameObject.SetActive(true);
-  	player.gameObject.SetActive(true);
+    
+    if(spawnManager != null)
+      spawnManager.gameObject.SetActive(true);
+  
+    player.gameObject.SetActive(true);
+    GameConfig.gamePaused = false;
   }
 
 }

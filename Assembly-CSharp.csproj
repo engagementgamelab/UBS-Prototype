@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\GameLevel.cs" />
     <Compile Include="Assets\Scripts\LevelLoader.cs" />
     <Compile Include="Assets\Scripts\MovementButton.cs" />
+    <Compile Include="Assets\Scripts\ObjectMovement.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PoopObject.cs" />
     <Compile Include="Assets\Scripts\PowerUpObject.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Assets\Scripts\SpawnObject.cs" />
     <Compile Include="Assets\Scripts\SwipeHandler.cs" />
     <Compile Include="Assets\Scripts\VillagerObject.cs" />
+    <Compile Include="Assets\Scripts\WayPoint.cs" />
     <Compile Include="Assets\Scripts\WizardObject.cs" />
     <Compile Include="Assets\TouchKit\Helpers\TKRect.cs" />
     <Compile Include="Assets\TouchKit\Helpers\TKTouch.cs" />

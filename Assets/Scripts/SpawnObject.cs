@@ -45,8 +45,8 @@ public class SpawnObject : MonoBehaviour
 //	[HideInInspector]
 	public float _MoveSpeed;
 	
-	[Range(0, 0.5f)]
-	public float localMoveSpeed = .1f;
+	[Range(1, 20)]
+	public float localMoveDuration = 1;
 	
 	MeshRenderer rend;
 
@@ -86,15 +86,23 @@ public class SpawnObject : MonoBehaviour
 
 		if(waypointStart != null && waypointEnd != null)
 		{
+			
+			movementPoints = new Vector3[2];
 			waypointEnd.parent = parent.transform;
 			waypointStart.parent = parent.transform;
+
+			movementPoints[0] = waypointEnd.position;
+			movementPoints[1] = waypointStart.position;
+			
+			iTween.MoveTo(gameObject, iTween.Hash("path", movementPoints, "islocal", true, "time", localMoveDuration, "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.easeInOutSine));
+		
 		}
 	}
 
 	// Update is called once per frame
 	public void Update () {
 
-		if(!moveEnabled)
+		if(!moveEnabled || GameConfig.gamePaused)
 			return;
 
 		if(_MoveSpeed == 0)
@@ -103,26 +111,28 @@ public class SpawnObject : MonoBehaviour
 		if(parent == null)
 			return;
 
+		float speed = _MoveSpeed * GameConfig.gameSpeedModifier;
+
 		if(spawnType != "fly") {
 
 			Vector3 target = parent.transform.position;
 			
 			if(movementDir == "up")
-				target.y += _MoveSpeed;
+				target.y += speed;
 			else if(movementDir == "right")
-				target.x += _MoveSpeed;
+				target.x += speed;
 			else if(movementDir == "left")
-				target.x -= _MoveSpeed;
+				target.x -= speed;
 			else
-				target.y -= _MoveSpeed;
+				target.y -= speed;
 
 			parent.transform.position = Vector3.Lerp(parent.transform.position, target, .2f);
 
-			if(waypointStart != null && waypointEnd != null)
+			/*if(waypointStart != null && waypointEnd != null)
 			{
 				if(moveToEnd)
 				{
-					transform.localPosition = Vector3.Lerp(transform.localPosition, waypointEnd.localPosition, localMoveSpeed);
+					transform.localPosition = Vector3.Lerp(transform.localPosition, waypointEnd.localPosition, localMoveDuration);
 					if(Vector3.Distance(transform.position, waypointEnd.position) < .1f)
 						moveToEnd = false;
 
@@ -130,12 +140,12 @@ public class SpawnObject : MonoBehaviour
 				else
 				{
 					
-					transform.localPosition = Vector3.Lerp(transform.localPosition, waypointStart.localPosition, localMoveSpeed);
+					transform.localPosition = Vector3.Lerp(transform.localPosition, waypointStart.localPosition, localMoveDuration);
 					if(Vector3.Distance(transform.position, waypointStart.position) < .1f)
 						moveToEnd = true;
 
 				}
-			}
+			}*/
 
 			if(Camera.main.WorldToViewportPoint(parent.transform.position).y < 0) {
 

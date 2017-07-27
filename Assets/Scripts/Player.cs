@@ -347,8 +347,8 @@ public class Player : MonoBehaviour {
 
 	  if (shootingMode)
 	  {
-		  bool die = collider.gameObject.GetComponent<SpawnObject>() != null && collider.gameObject.GetComponent<SpawnObject>().isFly;
-		  die = collider.tag == "Poop";
+		  bool die = (collider.gameObject.GetComponent<SpawnObject>() != null && collider.gameObject.GetComponent<SpawnObject>().isFly)
+		             || collider.tag == "Poop";
 		  if (die)
 		  {
 				  gameObject.SetActive(false);

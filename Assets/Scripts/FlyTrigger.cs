@@ -15,9 +15,10 @@ public class FlyTrigger : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-		float step = 10.0f * Time.deltaTime;
 
+		if(GameConfig.gamePaused)
+			return;
+		
 		Vector3 target = transform.position;
 		target.y -= moveSpeed;
 

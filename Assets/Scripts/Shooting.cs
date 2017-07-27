@@ -57,8 +57,6 @@ public class Shooting : MonoBehaviour {
 			GameObject projectile = Instantiate (bubble, transform.position, Quaternion.identity) as GameObject;
 			projectile.GetComponent<Rigidbody> ().velocity = dir * bubbleSpeed; 
 
-			Destroy(projectile, 2);
-
 			if(meterImage.fillAmount > 0)
 				meterImage.fillAmount -= (meterImage.fillAmount / GameConfig.numBubblesFull);
 

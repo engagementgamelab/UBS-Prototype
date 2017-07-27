@@ -40,7 +40,8 @@ public class GameConfig : MonoBehaviour
 	public static float numPoopSize = 1;
 	public static float numPoopPerMin = 5;
 
-  public static bool speedUpToggle;
+	public static bool gamePaused = true;
+	public static bool speedUpToggle;
   public static bool increaseToggle;
   public static bool peopleInGame = true;
   public static bool wizardInGame;
@@ -53,6 +54,8 @@ public class GameConfig : MonoBehaviour
   public static int fliesCaught = 0;
   public static int peopleSaved = 0;
 
+	public static float gameSpeedModifier;
+
 	// Use this for initialization
 	void Awake () {
 		
@@ -61,14 +64,18 @@ public class GameConfig : MonoBehaviour
 	}
 
 	public static void Reset() {
-		
-		numBubblesToStart = 4;
-		numBubblesGained = 1;
+    		
+    numBubblesToStart = 4;
+    numBubblesGained = 1;
+    numBubblesSpeedGained = .05f;
+    numBubblesInterval = .25f;
+    numBubblesFull = 20;
 
-		peopleSpeedStart = 1;
-		peopleNumberPerMin = 10;
-		peopleSpeedIncreaseFactor = 0;
-		peopleAmountIncreaseFactor = 0;
+    peopleSpeedStart = .2f;
+    peopleSpeedCurrent = 1;
+    peopleNumberPerMin = 10;
+    peopleAmountIncreaseFactor = 0;
+    peopleSpeedIncreaseFactor = 0;
 
 		wizardSpeedStart = 1;
 		wizardAmountIncreaseFactor = 0;

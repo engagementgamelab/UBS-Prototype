@@ -22,13 +22,13 @@ public class FlyObject : SpawnObject {
 		}
 
 		else {
-			movementPoints = new Vector3[4];
+/*			movementPoints = new Vector3[4];
 
 			movementPoints[0] = new Vector3(Random.Range(transform.localPosition.x-1, transform.localPosition.x+1), Random.Range(transform.localPosition.y-1, transform.localPosition.y+1), 0);
 			movementPoints[1] = new Vector3(Random.Range(transform.localPosition.x-1, transform.localPosition.x+1), transform.localPosition.y, 0);
 			movementPoints[2] = new Vector3(transform.localPosition.x, Random.Range(transform.localPosition.y-1, transform.localPosition.y+1), 0);
-			movementPoints[3] = new Vector3(Random.Range(transform.localPosition.x-1, transform.localPosition.x+1), transform.localPosition.y, 0);
-	   
+			movementPoints[3] = new Vector3(Random.Range(transform.localPosition.x-1, transform.localPosition.x+1), transform.localPosition.y, 0);*/
+			   
 			iTween.MoveTo(gameObject, iTween.Hash("path", movementPoints, "islocal", true, "time", Random.Range(1, 10), "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.easeInOutSine));
 		}
 
