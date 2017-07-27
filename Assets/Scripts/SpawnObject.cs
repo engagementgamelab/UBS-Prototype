@@ -5,8 +5,12 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class SpawnObject : MonoBehaviour {
+public class SpawnObject : MonoBehaviour
+{
 
+	public Transform waypointStart;
+	public Transform waypointEnd;
+	
 	public bool wizardMode;
 
 	public float MoveSpeed {
@@ -22,7 +26,6 @@ public class SpawnObject : MonoBehaviour {
 	}
 	public bool moveEnabled = true;
 	public bool isDestroyed;
-  public float percentsPerSecond = 0.5f;
 
 	[HideInInspector]
 	public int _spawnTypeIndex = 0;
@@ -42,7 +45,13 @@ public class SpawnObject : MonoBehaviour {
 //	[HideInInspector]
 	public float _MoveSpeed;
 	
-	MeshRenderer rend; 
+	[Range(0, 0.5f)]
+	public float localMoveSpeed = .1f;
+	
+	MeshRenderer rend;
+
+	GameObject parent;
+	bool moveToEnd = true;
 
   public Vector3 ClampToScreen(Vector3 vector) {
 
@@ -53,6 +62,35 @@ public class SpawnObject : MonoBehaviour {
 
   }
 	
+	void OnDrawGizmosSelected() {
+
+		if(waypointStart != null && waypointEnd != null)
+		{
+			Gizmos.color = Color.cyan;
+			Gizmos.DrawLine(waypointStart.position, waypointEnd.position);
+			
+			Gizmos.color = Color.green;
+			Gizmos.DrawCube(waypointStart.position, new Vector3(.3f, .3f, .3f));
+			Gizmos.color = Color.red;
+			Gizmos.DrawCube(waypointEnd.position, new Vector3(.3f, .3f, .3f));
+		}
+	}
+
+	public void Awake()
+	{
+
+		parent = new GameObject("Parent");
+		parent.transform.position = transform.position;
+		transform.parent = parent.transform;
+		transform.localPosition = Vector3.zero;
+
+		if(waypointStart != null && waypointEnd != null)
+		{
+			waypointEnd.parent = parent.transform;
+			waypointStart.parent = parent.transform;
+		}
+	}
+
 	// Update is called once per frame
 	public void Update () {
 
@@ -61,10 +99,13 @@ public class SpawnObject : MonoBehaviour {
 
 		if(_MoveSpeed == 0)
 			return;
+		
+		if(parent == null)
+			return;
 
 		if(spawnType != "fly") {
 
-			Vector3 target = transform.position;
+			Vector3 target = parent.transform.position;
 			
 			if(movementDir == "up")
 				target.y += _MoveSpeed;
@@ -75,9 +116,28 @@ public class SpawnObject : MonoBehaviour {
 			else
 				target.y -= _MoveSpeed;
 
-			transform.position = Vector3.Lerp(transform.position, target, .2f);
+			parent.transform.position = Vector3.Lerp(parent.transform.position, target, .2f);
 
-			if(Camera.main.WorldToViewportPoint(transform.position).y < 0) {
+			if(waypointStart != null && waypointEnd != null)
+			{
+				if(moveToEnd)
+				{
+					transform.localPosition = Vector3.Lerp(transform.localPosition, waypointEnd.localPosition, localMoveSpeed);
+					if(Vector3.Distance(transform.position, waypointEnd.position) < .1f)
+						moveToEnd = false;
+
+				} 
+				else
+				{
+					
+					transform.localPosition = Vector3.Lerp(transform.localPosition, waypointStart.localPosition, localMoveSpeed);
+					if(Vector3.Distance(transform.position, waypointStart.position) < .1f)
+						moveToEnd = true;
+
+				}
+			}
+
+			if(Camera.main.WorldToViewportPoint(parent.transform.position).y < 0) {
 
 				if(!isDestroyed)
 					Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Bad));

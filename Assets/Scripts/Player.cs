@@ -21,15 +21,13 @@ public class Player : MonoBehaviour {
 	public float bubbleFollowSpeed = .5f;
 	public float fillTime = 2; 
 
-	public bool inBossBattle = false;
+	public bool inBossBattle;
+	public bool hasBubbles;
 	public bool shootingMode;
 	public bool shootingStaticMode;
 	
   GameObject lastBubble;
 	GameObject gameOverText;
-
-	Button moveLeftBtn;
-	Button moveRightBtn;
 
 	Camera mainCamera;
 
@@ -68,7 +66,7 @@ public class Player : MonoBehaviour {
 
   void AddBubble() {
 
-  	if(shootingMode)
+  	if(!hasBubbles)
   		return;
 		
 		Transform target = (currentBubbleConfigs.Count > 0) ? currentBubbleConfigs[currentBubbleConfigs.Count-1].transform : transform;
@@ -149,7 +147,7 @@ public class Player : MonoBehaviour {
 	  	}
 			else {
 
-				if(!inBossBattle) {
+				if(hasBubbles) {
 					AddBubble();
 				}
 				else {
@@ -208,9 +206,6 @@ public class Player : MonoBehaviour {
   void MovementToggle(bool value) {
 
   	freeMovement = value;
-
-		moveLeftBtn.gameObject.SetActive(!value);
-		moveRightBtn.gameObject.SetActive(!value);
 
 		if(!freeMovement) {
 	    Vector3 lockedPos = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width/2, 250, transform.position.z));
@@ -280,12 +275,12 @@ public class Player : MonoBehaviour {
 		gameOverText = GameObject.Find("GameOver");
 		gameOverText.SetActive(false);
 
-		toggleMovement.onValueChanged.AddListener(MovementToggle);
-		toggleTrail.onValueChanged.AddListener(TrailToggle);
+		if(hasBubbles)
+		{
+			for(int i = 0; i < GameConfig.numBubblesToStart; i++)
+				AddBubble();
+		}
 
-		for(int i = 0; i < GameConfig.numBubblesToStart; i++)
-			AddBubble();
-		
 	}
 
 	void Update() {
@@ -369,7 +364,7 @@ public class Player : MonoBehaviour {
 	  	return;
 	  }
 
-	  if(collider.gameObject.tag == "Spawner" && inBossBattle) {
+	  if(collider.gameObject.tag == "Spawner" && hasBubbles) {
 	  	bossSpawnDelta = 0;
 
 			for(int i = 0; i < GameConfig.numBubblesGained; i++)
@@ -391,7 +386,7 @@ public class Player : MonoBehaviour {
   void OnTriggerExit(Collider collider)
   {		
 
-	  if(collider.gameObject.tag == "Spawner" && inBossBattle) {
+	  if(collider.gameObject.tag == "Spawner" && hasBubbles) {
 	  	
 			for(int i = 0; i < GameConfig.numBubblesGained; i++)
 				AddBubble();

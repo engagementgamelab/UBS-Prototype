@@ -28,6 +28,8 @@ public class VillagerObject : SpawnObject {
 
 	// Use this for initialization
 	void Awake () {
+		
+		base.Awake();
 
 		if(wizardMode) {
 			/*for(int i = 0; i < 4; i++) {

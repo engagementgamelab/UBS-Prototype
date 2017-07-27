@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class FlyObject : SpawnObject {
 	
+  public float percentsPerSecond = 0.5f;
 	int placeholderIndex = 0;
 	
 	// Use this for initialization

@@ -10,7 +10,8 @@ public class WizardObject : SpawnObject {
 	public RawImage healthFill;
 
 	public Transform fliesParent;
-
+ 
+  public float percentsPerSecond = 0.5f;
   public float health = 5;
 
 	int placeholderIndex = 0;

@@ -9,7 +9,10 @@ public class PowerUpObject : SpawnObject {
 	int placeholderIndex = 0;
 	
 	// Use this for initialization
-	void Awake () {
+	void Awake ()
+	{
+
+		base.Awake();
 
 		if(_MoveSpeed == 0)	
 			_MoveSpeed = .1f;

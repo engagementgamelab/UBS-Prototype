@@ -13,8 +13,4 @@ public class GameLevel : MonoBehaviour
 		GameConfig.sandboxMode = sandBoxMode;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

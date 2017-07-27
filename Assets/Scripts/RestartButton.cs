@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class RestartButton : MonoBehaviour, IPointerDownHandler {
+public class RestartButton : MonoBehaviour {
 
-	public void OnPointerDown(PointerEventData eventData)
+	public void Load(string strLevel)
   {
   	GameConfig.Reset();
-  	Application.LoadLevel("Select");      
+  	Application.LoadLevel(strLevel);      
   }
 
 }
