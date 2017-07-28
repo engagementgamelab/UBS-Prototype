@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -45,8 +46,8 @@ public class SpawnObject : MonoBehaviour
 //	[HideInInspector]
 	public float _MoveSpeed;
 	
-	[Range(1, 20)]
-	public float localMoveDuration = 1;
+	[Range(0, 0.5f)]
+	public float localMoveDuration = 0.25f;
 	
 	MeshRenderer rend;
 
@@ -82,27 +83,46 @@ public class SpawnObject : MonoBehaviour
 		parent = new GameObject("Parent");
 		parent.transform.position = transform.position;
 		transform.parent = parent.transform;
-		transform.localPosition = Vector3.zero;
-		transform.position = Vector3.zero;
 
+		
 		if(waypointStart != null && waypointEnd != null)
 		{
 			
-			movementPoints = new Vector3[2];
+			Transform[] waypoints = new Transform[2];
 			waypointEnd.parent = parent.transform;
 			waypointStart.parent = parent.transform;
 
-			movementPoints[0] = waypointEnd.position;
-			movementPoints[1] = waypointStart.position;
+			waypoints[0] = waypointEnd;
+			waypoints[1] = waypointStart;
+//			transform.localPosition = Vector3.zero;		
 			
-			iTween.MoveTo(gameObject, iTween.Hash("path", movementPoints, "islocal", true, "time", localMoveDuration, "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.easeInOutSine));
-		
+//			iTween.MoveTo(gameObject, iTween.Hash("path", waypoints, "islocal", true, "time", localMoveDuration, "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.linear));
 		}
 	}
 
 	// Update is called once per frame
 	public void Update () {
 
+			
+		if(waypointStart != null && waypointEnd != null)
+		{
+			if(moveToEnd)
+			{
+				transform.localPosition = Vector3.Lerp(transform.localPosition, waypointEnd.localPosition, Mathf.SmoothStep(0.0f, 1.0f, localMoveDuration*Time.deltaTime));
+				if(Vector3.Distance(transform.position, waypointEnd.position) < .1f)
+					moveToEnd = false;
+
+			} 
+			else
+			{
+					
+				transform.localPosition = Vector3.Lerp(transform.localPosition, waypointStart.localPosition, Mathf.SmoothStep(0.0f, 1.0f, localMoveDuration*Time.deltaTime));
+				if(Vector3.Distance(transform.position, waypointStart.position) < .1f)
+					moveToEnd = true;
+
+			}
+		}
+		
 		if(!moveEnabled || GameConfig.gamePaused)
 			return;
 
