@@ -83,6 +83,7 @@ public class SpawnObject : MonoBehaviour
 		parent.transform.position = transform.position;
 		transform.parent = parent.transform;
 		transform.localPosition = Vector3.zero;
+		transform.position = Vector3.zero;
 
 		if(waypointStart != null && waypointEnd != null)
 		{
@@ -127,26 +128,7 @@ public class SpawnObject : MonoBehaviour
 				target.y -= speed;
 
 			parent.transform.position = Vector3.Lerp(parent.transform.position, target, .2f);
-
-			/*if(waypointStart != null && waypointEnd != null)
-			{
-				if(moveToEnd)
-				{
-					transform.localPosition = Vector3.Lerp(transform.localPosition, waypointEnd.localPosition, localMoveDuration);
-					if(Vector3.Distance(transform.position, waypointEnd.position) < .1f)
-						moveToEnd = false;
-
-				} 
-				else
-				{
-					
-					transform.localPosition = Vector3.Lerp(transform.localPosition, waypointStart.localPosition, localMoveDuration);
-					if(Vector3.Distance(transform.position, waypointStart.position) < .1f)
-						moveToEnd = true;
-
-				}
-			}*/
-
+			
 			if(Camera.main.WorldToViewportPoint(parent.transform.position).y < 0) {
 
 				if(!isDestroyed)

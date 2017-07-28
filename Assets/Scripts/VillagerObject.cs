@@ -32,11 +32,6 @@ public class VillagerObject : SpawnObject {
 		base.Awake();
 
 		if(wizardMode) {
-			/*for(int i = 0; i < 4; i++) {
-				Vector3 v = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0);
-				Debug.Log(v);
-				movementPoints[i] = v;
-			}*/
 
 			movements[0] = transform.localPosition;
 			movements[1] = new Vector3(Random.Range(transform.position.x-15, transform.position.x+15), transform.position.y, 0);
@@ -80,10 +75,8 @@ public class VillagerObject : SpawnObject {
 		if(collider.tag != "Bubble")
 			return;
 
-		// Transform t = (Transform)GetComponentsInChildren(typeof(BubbleSpace))[placeholderIndex].transform;
 		placeholderIndex++;
 
-		// BubbleMount(t, collider.gameObject);
 		Events.instance.Raise (new HitEvent(HitEvent.Type.PowerUp, collider, collider.gameObject));
 
 		Vector2 v = healthFill.rectTransform.sizeDelta;
@@ -98,8 +91,6 @@ public class VillagerObject : SpawnObject {
 
 			isDestroyed = true;
 			GameConfig.peopleSaved++;
-
-			return;
 		}
 
 	}

@@ -9,7 +9,7 @@ public class ObjectMovement : MonoBehaviour
 	
 	private List<Vector3> waypoints;
 	private float currentPathPercent;
-
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -30,18 +30,15 @@ public class ObjectMovement : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
-		
-//	        
+		        
 		currentPathPercent = localMoveDuration * Time.deltaTime;
 		
-		Debug.Log(iTween.PointOnPath(waypoints.ToArray(), Mathf.PingPong(Time.time, localMoveDuration)));
+		Vector3 lookVector = iTween.PointOnPath(waypoints.ToArray(), Mathf.PingPong(Time.time, localMoveDuration)+.1f);
+		Vector3 lookDelta = (lookVector - transform.position);
 
-//
-//		Vector3 lookVector = iTween.PointOnPath(movementPoints, currentPathPercent + 0.05f);
-//		Vector3 lookDelta = (lookVector - transform.position);
-//	      
-//		float angle = Mathf.Atan2(lookDelta.x, lookDelta.y);
-//		transform.rotation = Quaternion.Euler(0f, 0f, angle * Mathf.Rad2Deg );
+		float angle = Mathf.Atan2(lookDelta.y, lookDelta.x) * Mathf.Rad2Deg;
+		transform.rotation = Quaternion.Euler(0f, 0f, angle);
+//		transform.LookAt(lookDelta);
+		
 	}
 }
