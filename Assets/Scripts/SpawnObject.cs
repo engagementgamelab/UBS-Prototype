@@ -108,7 +108,7 @@ public class SpawnObject : MonoBehaviour
 		{
 			if(moveToEnd)
 			{
-				transform.localPosition = Vector3.Lerp(transform.localPosition, waypointEnd.localPosition, Mathf.SmoothStep(0.0f, 1.0f, localMoveDuration*Time.deltaTime));
+				transform.localPosition = Vector3.MoveTowards(transform.localPosition, waypointEnd.localPosition, localMoveDuration*Time.deltaTime);
 				if(Vector3.Distance(transform.position, waypointEnd.position) < .1f)
 					moveToEnd = false;
 
@@ -116,7 +116,7 @@ public class SpawnObject : MonoBehaviour
 			else
 			{
 					
-				transform.localPosition = Vector3.Lerp(transform.localPosition, waypointStart.localPosition, Mathf.SmoothStep(0.0f, 1.0f, localMoveDuration*Time.deltaTime));
+				transform.localPosition = Vector3.MoveTowards(transform.localPosition, waypointStart.localPosition, localMoveDuration*Time.deltaTime);
 				if(Vector3.Distance(transform.position, waypointStart.position) < .1f)
 					moveToEnd = true;
 

@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7e86fde-16f4-4491-9f32-db86e6e49521" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Assets/Scenes/LevelDesigner.unity" afterPath="$PROJECT_DIR$/Assets/Scenes/LevelDesigner.unity" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.idea.UBS-Prototype/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/.idea.UBS-Prototype/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs" afterPath="$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -188,26 +185,26 @@
       <file leaf-file-name="SpawnObject.cs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="125" column="26" lean-forward="false" selection-start-line="125" selection-start-column="26" selection-end-line="125" selection-end-column="26" />
+            <state relative-caret-position="350">
+              <caret line="118" column="54" lean-forward="false" selection-start-line="118" selection-start-column="54" selection-end-line="118" selection-end-column="54" />
               <folding>
-                <marker date="1501281428000" expanded="false" signature="6:150" ph="..." />
-                <marker date="1501281428000" expanded="true" signature="199:3737" ph="{...}" />
-                <marker date="1501281428000" expanded="true" signature="319:382" ph="{...}" />
-                <marker date="1501281428000" expanded="true" signature="405:448" ph="{...}" />
-                <marker date="1501281428000" expanded="true" signature="468:509" ph="{...}" />
-                <marker date="1501281428000" expanded="true" signature="1134:1227" ph="{...}" />
-                <marker date="1501281428000" expanded="false" signature="1259:1625" ph="{...}" />
-                <marker date="1501281428000" expanded="true" signature="1312:1622" ph="{...}" />
-                <marker date="1501281428000" expanded="true" signature="1647:2276" ph="{...}" />
-                <marker date="1501281428000" expanded="true" signature="1832:2273" ph="{...}" />
-                <marker date="1501281428000" expanded="true" signature="2037:2269" ph="/* transform.localPosition = Vector3.zero; ... */" />
-                <marker date="1501281428000" expanded="true" signature="2337:3734" ph="{...}" />
-                <marker date="1501281428000" expanded="true" signature="2394:2973" ph="{...}" />
-                <marker date="1501281428000" expanded="true" signature="2415:2683" ph="{...}" />
-                <marker date="1501281428000" expanded="true" signature="2692:2969" ph="{...}" />
-                <marker date="1501281428000" expanded="true" signature="3187:3728" ph="{...}" />
-                <marker date="1501281428000" expanded="true" signature="3600:3723" ph="{...}" />
+                <marker date="1501281937000" expanded="false" signature="6:150" ph="..." />
+                <marker date="1501281937000" expanded="true" signature="199:3691" ph="{...}" />
+                <marker date="1501281937000" expanded="true" signature="319:382" ph="{...}" />
+                <marker date="1501281937000" expanded="true" signature="405:448" ph="{...}" />
+                <marker date="1501281937000" expanded="true" signature="468:509" ph="{...}" />
+                <marker date="1501281937000" expanded="true" signature="1134:1227" ph="{...}" />
+                <marker date="1501281937000" expanded="false" signature="1259:1625" ph="{...}" />
+                <marker date="1501281937000" expanded="true" signature="1312:1622" ph="{...}" />
+                <marker date="1501281937000" expanded="true" signature="1647:2276" ph="{...}" />
+                <marker date="1501281937000" expanded="true" signature="1832:2273" ph="{...}" />
+                <marker date="1501281937000" expanded="true" signature="2037:2269" ph="/* transform.localPosition = Vector3.zero; ... */" />
+                <marker date="1501281937000" expanded="true" signature="2337:3688" ph="{...}" />
+                <marker date="1501281937000" expanded="true" signature="2394:2927" ph="{...}" />
+                <marker date="1501281937000" expanded="true" signature="2415:2660" ph="{...}" />
+                <marker date="1501281937000" expanded="true" signature="2669:2923" ph="{...}" />
+                <marker date="1501281937000" expanded="true" signature="3141:3682" ph="{...}" />
+                <marker date="1501281937000" expanded="true" signature="3554:3677" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -506,12 +503,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1500921637561</updated>
-      <workItem from="1500921641207" duration="45837000" />
+      <workItem from="1500921641207" duration="46063000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45837000" />
+    <option name="totallyTimeSpent" value="46063000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -573,7 +570,7 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs</url>
           <line>126</line>
-          <properties startOffset="3024" endOffset="3031" documentPath="$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs" />
+          <properties startOffset="2978" endOffset="2985" documentPath="$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs" />
           <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
@@ -972,26 +969,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="125" column="26" lean-forward="false" selection-start-line="125" selection-start-column="26" selection-end-line="125" selection-end-column="26" />
+        <state relative-caret-position="350">
+          <caret line="118" column="54" lean-forward="false" selection-start-line="118" selection-start-column="54" selection-end-line="118" selection-end-column="54" />
           <folding>
-            <marker date="1501281428000" expanded="false" signature="6:150" ph="..." />
-            <marker date="1501281428000" expanded="true" signature="199:3737" ph="{...}" />
-            <marker date="1501281428000" expanded="true" signature="319:382" ph="{...}" />
-            <marker date="1501281428000" expanded="true" signature="405:448" ph="{...}" />
-            <marker date="1501281428000" expanded="true" signature="468:509" ph="{...}" />
-            <marker date="1501281428000" expanded="true" signature="1134:1227" ph="{...}" />
-            <marker date="1501281428000" expanded="false" signature="1259:1625" ph="{...}" />
-            <marker date="1501281428000" expanded="true" signature="1312:1622" ph="{...}" />
-            <marker date="1501281428000" expanded="true" signature="1647:2276" ph="{...}" />
-            <marker date="1501281428000" expanded="true" signature="1832:2273" ph="{...}" />
-            <marker date="1501281428000" expanded="true" signature="2037:2269" ph="/* transform.localPosition = Vector3.zero; ... */" />
-            <marker date="1501281428000" expanded="true" signature="2337:3734" ph="{...}" />
-            <marker date="1501281428000" expanded="true" signature="2394:2973" ph="{...}" />
-            <marker date="1501281428000" expanded="true" signature="2415:2683" ph="{...}" />
-            <marker date="1501281428000" expanded="true" signature="2692:2969" ph="{...}" />
-            <marker date="1501281428000" expanded="true" signature="3187:3728" ph="{...}" />
-            <marker date="1501281428000" expanded="true" signature="3600:3723" ph="{...}" />
+            <marker date="1501281937000" expanded="false" signature="6:150" ph="..." />
+            <marker date="1501281937000" expanded="true" signature="199:3691" ph="{...}" />
+            <marker date="1501281937000" expanded="true" signature="319:382" ph="{...}" />
+            <marker date="1501281937000" expanded="true" signature="405:448" ph="{...}" />
+            <marker date="1501281937000" expanded="true" signature="468:509" ph="{...}" />
+            <marker date="1501281937000" expanded="true" signature="1134:1227" ph="{...}" />
+            <marker date="1501281937000" expanded="false" signature="1259:1625" ph="{...}" />
+            <marker date="1501281937000" expanded="true" signature="1312:1622" ph="{...}" />
+            <marker date="1501281937000" expanded="true" signature="1647:2276" ph="{...}" />
+            <marker date="1501281937000" expanded="true" signature="1832:2273" ph="{...}" />
+            <marker date="1501281937000" expanded="true" signature="2037:2269" ph="/* transform.localPosition = Vector3.zero; ... */" />
+            <marker date="1501281937000" expanded="true" signature="2337:3688" ph="{...}" />
+            <marker date="1501281937000" expanded="true" signature="2394:2927" ph="{...}" />
+            <marker date="1501281937000" expanded="true" signature="2415:2660" ph="{...}" />
+            <marker date="1501281937000" expanded="true" signature="2669:2923" ph="{...}" />
+            <marker date="1501281937000" expanded="true" signature="3141:3682" ph="{...}" />
+            <marker date="1501281937000" expanded="true" signature="3554:3677" ph="{...}" />
           </folding>
         </state>
       </provider>
