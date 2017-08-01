@@ -7,7 +7,7 @@ public class GameLevel : MonoBehaviour
 
 	public bool sandBoxMode;
 	
-	[Range(0, 10)]
+	[Range(0, 30)]
 	public float gameSpeed = 1;
 
 	// Use this for initialization

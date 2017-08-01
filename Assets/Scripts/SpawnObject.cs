@@ -147,7 +147,7 @@ public class SpawnObject : MonoBehaviour
 			else
 				target.y -= speed;
 
-			parent.transform.position = Vector3.Lerp(parent.transform.position, target, .2f);
+			parent.transform.position = Vector3.Lerp(parent.transform.position, target, Time.deltaTime);
 			
 			if(Camera.main.WorldToViewportPoint(parent.transform.position).y < 0) {
 
