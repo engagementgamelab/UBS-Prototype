@@ -46,8 +46,8 @@ public class SpawnObject : MonoBehaviour
 //	[HideInInspector]
 	public float _MoveSpeed;
 	
-	[Range(0, 0.5f)]
-	public float localMoveDuration = 0.25f;
+	[Range(0, 10f)]
+	public float localMoveDuration = 1f;
 	
 	MeshRenderer rend;
 
