@@ -94,15 +94,12 @@ public class SpawnObject : MonoBehaviour
 
 			waypoints[0] = waypointEnd;
 			waypoints[1] = waypointStart;
-//			transform.localPosition = Vector3.zero;		
 			
-//			iTween.MoveTo(gameObject, iTween.Hash("path", waypoints, "islocal", true, "time", localMoveDuration, "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.linear));
 		}
 	}
 
 	// Update is called once per frame
 	public void Update () {
-
 			
 		if(waypointStart != null && waypointEnd != null)
 		{

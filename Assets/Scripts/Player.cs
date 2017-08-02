@@ -290,7 +290,7 @@ public class Player : MonoBehaviour {
   	if(shootingMode) {
   		if(shootingStaticMode) return;
 
-	  	targetPosition = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, transform.position.z);
+	  	targetPosition = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y + .5f, transform.position.z);
 			transform.position = ClampToScreen(Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime));
 		}
   	else
@@ -335,7 +335,7 @@ public class Player : MonoBehaviour {
 		if(shootingMode)
 			return;
 
-		Vector3 cursorPoint = new Vector3(Input.mousePosition.x, freeMovement ? Input.mousePosition.y : 250, 0);
+		Vector3 cursorPoint = new Vector3(Input.mousePosition.x, freeMovement ? Input.mousePosition.y - 50 : 250, 0);
 		Vector3 cursorPosition = mainCamera.ScreenToWorldPoint(cursorPoint);
 
 		transform.position = ClampToScreen(cursorPosition);
