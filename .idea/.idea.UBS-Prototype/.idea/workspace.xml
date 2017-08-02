@@ -5,8 +5,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Assets/Scenes/JohnnyScene.unity" afterPath="$PROJECT_DIR$/Assets/Scenes/JohnnyScene.unity" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Assets/Scenes/Select.unity" afterPath="$PROJECT_DIR$/Assets/Scenes/Select.unity" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.idea.UBS-Prototype/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/.idea.UBS-Prototype/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Assets/Scripts/FlyObject.cs" afterPath="$PROJECT_DIR$/Assets/Scripts/FlyObject.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs" afterPath="$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Assets/Scripts/FlyTrigger.cs" afterPath="$PROJECT_DIR$/Assets/Scripts/FlyTrigger.cs" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,17 +17,17 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="FlyTrigger.cs" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FlyTrigger.cs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/FlyTrigger.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="25" lean-forward="false" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="25" />
+            <state relative-caret-position="405">
+              <caret line="27" column="44" lean-forward="false" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
               <folding>
-                <marker date="1501688156000" expanded="true" signature="6:78" ph="..." />
-                <marker date="1501688156000" expanded="true" signature="120:667" ph="{...}" />
-                <marker date="1501688156000" expanded="true" signature="231:238" ph="{...}" />
-                <marker date="1501688156000" expanded="true" signature="293:665" ph="{...}" />
-                <marker date="1501688156000" expanded="true" signature="571:659" ph="{...}" />
+                <marker date="1501702259000" expanded="true" signature="6:78" ph="..." />
+                <marker date="1501702259000" expanded="true" signature="120:673" ph="{...}" />
+                <marker date="1501702259000" expanded="true" signature="231:238" ph="{...}" />
+                <marker date="1501702259000" expanded="true" signature="293:671" ph="{...}" />
+                <marker date="1501702259000" expanded="true" signature="571:665" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -128,7 +127,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SpawnObject.cs" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SpawnObject.cs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="564">
@@ -293,12 +292,12 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/WayPoint.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/VillagerObject.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Editor/SpawnObjectGUI.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/FlyTrigger.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Player.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameLevel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ObjectMovement.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/FlyObject.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/FlyTrigger.cs" />
       </list>
     </option>
   </component>
@@ -498,12 +497,12 @@
       <option name="presentableId" value="Default" />
       <updated>1500921637561</updated>
       <workItem from="1500921641207" duration="46569000" />
-      <workItem from="1501511891269" duration="7501000" />
+      <workItem from="1501511891269" duration="7801000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54070000" />
+    <option name="totallyTimeSpent" value="54370000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -562,18 +561,6 @@
           <properties startOffset="5195" endOffset="5202" documentPath="$PROJECT_DIR$/Assets/Scripts/SpawnManager.cs" />
           <option name="timeStamp" value="33" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs</url>
-          <line>154</line>
-          <properties startOffset="3650" endOffset="3657" documentPath="$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs" />
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs</url>
-          <line>151</line>
-          <properties startOffset="3615" endOffset="3622" documentPath="$PROJECT_DIR$/Assets/Scripts/SpawnObject.cs" />
-          <option name="timeStamp" value="66" />
-        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -608,11 +595,11 @@
         <state relative-caret-position="0">
           <caret line="2" column="18" lean-forward="false" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
           <folding>
-            <marker date="1501688156000" expanded="true" signature="6:78" ph="..." />
-            <marker date="1501688156000" expanded="true" signature="120:667" ph="{...}" />
-            <marker date="1501688156000" expanded="true" signature="231:238" ph="{...}" />
-            <marker date="1501688156000" expanded="true" signature="293:665" ph="{...}" />
-            <marker date="1501688156000" expanded="true" signature="571:659" ph="{...}" />
+            <marker date="1501702259000" expanded="true" signature="6:78" ph="..." />
+            <marker date="1501702259000" expanded="true" signature="120:673" ph="{...}" />
+            <marker date="1501702259000" expanded="true" signature="231:238" ph="{...}" />
+            <marker date="1501702259000" expanded="true" signature="293:671" ph="{...}" />
+            <marker date="1501702259000" expanded="true" signature="571:665" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1033,20 +1020,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Scripts/FlyTrigger.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="25" lean-forward="false" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="25" />
-          <folding>
-            <marker date="1501688156000" expanded="true" signature="6:78" ph="..." />
-            <marker date="1501688156000" expanded="true" signature="120:667" ph="{...}" />
-            <marker date="1501688156000" expanded="true" signature="231:238" ph="{...}" />
-            <marker date="1501688156000" expanded="true" signature="293:665" ph="{...}" />
-            <marker date="1501688156000" expanded="true" signature="571:659" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/Player.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="337">
@@ -1159,6 +1132,20 @@
             <marker date="1501701106000" expanded="true" signature="2843:3094" ph="{...}" />
             <marker date="1501701106000" expanded="true" signature="3151:3530" ph="{...}" />
             <marker date="1501701106000" expanded="true" signature="4171:4301" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/FlyTrigger.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="44" lean-forward="false" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
+          <folding>
+            <marker date="1501702259000" expanded="true" signature="6:78" ph="..." />
+            <marker date="1501702259000" expanded="true" signature="120:673" ph="{...}" />
+            <marker date="1501702259000" expanded="true" signature="231:238" ph="{...}" />
+            <marker date="1501702259000" expanded="true" signature="293:671" ph="{...}" />
+            <marker date="1501702259000" expanded="true" signature="571:665" ph="{...}" />
           </folding>
         </state>
       </provider>
