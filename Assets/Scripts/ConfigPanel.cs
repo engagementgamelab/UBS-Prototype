@@ -133,6 +133,15 @@ public class ConfigPanel : MonoBehaviour {
 
 	  villagersToggle.onValueChanged.AddListener(VillagersToggle);
 		fliesToggle.onValueChanged.AddListener(FliesToggle);
+	  
+	  // HACK
+	  gameObject.SetActive(false);
+    
+	  if(spawnManager != null)
+	    spawnManager.gameObject.SetActive(true);
+  
+	  player.gameObject.SetActive(true);
+	  GameConfig.gamePaused = false;
 		
 	}
 
@@ -339,6 +348,7 @@ public class ConfigPanel : MonoBehaviour {
   {
     GameConfig.powerUpsInGame = value;
   }
+
 
   void OnStart() {
   	// GetComponent

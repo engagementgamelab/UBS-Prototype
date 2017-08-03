@@ -40,6 +40,7 @@ public class Player : MonoBehaviour {
   bool moveLeft = false;
   bool moveRight = false;
   bool moveDelta = false;
+	private bool wonGame;
 
 	Vector3 velocity = Vector3.zero;
   Vector3 deltaMovement;
@@ -113,10 +114,9 @@ public class Player : MonoBehaviour {
 	  	if(collider.gameObject.GetComponent<SpawnObject>() != null &&
 	  		 collider.gameObject.GetComponent<SpawnObject>().isEnemy) {
 
-	  		if(currentBubbles.Count == 0) {
+	  		if(currentBubbles.Count == 0 && !wonGame) {
 	  			gameObject.SetActive(false);
-	  			gameOverText.SetActive(true);
-	  			// countText.gameObject.SetActive(true);
+	  			gameOverText.SetActive(true);;
 
 	  			// countText.text = "Power-ups captured: " + GameConfig.powerUpsCount;
 
@@ -253,6 +253,12 @@ public class Player : MonoBehaviour {
 
 
 	}
+	
+	void OnDeathEvent(DeathEvent e)
+	{
+		wonGame = e.wonGame;
+		
+	}
 
 	void Awake () {
 
@@ -261,8 +267,11 @@ public class Player : MonoBehaviour {
 
 		Events.instance.AddListener<MovementEvent> (OnMovementEvent);
 		Events.instance.AddListener<HitEvent> (BubbleHitEvent);
-		// Events.instance.AddListener<SwipeEvent> (OnSwipeEvent);
+		Events.instance.AddListener<DeathEvent> (OnDeathEvent);
 		Events.instance.AddListener<ScoreEvent> (OnScoreEvent);
+		
+		goodScoreText.gameObject.SetActive(false);
+		badScoreText.gameObject.SetActive(false);
 	
 	}
 
@@ -280,7 +289,7 @@ public class Player : MonoBehaviour {
 			for(int i = 0; i < GameConfig.numBubblesToStart; i++)
 				AddBubble();
 		}
-
+		
 	}
 
 	void Update() {
@@ -314,6 +323,7 @@ public class Player : MonoBehaviour {
 		Events.instance.RemoveListener<MovementEvent> (OnMovementEvent);
 		Events.instance.RemoveListener<HitEvent> (BubbleHitEvent);
 		Events.instance.RemoveListener<ScoreEvent> (OnScoreEvent);
+		Events.instance.RemoveListener<DeathEvent> (OnDeathEvent);
 
 	}
 	
@@ -349,7 +359,7 @@ public class Player : MonoBehaviour {
 	  {
 		  bool die = (collider.gameObject.GetComponent<SpawnObject>() != null && collider.gameObject.GetComponent<SpawnObject>().isFly)
 		             || collider.tag == "Poop";
-		  if (die)
+		  if (die && !wonGame)
 		  {
 				  gameObject.SetActive(false);
 				  gameOverText.SetActive(true); 

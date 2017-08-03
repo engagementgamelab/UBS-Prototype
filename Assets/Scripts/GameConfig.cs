@@ -67,8 +67,8 @@ public class GameConfig : MonoBehaviour
     		
     numBubblesToStart = 4;
     numBubblesGained = 1;
-    numBubblesSpeedGained = .05f;
-    numBubblesInterval = .25f;
+//    numBubblesSpeedGained = .05f;
+//    numBubblesInterval = .25f;
     numBubblesFull = 20;
 
     peopleSpeedStart = .2f;
