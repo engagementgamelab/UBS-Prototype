@@ -244,11 +244,11 @@ public class Player : MonoBehaviour {
 
 		if(e.eventType == ScoreEvent.Type.Good) {
 			currentGoodScore += e.scoreAmount;
-			goodScoreText.text = "Good Wizard: " + currentGoodScore;
+//			goodScoreText.text = "Good Wizard: " + currentGoodScore;
 		}
 		else {
 			currentBadScore += e.scoreAmount;
-			badScoreText.text = "Bad Wizard: " + currentBadScore;
+//			badScoreText.text = "Bad Wizard: " + currentBadScore;
 		}
 
 
@@ -270,9 +270,7 @@ public class Player : MonoBehaviour {
 		Events.instance.AddListener<DeathEvent> (OnDeathEvent);
 		Events.instance.AddListener<ScoreEvent> (OnScoreEvent);
 		
-		goodScoreText.gameObject.SetActive(false);
-		badScoreText.gameObject.SetActive(false);
-	
+
 	}
 
 	// Use this for initialization

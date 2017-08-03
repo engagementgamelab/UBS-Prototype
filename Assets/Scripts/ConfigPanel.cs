@@ -87,10 +87,12 @@ public class ConfigPanel : MonoBehaviour {
 
   public RectTransform badWizardGroup;
   public SpawnManager spawnManager;
-  public Player player;
+  GameObject player;
 
 	// Use this for initialization
 	void Start () {
+	
+	  player = GameObject.Find("Player");
 
     if(bubblesCapacitySlider != null)
       bubblesCapacitySlider.onValueChanged.AddListener(delegate {OnBubblesCapacitySlider(); });
