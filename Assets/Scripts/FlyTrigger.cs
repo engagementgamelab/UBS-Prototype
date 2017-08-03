@@ -24,8 +24,9 @@ public class FlyTrigger : MonoBehaviour {
 
 		transform.position = Vector3.Lerp(transform.position, target, .2f);
 	
-		if(Camera.main.WorldToViewportPoint(transform.position).y < 1) {
-			Instantiate(prefab, transform.position, Quaternion.identity);
+		if(Camera.main.WorldToViewportPoint(transform.position).y < 3.5f) {
+			GameObject fly = Instantiate(prefab, transform.position, Quaternion.identity);
+//			fly.transform.parent.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 			Destroy(gameObject);
 		}
 		

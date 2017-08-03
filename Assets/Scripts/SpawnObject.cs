@@ -82,6 +82,7 @@ public class SpawnObject : MonoBehaviour
 	{
 
 		parent = new GameObject("Parent");
+
 		parent.transform.position = transform.position;
 		transform.parent = parent.transform;
 
@@ -132,17 +133,6 @@ public class SpawnObject : MonoBehaviour
 					moveToEnd = true;
 
 			}
-		} 
-		else if(waypoints != null && waypoints.Count > 0)
-		{
-			
-			currentPathPercent = localMoveDuration * Time.deltaTime;
-		
-			Vector3 lookVector = iTween.PointOnPath(waypoints.ToArray(), Mathf.PingPong(Time.time, localMoveDuration)+.1f);
-			Vector3 lookDelta = (lookVector - transform.position);
-
-			float angle = Mathf.Atan2(lookDelta.y, lookDelta.x) * Mathf.Rad2Deg;
-			transform.rotation = Quaternion.Euler(0f, 0f, angle);	
 		}
 		
 		if(!moveEnabled || GameConfig.gamePaused)

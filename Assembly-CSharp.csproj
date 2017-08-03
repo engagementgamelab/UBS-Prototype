@@ -54,8 +54,10 @@
     <Compile Include="Assets\Scripts\BubbleParticles.cs" />
     <Compile Include="Assets\Scripts\BubbleSpace.cs" />
     <Compile Include="Assets\Scripts\ConfigPanel.cs" />
+    <Compile Include="Assets\Scripts\EndTrigger.cs" />
     <Compile Include="Assets\Scripts\EventHandling\Events.cs" />
     <Compile Include="Assets\Scripts\EventHandling\Events\BubbleEvent.cs" />
+    <Compile Include="Assets\Scripts\EventHandling\Events\DeathEvent.cs" />
     <Compile Include="Assets\Scripts\EventHandling\Events\HitEvent.cs" />
     <Compile Include="Assets\Scripts\EventHandling\Events\MovementEvent.cs" />
     <Compile Include="Assets\Scripts\EventHandling\Events\ScoreEvent.cs" />
