@@ -29,4 +29,9 @@ public class LevelLoader : MonoBehaviour {
     Application.LoadLevel("ShootingStatic");
 
   }
+  public void Load(string strLevel) {
+
+    Application.LoadLevel(strLevel);
+
+  }
 }

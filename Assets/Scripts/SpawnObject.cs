@@ -53,6 +53,7 @@ public class SpawnObject : MonoBehaviour
 
 	GameObject parent;
 	bool moveToEnd = true;
+	List<Vector3> waypoints;
 
   public Vector3 ClampToScreen(Vector3 vector) {
 
@@ -84,43 +85,64 @@ public class SpawnObject : MonoBehaviour
 		parent.transform.position = transform.position;
 		transform.parent = parent.transform;
 
-		
 		if(waypointStart != null && waypointEnd != null)
 		{
-			
+
 			Transform[] waypoints = new Transform[2];
 			waypointEnd.parent = parent.transform;
 			waypointStart.parent = parent.transform;
 
 			waypoints[0] = waypointEnd;
 			waypoints[1] = waypointStart;
-//			transform.localPosition = Vector3.zero;		
-			
-//			iTween.MoveTo(gameObject, iTween.Hash("path", waypoints, "islocal", true, "time", localMoveDuration, "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.linear));
+
+		} 
+		else
+		{
+		
+			waypoints = new List<Vector3>();
+			foreach(Transform tr in transform)
+			{
+				if(tr.tag == "Waypoint")
+				{
+					waypoints.Add(tr.position);
+				}
+			}
+
+			if(waypoints.Count > 0)
+				iTween.MoveTo(gameObject, iTween.Hash("path", waypoints.ToArray(), "islocal", true, "time", localMoveDuration, "looptype", iTween.LoopType.pingPong, "easetype", iTween.EaseType.linear));
 		}
 	}
 
 	// Update is called once per frame
 	public void Update () {
 
-			
 		if(waypointStart != null && waypointEnd != null)
 		{
 			if(moveToEnd)
 			{
-				transform.localPosition = Vector3.MoveTowards(transform.localPosition, waypointEnd.localPosition, localMoveDuration*Time.deltaTime);
+				transform.localPosition = Vector3.MoveTowards(transform.localPosition, waypointEnd.localPosition, localMoveDuration * Time.deltaTime);
 				if(Vector3.Distance(transform.position, waypointEnd.position) < .1f)
 					moveToEnd = false;
 
-			} 
-			else
+			} else
 			{
-					
-				transform.localPosition = Vector3.MoveTowards(transform.localPosition, waypointStart.localPosition, localMoveDuration*Time.deltaTime);
+
+				transform.localPosition = Vector3.MoveTowards(transform.localPosition, waypointStart.localPosition, localMoveDuration * Time.deltaTime);
 				if(Vector3.Distance(transform.position, waypointStart.position) < .1f)
 					moveToEnd = true;
 
 			}
+		} 
+		else if(waypoints != null && waypoints.Count > 0)
+		{
+			
+			currentPathPercent = localMoveDuration * Time.deltaTime;
+		
+			Vector3 lookVector = iTween.PointOnPath(waypoints.ToArray(), Mathf.PingPong(Time.time, localMoveDuration)+.1f);
+			Vector3 lookDelta = (lookVector - transform.position);
+
+			float angle = Mathf.Atan2(lookDelta.y, lookDelta.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.Euler(0f, 0f, angle);	
 		}
 		
 		if(!moveEnabled || GameConfig.gamePaused)
@@ -134,7 +156,7 @@ public class SpawnObject : MonoBehaviour
 
 		float speed = _MoveSpeed * GameConfig.gameSpeedModifier;
 
-		if(spawnType != "fly") {
+//		if(spawnType != "fly") {
 
 			Vector3 target = parent.transform.position;
 			
@@ -147,17 +169,17 @@ public class SpawnObject : MonoBehaviour
 			else
 				target.y -= speed;
 
-			parent.transform.position = Vector3.Lerp(parent.transform.position, target, .2f);
+			parent.transform.position = Vector3.Lerp(parent.transform.position, target, Time.deltaTime);
 			
-			if(Camera.main.WorldToViewportPoint(parent.transform.position).y < 0) {
+			if(Camera.main.WorldToViewportPoint(parent.transform.position).y < -1) {
 
 				if(!isDestroyed)
 					Events.instance.Raise (new ScoreEvent(1, ScoreEvent.Type.Bad));
 
-				Destroy(gameObject);
+				Destroy(parent.gameObject);
 			}
 
-		}
+//		}
 		
 	}
 
