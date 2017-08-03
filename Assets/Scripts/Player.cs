@@ -269,6 +269,9 @@ public class Player : MonoBehaviour {
 		Events.instance.AddListener<HitEvent> (BubbleHitEvent);
 		Events.instance.AddListener<DeathEvent> (OnDeathEvent);
 		Events.instance.AddListener<ScoreEvent> (OnScoreEvent);
+		
+		goodScoreText.gameObject.SetActive(false);
+		badScoreText.gameObject.SetActive(false);
 	
 	}
 
@@ -286,7 +289,7 @@ public class Player : MonoBehaviour {
 			for(int i = 0; i < GameConfig.numBubblesToStart; i++)
 				AddBubble();
 		}
-
+		
 	}
 
 	void Update() {

@@ -13,6 +13,10 @@ public class GameLevel : MonoBehaviour
 	
 	public Slider gameSpeedSlider;
 	public Text gameSpeedText;
+	public Slider speedGainSlider;
+	public Text speedGainText;
+	public Slider intervalSlider;
+	public Text intervalText;
 
 	// Use this for initialization
 	void Awake ()
@@ -21,6 +25,32 @@ public class GameLevel : MonoBehaviour
 		
 		if(GameConfig.gameSpeedModifier == 0)
 			GameConfig.gameSpeedModifier = gameSpeed;
+	}
+
+	void Start()
+	{
+		if(speedGainText == null) return;
+		
+		speedGainText.text = GameConfig.numBubblesSpeedGained + "";
+		speedGainSlider.value = GameConfig.numBubblesSpeedGained;
+
+		intervalText.text = GameConfig.numBubblesInterval + "";
+		intervalSlider.value = GameConfig.numBubblesInterval;
+
+		gameSpeedText.text = GameConfig.gameSpeedModifier + "";
+		gameSpeedSlider.value = GameConfig.gameSpeedModifier;
+	}
+
+	public void AdjustSpeedGain()
+	{
+		GameConfig.numBubblesSpeedGained = speedGainSlider.value;
+		speedGainText.text = speedGainSlider.value + "";
+	}
+
+	public void AdjustInterval()
+	{
+		GameConfig.numBubblesInterval = intervalSlider.value;
+		intervalText.text = intervalSlider.value + "";
 	}
 
 	public void AdjustSpeed()

@@ -22,9 +22,9 @@ public class FlyTrigger : MonoBehaviour {
 		Vector3 target = transform.position;
 		target.y -= moveSpeed * GameConfig.gameSpeedModifier;
 
-		transform.position = Vector3.Lerp(transform.position, target, .2f);
+		transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime);
 	
-		if(Camera.main.WorldToViewportPoint(transform.position).y < 3.5f) {
+		if(Camera.main.WorldToViewportPoint(transform.position).y < 1) {
 			GameObject fly = Instantiate(prefab, transform.position, Quaternion.identity);
 //			fly.transform.parent.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 			Destroy(gameObject);
