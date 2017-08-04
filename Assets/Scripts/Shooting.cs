@@ -85,10 +85,6 @@ public class Shooting : MonoBehaviour {
 
   }
       
-  void OnMouseDrag() {
-
-  }
-
 	void OnTriggerEnter(Collider other)
   {
 

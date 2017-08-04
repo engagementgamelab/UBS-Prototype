@@ -17,7 +17,7 @@ public class Player : MonoBehaviour {
 
 	public float startingLifeAmount = 100.0f;
 	public float movementSpeed = 5;
-	public float smoothTime = 0.3f;
+	public float smoothTime = 0.1f;
 	public float bubbleFollowSpeed = .5f;
 	public float fillTime = 2; 
 
@@ -59,6 +59,7 @@ public class Player : MonoBehaviour {
 		pos.z = 0;
 
 		Vector3 worldPos = mainCamera.ViewportToWorldPoint(pos);
+	  Debug.Log(worldPos);
 		worldPos.z = 0;
 
   	return worldPos;
@@ -274,7 +275,10 @@ public class Player : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
+
+//		Camera.main.orthographicSize = Screen.height / 2;
 
 		currentBubbles = new List<GameObject>();
 		currentBubbleConfigs = new List<Bubble>();
@@ -297,7 +301,7 @@ public class Player : MonoBehaviour {
   	if(shootingMode) {
   		if(shootingStaticMode) return;
 
-	  	targetPosition = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y + .5f, transform.position.z);
+	  	targetPosition = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y + GameConfig.bubbleOffset, Camera.main.nearClipPlane);
 			transform.position = ClampToScreen(Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime));
 		}
   	else
@@ -398,8 +402,7 @@ public class Player : MonoBehaviour {
 	  	
 			for(int i = 0; i < GameConfig.numBubblesGained; i++)
 				AddBubble();
-				
-	  	return;
+		  
 	  }
 
   }
@@ -416,9 +419,5 @@ public class Player : MonoBehaviour {
 
   }
 
-  void OnTriggerEnter2D(Collider2D collider) {
-
-
-  }
   
 }
