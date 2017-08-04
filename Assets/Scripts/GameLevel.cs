@@ -13,8 +13,13 @@ public class GameLevel : MonoBehaviour
 	
 	public Slider gameSpeedSlider;
 	public Text gameSpeedText;
+	
+	public Slider bubbleOffsetSlider;
+	public Text bubbleOffsetText;
+	
 	public Slider speedGainSlider;
 	public Text speedGainText;
+	
 	public Slider intervalSlider;
 	public Text intervalText;
 
@@ -39,6 +44,15 @@ public class GameLevel : MonoBehaviour
 
 		gameSpeedText.text = GameConfig.gameSpeedModifier + "";
 		gameSpeedSlider.value = GameConfig.gameSpeedModifier;
+
+		bubbleOffsetText.text = GameConfig.bubbleOffset + "";
+		bubbleOffsetSlider.value = GameConfig.bubbleOffset;
+	}
+
+	public void AdjustOffset()
+	{
+		GameConfig.bubbleOffset = bubbleOffsetSlider.value;
+		bubbleOffsetText.text = bubbleOffsetSlider.value + "";
 	}
 
 	public void AdjustSpeedGain()

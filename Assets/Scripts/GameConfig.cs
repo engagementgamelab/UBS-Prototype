@@ -11,7 +11,7 @@ public class GameConfig : MonoBehaviour
   public static float numBubblesToStart = 4;
   public static float numBubblesGained = 1;
 	public static float numBubblesSpeedGained = .05f;
-  public static float numBubblesInterval = .25f;
+  public static float numBubblesInterval = .5f;
   public static float numBubblesFull = 20;
 
   public static float peopleSpeedStart = .2f;
@@ -54,7 +54,8 @@ public class GameConfig : MonoBehaviour
   public static int fliesCaught = 0;
   public static int peopleSaved = 0;
 
-	public static float gameSpeedModifier;
+	public static float gameSpeedModifier = 15;
+	public static float bubbleOffset = .5f;
 
 	// Use this for initialization
 	void Awake () {
@@ -64,11 +65,11 @@ public class GameConfig : MonoBehaviour
 	}
 
 	public static void Reset() {
-    		
+    
+		numBubblesInterval = .25f;
+		
     numBubblesToStart = 4;
     numBubblesGained = 1;
-//    numBubblesSpeedGained = .05f;
-//    numBubblesInterval = .25f;
     numBubblesFull = 20;
 
     peopleSpeedStart = .2f;
