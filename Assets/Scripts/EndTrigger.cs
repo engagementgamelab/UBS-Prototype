@@ -26,8 +26,6 @@ public class EndTrigger : SpawnObject
 		if(playerDead)
 			return;
 		
-		Debug.Log(Camera.main.WorldToViewportPoint(transform.position).y);
-	
 		if(Camera.main.WorldToViewportPoint(transform.position).y < 1) {
 			
 			Events.instance.Raise (new DeathEvent(true));  

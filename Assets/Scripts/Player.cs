@@ -59,7 +59,7 @@ public class Player : MonoBehaviour {
 		pos.z = 0;
 
 		Vector3 worldPos = mainCamera.ViewportToWorldPoint(pos);
-	  Debug.Log(worldPos);
+	  worldPos.x = Mathf.Clamp(6.9f, -6.9f, worldPos.x);
 		worldPos.z = 0;
 
   	return worldPos;
