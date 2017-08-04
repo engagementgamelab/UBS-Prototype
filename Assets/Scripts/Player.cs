@@ -59,7 +59,8 @@ public class Player : MonoBehaviour {
 		pos.z = 0;
 
 		Vector3 worldPos = mainCamera.ViewportToWorldPoint(pos);
-	  worldPos.x = Mathf.Clamp(6.9f, -6.9f, worldPos.x);
+	  Debug.Log(worldPos.x);
+	  worldPos.x = Mathf.Clamp(worldPos.x, -6.9f, 6.9f);
 		worldPos.z = 0;
 
   	return worldPos;
@@ -270,7 +271,6 @@ public class Player : MonoBehaviour {
 		Events.instance.AddListener<HitEvent> (BubbleHitEvent);
 		Events.instance.AddListener<DeathEvent> (OnDeathEvent);
 		Events.instance.AddListener<ScoreEvent> (OnScoreEvent);
-		
 
 	}
 
@@ -284,6 +284,8 @@ public class Player : MonoBehaviour {
 		currentBubbleConfigs = new List<Bubble>();
 
 		gameOverText = GameObject.Find("GameOver");
+		badScoreText = GameObject.Find("Bad Score").GetComponent<Text>();
+		goodScoreText = GameObject.Find("Good Score").GetComponent<Text>();
 		gameOverText.SetActive(false);
 
 		if(hasBubbles)
@@ -291,6 +293,9 @@ public class Player : MonoBehaviour {
 			for(int i = 0; i < GameConfig.numBubblesToStart; i++)
 				AddBubble();
 		}
+		
+		goodScoreText.gameObject.SetActive(false);
+		badScoreText.gameObject.SetActive(false);
 		
 	}
 
