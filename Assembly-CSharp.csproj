@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BossBattle.cs" />
     <Compile Include="Assets\Scripts\BossIcon.cs" />
+    <Compile Include="Assets\Scripts\BossIconParent.cs" />
     <Compile Include="Assets\Scripts\Bubble.cs" />
     <Compile Include="Assets\Scripts\BubbleParticles.cs" />
     <Compile Include="Assets\Scripts\BubbleSpace.cs" />

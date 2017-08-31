@@ -1,27 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class BossIcon : MonoBehaviour
 {
-
-	public Text label;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+	private string iconName;
 	
-	// Update is called once per frame
-	void Update () {
+	public void Icon(string name)
+	{
+		Sprite img = Resources.Load<Sprite>("icons/icon_" + name);
+		GetComponent<SpriteRenderer>().sprite = img;
 		
+		iconName = name;
 	}
 	
 	void OnMouseUp() {
 		
-		Destroy(gameObject);
-		Events.instance.Raise (new BossIconEvent());
+		Events.instance.Raise (new BossIconEvent(iconName, gameObject));
 
 	}
 }
